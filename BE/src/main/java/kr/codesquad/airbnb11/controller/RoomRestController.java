@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.controller;
 
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
+import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,9 @@ public class RoomRestController {
   private static final Logger log = LoggerFactory.getLogger(RoomRestController.class);
 
   @GetMapping("/search")
-  public void searchRooms(@RequestBody(required = false) SearchRequest searchRequest) {
+  public SearchResponse searchRooms(@RequestBody(required = false) SearchRequest searchRequest) {
     log.debug("searchRequest: {}", searchRequest);
+    return new SearchResponse();
   }
 
 }
