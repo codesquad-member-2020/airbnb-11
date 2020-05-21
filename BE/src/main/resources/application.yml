@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/airbnb?characterEncoding=UTF-8
+    username: airbnb
+    password: airbnb
+#    schema: classpath:schema.sql
+#    data: classpath:data.sql
+#    initialization-mode: always
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
