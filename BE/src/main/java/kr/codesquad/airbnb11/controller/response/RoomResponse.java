@@ -1,7 +1,7 @@
 package kr.codesquad.airbnb11.controller.response;
 
+import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.money.BigMoney;
 
 public class RoomResponse {
 
@@ -9,7 +9,7 @@ public class RoomResponse {
   private int maxPersonCount;
   private String mainImage;
   private String title;
-  private BigMoney dailyPrice;
+  private BigDecimal dailyPrice;
   private String country;
 
   public int getId() {
@@ -44,11 +44,11 @@ public class RoomResponse {
     this.title = title;
   }
 
-  public BigMoney getDailyPrice() {
+  public BigDecimal getDailyPrice() {
     return dailyPrice;
   }
 
-  public void setDailyPrice(BigMoney dailyPrice) {
+  public void setDailyPrice(BigDecimal dailyPrice) {
     this.dailyPrice = dailyPrice;
   }
 
@@ -70,5 +70,63 @@ public class RoomResponse {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .toString();
+  }
+
+  public static final class Builder {
+
+    private int id;
+    private int maxPersonCount;
+    private String mainImage;
+    private String title;
+    private BigDecimal dailyPrice;
+    private String country;
+
+    private Builder() {
+    }
+
+    public static Builder aRoomResponse() {
+      return new Builder();
+    }
+
+    public Builder id(int id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder maxPersonCount(int maxPersonCount) {
+      this.maxPersonCount = maxPersonCount;
+      return this;
+    }
+
+    public Builder mainImage(String mainImage) {
+      this.mainImage = mainImage;
+      return this;
+    }
+
+    public Builder title(String title) {
+      this.title = title;
+      return this;
+    }
+
+    public Builder dailyPrice(BigDecimal dailyPrice) {
+      this.dailyPrice = dailyPrice;
+      return this;
+    }
+
+    public Builder country(String country) {
+      this.country = country;
+      return this;
+    }
+
+    public RoomResponse build() {
+      RoomResponse roomResponse = new RoomResponse();
+      roomResponse.setId(id);
+      roomResponse.setMaxPersonCount(maxPersonCount);
+      roomResponse.setMainImage(mainImage);
+      roomResponse.setTitle(title);
+      roomResponse.setDailyPrice(dailyPrice);
+      roomResponse.setCountry(country);
+      return roomResponse;
+    }
   }
 }
