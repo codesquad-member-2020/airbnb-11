@@ -22,3 +22,21 @@ logging:
     web: debug
     sql: debug
     kr.codesquad.airbnb11: debug
+
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    username: airbnb11
+    password: airbnb11
+    schema: classpath:db/migration/V1.0.0__schema_init.sql
+    data: classpath:db/migration/V1.0.1__mock_data_init.sql
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
