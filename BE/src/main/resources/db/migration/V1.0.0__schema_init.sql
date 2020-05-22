@@ -1,13 +1,10 @@
-DROP TABLE IF EXISTS airbnb.review;
-DROP TABLE IF EXISTS airbnb.reservation;
-DROP TABLE IF EXISTS airbnb.room;
-DROP TABLE IF EXISTS airbnb.user;
-DROP DATABASE IF EXISTS airbnb;
-
-CREATE DATABASE airbnb;
+DROP TABLE IF EXISTS review;
+DROP TABLE IF EXISTS reservation;
+DROP TABLE IF EXISTS room;
+DROP TABLE IF EXISTS user;
 
 # 사용자 정보를 저장할 테이블 생성
-CREATE TABLE IF NOT EXISTS airbnb.user
+CREATE TABLE IF NOT EXISTS user
 (
     id            INT AUTO_INCREMENT,
     is_host       BOOL DEFAULT FALSE NOT NULL COMMENT '호스트 여부',
@@ -23,10 +20,10 @@ CREATE TABLE IF NOT EXISTS airbnb.user
     COMMENT '사용자 테이블';
 
 CREATE UNIQUE INDEX user_email_uindex
-    ON airbnb.user (email);
+    ON user (email);
 
 # 숙소 정보를 저장할 테이블 생성
-CREATE TABLE IF NOT EXISTS airbnb.room
+CREATE TABLE IF NOT EXISTS room
 (
     id               INT AUTO_INCREMENT,
     max_person_count INT                     NOT NULL COMMENT '최대 수용 가능 인원',
@@ -39,12 +36,12 @@ CREATE TABLE IF NOT EXISTS airbnb.room
     CONSTRAINT room_pk
         PRIMARY KEY (id),
     CONSTRAINT room_user_id_fk
-        FOREIGN KEY (user_id) REFERENCES airbnb.user (id)
+        FOREIGN KEY (user_id) REFERENCES user (id)
 )
     COMMENT '숙소 테이블';
 
 # 예약 정보를 저장할 테이블 생성
-CREATE TABLE IF NOT EXISTS airbnb.reservation
+CREATE TABLE IF NOT EXISTS reservation
 (
     id         INT AUTO_INCREMENT,
     start_date DATETIME NOT NULL COMMENT '숙박 시작 날짜',
@@ -54,14 +51,14 @@ CREATE TABLE IF NOT EXISTS airbnb.reservation
     CONSTRAINT reservation_pk
         PRIMARY KEY (id),
     CONSTRAINT reservation_room_id_fk
-        FOREIGN KEY (room_id) REFERENCES airbnb.room (id),
+        FOREIGN KEY (room_id) REFERENCES room (id),
     CONSTRAINT reservation_user_id_fk
-        FOREIGN KEY (guest_id) REFERENCES airbnb.user (id)
+        FOREIGN KEY (guest_id) REFERENCES user (id)
 )
     COMMENT '예약 정보가 저장될 테이블';
 
 # 리뷰 정보를 저장할 테이블 생성
-CREATE TABLE IF NOT EXISTS airbnb.review
+CREATE TABLE IF NOT EXISTS review
 (
     id       INT AUTO_INCREMENT,
     rating   INT          NOT NULL COMMENT '별점 1~5점',
@@ -71,8 +68,8 @@ CREATE TABLE IF NOT EXISTS airbnb.review
     CONSTRAINT review_pk
         PRIMARY KEY (id),
     CONSTRAINT review_room_id_fk
-        FOREIGN KEY (room_id) REFERENCES airbnb.room (id),
+        FOREIGN KEY (room_id) REFERENCES room (id),
     CONSTRAINT review_user_id_fk
-        FOREIGN KEY (guest_id) REFERENCES airbnb.user (id)
+        FOREIGN KEY (guest_id) REFERENCES user (id)
 )
     COMMENT '리뷰를 저장하는 테이블';
