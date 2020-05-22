@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.flywaydb.flyway' version '6.4.0'
     id 'java'
 }
 
@@ -24,6 +25,7 @@ dependencies {
             'io.jsonwebtoken:jjwt-jackson:0.11.1' // or 'io.jsonwebtoken:jjwt-gson:0.11.1' for gson
     implementation 'org.joda:joda-money:1.0.1'
     implementation 'org.apache.commons:commons-lang3:3.4'
+    implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -33,4 +35,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+flyway {
+    configFiles = ["flyway.conf"]
 }
