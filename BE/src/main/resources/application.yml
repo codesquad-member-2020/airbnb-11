@@ -33,7 +33,7 @@ spring:
     username: airbnb11
     password: airbnb11
     schema: classpath:db/migration/V1.0.0__schema_init.sql
-    data: classpath:db/migration/V1.0.2__mock_data_init.sql
+    data: classpath:db/migration/V1.0.1__mock_data_init.sql
 
 logging:
   level:
