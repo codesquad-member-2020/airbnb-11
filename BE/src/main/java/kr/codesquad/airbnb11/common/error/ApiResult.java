@@ -8,9 +8,7 @@ import org.springframework.validation.BindingResult;
 public class ApiResult<T> {
 
   private final boolean success;
-
   private final T response;
-
   private final ApiError error;
 
   private ApiResult(boolean success, T response, ApiError error) {
@@ -28,7 +26,6 @@ public class ApiResult<T> {
   public static <T> ApiResult<T> OK(T response) {
     return new ApiResult<>(true, response, null);
   }
-
 
   public static ApiResult ERROR(ErrorCode code) {
     return new ApiResult<>(false, ApiError.of(code));
