@@ -13,9 +13,15 @@ public class ApiResult<T> {
 
   private final ApiError error;
 
-  public ApiResult(boolean success, T response, ApiError error) {
+  private ApiResult(boolean success, T response, ApiError error) {
     this.success = success;
     this.response = response;
+    this.error = error;
+  }
+
+  private ApiResult(boolean success, ApiError error) {
+    this.success = success;
+    this.response = null;
     this.error = error;
   }
 
@@ -23,16 +29,17 @@ public class ApiResult<T> {
     return new ApiResult<>(true, response, null);
   }
 
+
   public static ApiResult ERROR(ErrorCode code) {
-    return new ApiResult<>(false, null, ApiError.of(code));
+    return new ApiResult<>(false, ApiError.of(code));
   }
 
   public static ApiResult ERROR(ErrorCode code, BindingResult bindingResult) {
-    return new ApiResult<>(false, null, ApiError.of(code, bindingResult));
+    return new ApiResult<>(false, ApiError.of(code, bindingResult));
   }
 
   public static ApiResult ERROR(ErrorCode code, List<FieldError> errors) {
-    return new ApiResult<>(false, null, ApiError.of(code, errors));
+    return new ApiResult<>(false, ApiError.of(code, errors));
   }
 
   public boolean isSuccess() {
