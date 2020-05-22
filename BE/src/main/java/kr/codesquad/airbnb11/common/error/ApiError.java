@@ -5,36 +5,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.validation.BindingResult;
 
-public class ErrorResponse {
+public class ApiError {
   private final int status;
   private final String message;
   private final String code;
   private final List<FieldError> errors;
 
-  private ErrorResponse(final ErrorCode code) {
+  private ApiError(final ErrorCode code) {
     this.status = code.getStatus();
     this.message = code.getMessage();
     this.code = code.getCode();
     this.errors = new ArrayList<>();
   }
 
-  private ErrorResponse(final ErrorCode code, final List<FieldError> errors) {
+  private ApiError(final ErrorCode code, final List<FieldError> errors) {
     this.status = code.getStatus();
     this.message = code.getMessage();
     this.code = code.getCode();
     this.errors = errors;
   }
 
-  public static ErrorResponse of(final ErrorCode code) {
-    return new ErrorResponse(code);
+  public static ApiError of(final ErrorCode code) {
+    return new ApiError(code);
   }
 
-  public static ErrorResponse of(final ErrorCode code, final BindingResult bindingResult) {
-    return new ErrorResponse(code, FieldError.of(bindingResult));
+  public static ApiError of(final ErrorCode code, final BindingResult bindingResult) {
+    return new ApiError(code, FieldError.of(bindingResult));
   }
 
-  public static ErrorResponse of(final ErrorCode code, final List<FieldError> errors) {
-    return new ErrorResponse(code, errors);
+  public static ApiError of(final ErrorCode code, final List<FieldError> errors) {
+    return new ApiError(code, errors);
   }
 
   public int getStatus() {

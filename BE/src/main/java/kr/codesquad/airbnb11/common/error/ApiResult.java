@@ -1,7 +1,7 @@
 package kr.codesquad.airbnb11.common.error;
 
 import java.util.List;
-import kr.codesquad.airbnb11.common.error.ErrorResponse.FieldError;
+import kr.codesquad.airbnb11.common.error.ApiError.FieldError;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.validation.BindingResult;
 
@@ -11,9 +11,9 @@ public class ApiResult<T> {
 
   private final T response;
 
-  private final ErrorResponse error;
+  private final ApiError error;
 
-  public ApiResult(boolean success, T response, ErrorResponse error) {
+  public ApiResult(boolean success, T response, ApiError error) {
     this.success = success;
     this.response = response;
     this.error = error;
@@ -24,15 +24,15 @@ public class ApiResult<T> {
   }
 
   public static ApiResult ERROR(ErrorCode code) {
-    return new ApiResult<>(false, null, ErrorResponse.of(code));
+    return new ApiResult<>(false, null, ApiError.of(code));
   }
 
   public static ApiResult ERROR(ErrorCode code, BindingResult bindingResult) {
-    return new ApiResult<>(false, null, ErrorResponse.of(code, bindingResult));
+    return new ApiResult<>(false, null, ApiError.of(code, bindingResult));
   }
 
   public static ApiResult ERROR(ErrorCode code, List<FieldError> errors) {
-    return new ApiResult<>(false, null, ErrorResponse.of(code, errors));
+    return new ApiResult<>(false, null, ApiError.of(code, errors));
   }
 
   public boolean isSuccess() {
@@ -43,7 +43,7 @@ public class ApiResult<T> {
     return response;
   }
 
-  public ErrorResponse getError() {
+  public ApiError getError() {
     return error;
   }
 
