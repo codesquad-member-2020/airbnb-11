@@ -1,18 +1,17 @@
 package kr.codesquad.airbnb11.domain.room;
 
+import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.money.BigMoney;
 import org.springframework.data.annotation.Id;
 
 public class Room {
 
-  @Id
-  private Integer id;
+  private @Id Integer id;
   private Integer maxPersonCount;
   private String mainImage;
   private String title;
   private String description;
-  private BigMoney dailyPrice;
+  private BigDecimal dailyPrice;
   private String country;
 
   public Integer getId() {
@@ -51,11 +50,11 @@ public class Room {
     this.description = description;
   }
 
-  public BigMoney getDailyPrice() {
+  public BigDecimal getDailyPrice() {
     return dailyPrice;
   }
 
-  public void setDailyPrice(BigMoney dailyPrice) {
+  public void setDailyPrice(BigDecimal dailyPrice) {
     this.dailyPrice = dailyPrice;
   }
 
