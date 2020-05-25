@@ -1,11 +1,15 @@
 import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import './App.css'
+
+import AppRouter from './routers/AppRouter';
+import allActions from "./actions/allActions";
 
 function App() {
-
   return (
-      <>
-        <h1>test</h1>
-      </>
+    <>
+      <AppRouter />
+    </>
   );
 }
 
