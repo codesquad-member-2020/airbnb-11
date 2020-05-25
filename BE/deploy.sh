@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu/testapp/BE
+REPOSITORY=/home/ubuntu/testapp
 cd $REPOSITORY
 
 APP_NAME=airbnb11
