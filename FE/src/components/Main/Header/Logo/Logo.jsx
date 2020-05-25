@@ -1,10 +1,17 @@
 import React from 'react';
+import styled from 'styled-components'
 
-function Logo() {
+const StyledLogo = styled.img`
+  position: relative;
+  width: 118px;
+  height: 64px;
+  background-size: 100% 100%;
+`;
 
+function Logo(props) {
   return (
       <>
-        <h1>Logo</h1>
+        <StyledLogo src={props.src}></StyledLogo>
       </>
   );
 }
