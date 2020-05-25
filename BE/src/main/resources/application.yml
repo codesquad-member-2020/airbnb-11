@@ -3,7 +3,12 @@ spring:
     active: dev
   flyway:
     clean-on-validation-error: true
-
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,beans
+        include: "*"
 ---
 spring:
   profiles: dev
@@ -32,7 +37,7 @@ spring:
     url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
     username: airbnb11
     password: airbnb11
-
+    
 logging:
   level:
     web: debug
