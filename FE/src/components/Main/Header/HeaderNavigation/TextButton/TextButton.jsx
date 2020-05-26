@@ -16,7 +16,7 @@ S.TextButton = styled.a`
 
   &:hover {
     color: black;
-    background-color: #f7f7f7;
+    background-color: #f4f4f4;
   }
 `;
 
