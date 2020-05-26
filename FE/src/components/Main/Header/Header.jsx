@@ -8,7 +8,7 @@ import mainpageConstants from '../../../constants/mainpage'
 const S = {}
 S.Header = styled.div`
   position: relative;
-  width: 1600px;
+  width: 1400px;
   height: 80px;
   color: black;
   font-size: 24px;
