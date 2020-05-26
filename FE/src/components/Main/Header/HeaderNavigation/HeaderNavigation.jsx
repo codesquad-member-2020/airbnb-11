@@ -9,6 +9,10 @@ S.HeaderNavigation = styled.div`
   position: relative;
   float: right;
   height: 80px;
+
+  > *:not(:last-child) {
+      margin-right: 5px;
+  }
 `;
 
 function HeaderNavigation(props) {
@@ -19,7 +23,7 @@ function HeaderNavigation(props) {
           <TextButton title="체험 호스팅하기" href="#"></TextButton>
           <TextButton title="도움말" href="#"></TextButton>
           <TextButton title="로그인" href="#"></TextButton>
-          <RadiusTextButton title="회원가입" href="#"></RadiusTextButton>
+          <RadiusTextButton title="회원 가입" href="#"></RadiusTextButton>
         </S.HeaderNavigation>
       </>
   );
