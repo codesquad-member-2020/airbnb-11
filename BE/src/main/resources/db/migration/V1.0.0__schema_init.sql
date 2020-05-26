@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS room
     description      VARCHAR(500) DEFAULT '' NOT NULL COMMENT '숙소 상세 설명',
     daily_price      DECIMAL(10, 2)          NOT NULL COMMENT '하루 숙박료 USD',
     country          VARCHAR(50)             NOT NULL COMMENT '국가명',
+    location         POINT                   NOT NULL COMMENT '경위도 POINT(X, Y) X는 위도, Y는 경도 SELECT X(location) AS latitude, Y(location) AS longitude FROM room;',
     user_id          INT                     NOT NULL,
     CONSTRAINT room_pk
         PRIMARY KEY (id),
