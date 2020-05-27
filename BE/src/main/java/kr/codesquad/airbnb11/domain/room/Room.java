@@ -39,6 +39,10 @@ public class Room {
     this.country = country;
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   public Integer getId() {
     return id;
   }
@@ -90,10 +94,6 @@ public class Room {
     private String country;
 
     private Builder() {
-    }
-
-    public static Builder of() {
-      return new Builder();
     }
 
     public Builder maxPersonCount(Integer maxPersonCount) {

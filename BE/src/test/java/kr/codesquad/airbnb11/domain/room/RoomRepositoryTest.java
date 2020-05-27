@@ -28,22 +28,22 @@ class RoomRepositoryTest {
 
     int minPersonCount = 8;
 
-    Room r1 = Room.Builder.of()
+    Room r1 = Room.builder()
         .title("room1")
         .maxPersonCount(8)
         .build();
 
-    Room r2 = Room.Builder.of()
+    Room r2 = Room.builder()
         .title("room2")
         .maxPersonCount(7)
         .build();
 
-    Room r3 = Room.Builder.of()
+    Room r3 = Room.builder()
         .title("room3")
         .maxPersonCount(6)
         .build();
 
-    Room r4 = Room.Builder.of()
+    Room r4 = Room.builder()
         .title("room4")
         .maxPersonCount(10)
         .build();
@@ -54,6 +54,9 @@ class RoomRepositoryTest {
     repository.save(r4);
 
     List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(minPersonCount);
-    assertThat(responseList.size()).isEqualTo(2);
+    int size = responseList.size();
+
+    assertThat(size).isNotEqualTo(4);
+    assertThat(size).isEqualTo(2);
   }
 }
