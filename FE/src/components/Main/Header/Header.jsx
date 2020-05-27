@@ -13,6 +13,8 @@ S.Header = styled.div`
   color: black;
   font-size: 24px;
   margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
 function Header() {
