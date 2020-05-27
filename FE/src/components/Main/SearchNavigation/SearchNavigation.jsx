@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import { useSelector, useDispatch } from "react-redux";
 
-import SearchNaviButton from './CommonComponent/SearchNaviButton'
+import GuestButton from './GuestButton/GuestButton'
 import SearchButton from './SearchButton/SearchButton'
 import DateButton from './DateButton/DateButton'
+import { setFocusId } from '../../../statement/actions/focusIdAction';
 
 const S = {}
 S.SearchNavigation = styled.div`
@@ -22,16 +24,19 @@ S.SearchNavigation = styled.div`
 `;
 
 function SearchNavigation() {
+  const focusId = useSelector(({focusIdReducer}) => focusIdReducer);
+  const dispatch = useDispatch();
+
   const [focusedId, setFocusedId] = useState(null);
 
   function onNaviButtonClick(key) {
-    setFocusedId(key)
+    dispatch(setFocusId(key));
   }
 
   return (
       <S.SearchNavigation>
-        <DateButton title="체크인/체크아웃" contents="날짜 추가" customKey={0} focus={0 === focusedId} onClick={() => onNaviButtonClick(0)} />
-        <SearchNaviButton title="인원" contents="게스트 추가" customKey={1} focus={1 === focusedId} onClick={() => onNaviButtonClick(1)} />
+        <DateButton title="체크인/체크아웃" contents="날짜 추가" customKey={0} focus={0 === focusId} onClick={() => onNaviButtonClick(0)} />
+        <GuestButton title="인원" contents="게스트 추가" customKey={1} focus={1 === focusId} onClick={() => onNaviButtonClick(1)} />
         <SearchButton contents="검색"/>
       </S.SearchNavigation>
   );
