@@ -3,6 +3,7 @@ package kr.codesquad.airbnb11.domain.room;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,17 +18,8 @@ class RoomRepositoryTest {
   @Autowired
   RoomRepository repository;
 
-  @Test
-  void 조건에_해당하는_방이_없을때() {
-    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(8);
-    assertThat(responseList.size()).isEqualTo(0);
-  }
-
-  @Test
-  void 최소인원_이상_방_검색하기() {
-
-    int minPersonCount = 8;
-
+  @BeforeEach
+  void 데이터_생성() {
     Room r1 = Room.builder()
         .title("room1")
         .maxPersonCount(8)
@@ -52,6 +44,20 @@ class RoomRepositoryTest {
     repository.save(r2);
     repository.save(r3);
     repository.save(r4);
+  }
+
+  @Test
+  void 조건에_해당하는_방이_없을때() {
+    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(11);
+    assertThat(responseList.size()).isEqualTo(0);
+  }
+
+  @Test
+  void 최소인원_이상_방_검색하기() {
+    List<Room> temp = repository.findAllByMaxPersonCountIsGreaterThanEqual(0);
+    assertThat(temp.size()).isEqualTo(4);
+
+    int minPersonCount = 8;
 
     List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(minPersonCount);
     int size = responseList.size();
