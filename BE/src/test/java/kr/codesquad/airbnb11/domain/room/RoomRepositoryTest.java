@@ -25,7 +25,6 @@ class RoomRepositoryTest {
 
   @Test
   void 최소인원_이상_방_검색하기() {
-
     int minPersonCount = 8;
 
     Room r1 = Room.builder()
