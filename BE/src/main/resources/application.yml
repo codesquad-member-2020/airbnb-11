@@ -28,6 +28,8 @@ logging:
     sql: debug
     kr.codesquad.airbnb11: debug
 
+host: localhost:8080
+
 ---
 spring:
   profiles: test
@@ -43,6 +45,8 @@ logging:
     sql: debug
     kr.codesquad.airbnb11: debug
 
+host: localhost:80/api
+
 ---
 spring:
   profiles: prod
@@ -57,3 +61,5 @@ logging:
     web: debug
     sql: debug
     kr.codesquad.airbnb11: debug
+
+host: localhost:80/api
