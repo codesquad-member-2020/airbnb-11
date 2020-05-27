@@ -21,15 +21,21 @@ S.Button = styled.button`
   font-weight: bold;
   background-image: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%);
 
-  &:hover {
+  &:hover, :active, :focus {
     cursor: pointer;
+    outline: none;
   }
 `;
 
 function SearchButton(props) {
+  const onSearchButtonClick = e => {
+    e.stopPropagation();
+    props.onClick();
+  }
+
   return (
     <S.SearchButton>
-      <S.Button>{props.contents}</S.Button>
+      <S.Button onClick={onSearchButtonClick}>{props.contents}</S.Button>
     </S.SearchButton>
   );
 }
