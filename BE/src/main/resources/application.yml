@@ -28,6 +28,20 @@ logging:
     sql: debug
     kr.codesquad.airbnb11: debug
 
+---
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    username: airbnb11
+    password: airbnb11
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
 
 ---
 spring:
@@ -38,21 +52,6 @@ spring:
     username: airbnb11
     password: airbnb11
     
-logging:
-  level:
-    web: debug
-    sql: debug
-    kr.codesquad.airbnb11: debug
-
----
-spring:
-  profiles: test
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
-    username: airbnb11
-    password: airbnb11
-
 logging:
   level:
     web: debug
