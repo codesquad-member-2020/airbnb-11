@@ -21,7 +21,6 @@ const DatePickerWrap = styled.div`
   left: -180px;
   width: 0px;
   height: 0px;
-  background-color: ${(props) => (props.focus ? "red" : "yellow")};
   display: flex;
   opacity: 1;
 
