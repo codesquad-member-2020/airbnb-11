@@ -44,11 +44,10 @@ CREATE TABLE IF NOT EXISTS room
 # 예약 정보를 저장할 테이블 생성
 CREATE TABLE IF NOT EXISTS reservation
 (
-    id         INT AUTO_INCREMENT,
-    start_date DATETIME NOT NULL COMMENT '숙박 시작 날짜',
-    end_date   DATETIME NOT NULL COMMENT '숙박 종료 날짜',
-    room_id    INT      NOT NULL COMMENT '숙소의 id',
-    guest_id   INT      NOT NULL COMMENT '손님의 id',
+    id               INT AUTO_INCREMENT,
+    reservation_date DATE NOT NULL COMMENT '숙박 날짜',
+    room_id          INT  NOT NULL COMMENT '숙소의 id',
+    guest_id         INT  NOT NULL COMMENT '손님의 id',
     CONSTRAINT reservation_pk
         PRIMARY KEY (id),
     CONSTRAINT reservation_room_id_fk
@@ -57,6 +56,8 @@ CREATE TABLE IF NOT EXISTS reservation
         FOREIGN KEY (guest_id) REFERENCES user (id)
 )
     COMMENT '예약 정보가 저장될 테이블';
+
+CREATE INDEX reservation_date_index ON reservation (reservation_date);
 
 # 리뷰 정보를 저장할 테이블 생성
 CREATE TABLE IF NOT EXISTS review
