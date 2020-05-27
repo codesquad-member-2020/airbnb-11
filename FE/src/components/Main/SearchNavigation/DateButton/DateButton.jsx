@@ -145,7 +145,7 @@ function DateButton(props) {
           startDate && endDate
             ? (startDateInfo.month + "월" + startDateInfo.day + "일" + " - " +
                endDateInfo.month + "월" + endDateInfo.day + "일")
-            : "날짜 추가"
+            : props.contents
         }
         onClick={onDateButtonClick}
         focus={props.focus}
