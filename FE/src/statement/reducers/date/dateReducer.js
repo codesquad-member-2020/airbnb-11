@@ -1,4 +1,4 @@
-import { SET_START_DATE, SET_END_DATE } from "../../constants/dateActionName";
+import { SET_START_DATE, SET_END_DATE } from "../../constants/date/dateActionName";
 
 const initialState = {
   startDate: null,
