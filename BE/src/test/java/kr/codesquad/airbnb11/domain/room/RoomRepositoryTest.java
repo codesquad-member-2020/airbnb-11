@@ -3,7 +3,6 @@ package kr.codesquad.airbnb11.domain.room;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +17,17 @@ class RoomRepositoryTest {
   @Autowired
   RoomRepository repository;
 
-  @DisplayName("조건에 해당하는 방이 없을 때")
   @Test
-  void search_none() {
-    List<Room> responseList = repository.findAllByMaxPersonCountIsLessThanEqual(8);
+  void 조건에_해당하는_방이_없을때() {
+    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(8);
     assertThat(responseList.size()).isEqualTo(0);
   }
 
-  @DisplayName("8명 이하인 방 검색하기")
   @Test
-  void search_under_8() {
+  void 최소인원_이상_방_검색하기() {
+
+    int minPersonCount = 8;
+
     Room r1 = Room.Builder.of()
         .title("room1")
         .maxPersonCount(8)
@@ -53,8 +53,7 @@ class RoomRepositoryTest {
     repository.save(r3);
     repository.save(r4);
 
-    List<Room> responseList = repository.findAllByMaxPersonCountIsLessThanEqual(8);
-    assertThat(responseList.size()).isNotEqualTo(4);
-    assertThat(responseList.size()).isEqualTo(3);
+    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(minPersonCount);
+    assertThat(responseList.size()).isEqualTo(2);
   }
 }
