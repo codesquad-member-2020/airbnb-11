@@ -12,3 +12,5 @@ logging:
     web: debug
     sql: debug
     kr.codesquad.airbnb11: debug
+
+host: localhost:8080
