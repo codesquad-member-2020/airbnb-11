@@ -2,17 +2,46 @@ package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 
 public class Room {
 
-  private @Id Integer id;
+  @Id
+  private Integer id;
   private Integer maxPersonCount;
   private String mainImage;
   private String title;
   private String description;
   private BigDecimal dailyPrice;
   private String country;
+
+  private Room(Integer maxPersonCount, String mainImage, String title,
+      String description, BigDecimal dailyPrice, String country) {
+    this.maxPersonCount = maxPersonCount;
+    this.mainImage = mainImage;
+    this.title = title;
+    this.description = description;
+    this.dailyPrice = dailyPrice;
+    this.country = country;
+  }
+
+  @PersistenceConstructor
+  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+      String description, BigDecimal dailyPrice, String country) {
+    this.id = id;
+    this.maxPersonCount = maxPersonCount;
+    this.mainImage = mainImage;
+    this.title = title;
+    this.description = description;
+    this.dailyPrice = dailyPrice;
+    this.country = country;
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
 
   public Integer getId() {
     return id;
@@ -22,53 +51,29 @@ public class Room {
     return maxPersonCount;
   }
 
-  public void setMaxPersonCount(Integer maxPersonCount) {
-    this.maxPersonCount = maxPersonCount;
-  }
-
   public String getMainImage() {
     return mainImage;
-  }
-
-  public void setMainImage(String mainImage) {
-    this.mainImage = mainImage;
   }
 
   public String getTitle() {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
   public String getDescription() {
     return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public BigDecimal getDailyPrice() {
     return dailyPrice;
   }
 
-  public void setDailyPrice(BigDecimal dailyPrice) {
-    this.dailyPrice = dailyPrice;
-  }
-
   public String getCountry() {
     return country;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
@@ -77,5 +82,52 @@ public class Room {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .toString();
+  }
+
+  public static final class Builder {
+
+    private Integer maxPersonCount;
+    private String mainImage;
+    private String title;
+    private String description;
+    private BigDecimal dailyPrice;
+    private String country;
+
+    private Builder() {
+    }
+
+    public Builder maxPersonCount(Integer maxPersonCount) {
+      this.maxPersonCount = maxPersonCount;
+      return this;
+    }
+
+    public Builder mainImage(String mainImage) {
+      this.mainImage = mainImage;
+      return this;
+    }
+
+    public Builder title(String title) {
+      this.title = title;
+      return this;
+    }
+
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    public Builder dailyPrice(BigDecimal dailyPrice) {
+      this.dailyPrice = dailyPrice;
+      return this;
+    }
+
+    public Builder country(String country) {
+      this.country = country;
+      return this;
+    }
+
+    public Room build() {
+      return new Room(maxPersonCount, mainImage, title, description, dailyPrice, country);
+    }
   }
 }

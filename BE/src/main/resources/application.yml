@@ -32,10 +32,10 @@ host: localhost:8080
 
 ---
 spring:
-  profiles: prod
+  profiles: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
     username: airbnb11
     password: airbnb11
 
@@ -49,13 +49,13 @@ host: localhost:80/api
 
 ---
 spring:
-  profiles: test
+  profiles: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
     username: airbnb11
     password: airbnb11
-
+    
 logging:
   level:
     web: debug
