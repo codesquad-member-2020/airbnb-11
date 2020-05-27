@@ -8,5 +8,5 @@ public interface RoomRepository extends PagingAndSortingRepository<Room, Integer
 
   List<Room> findAllByMaxPersonCountIsGreaterThanEqual(int minPersonCount);
 
-  List<Room> findAllByDailyPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+  List<Room> findAllByDailyPriceBetween(BigDecimal minPriceUSD, BigDecimal maxPriceUSD);
 }
