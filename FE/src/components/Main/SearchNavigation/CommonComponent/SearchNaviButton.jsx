@@ -11,6 +11,7 @@ S.SearchNaviButton = styled.div`
   border-radius: 12px;
   box-shadow: ${(props) => (props.focus ? "0 0 0 1.5px black inset" : "")};
   user-select: none;
+  z-index: 1;
 
   &:hover {
     cursor: pointer;
