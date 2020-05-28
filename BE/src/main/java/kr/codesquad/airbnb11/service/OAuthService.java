@@ -10,7 +10,6 @@ import kr.codesquad.airbnb11.common.security.GithubPayload;
 import kr.codesquad.airbnb11.common.security.GithubToken;
 import kr.codesquad.airbnb11.common.security.GithubUser;
 import kr.codesquad.airbnb11.domain.user.User;
-import kr.codesquad.airbnb11.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -27,14 +26,13 @@ public class OAuthService {
   private static final Logger log = LoggerFactory.getLogger(OAuthService.class);
 
   private final ObjectMapper objectMapper;
-  private final RestTemplate restTemplate = new RestTemplate();
-  private final UserRepository userRepository;
+  private final RestTemplate restTemplate;
   private final GithubKey githubKey;
 
   public OAuthService(ObjectMapper objectMapper,
-      UserRepository userRepository, GithubKey githubKey) {
+      RestTemplate restTemplate, GithubKey githubKey) {
     this.objectMapper = objectMapper;
-    this.userRepository = userRepository;
+    this.restTemplate = restTemplate;
     this.githubKey = githubKey;
   }
 
@@ -45,29 +43,14 @@ public class OAuthService {
         .getBody();
   }
 
-  public User insertUser(String token) {
-    User user = getUserInfoToToken(token);
-    User saved;
-    log.debug("DB 저장 전 User 정보: {}", user);
-
-    try {
-      saved = userRepository.findByEmail(user.getEmail()).orElseThrow(UserNotFoundException::new);
-    } catch (UserNotFoundException e) {
-      saved = userRepository.save(user);
-    }
-    log.debug("DB 저장 후 혹은 저장된 User 정보: {}", saved);
-
-    return saved;
-  }
-
   public User getUserInfoToToken(String token) {
     HttpHeaders requestHeaders = new HttpHeaders();
     requestHeaders.set("Authorization", "token " + token);
 
-    GithubUser user = Optional
-        .ofNullable(restTemplate
-            .exchange(GITHUB_USER_API_URL, HttpMethod.GET, new HttpEntity<>(requestHeaders),
-                GithubUser.class).getBody())
+    GithubUser user = Optional.ofNullable(restTemplate
+        .exchange(GITHUB_USER_API_URL, HttpMethod.GET, new HttpEntity<>(requestHeaders),
+            GithubUser.class)
+        .getBody())
         .orElseThrow(UserNotFoundException::new);
     user.setToken(token);
 
@@ -75,7 +58,6 @@ public class OAuthService {
     if (user.getEmail() == null) {
       user.setEmail(getEmailFromGitHub(requestHeaders));
     }
-
     return User.builder(user).build();
   }
 
