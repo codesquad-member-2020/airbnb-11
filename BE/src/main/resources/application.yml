@@ -45,7 +45,7 @@ logging:
     sql: debug
     kr.codesquad.airbnb11: debug
 
-host: localhost:80/api
+host: 13.124.223.191/api
 
 ---
 spring:
@@ -62,4 +62,4 @@ logging:
     sql: debug
     kr.codesquad.airbnb11: debug
 
-host: localhost:80/api
+host: 3.232.101.173/api
