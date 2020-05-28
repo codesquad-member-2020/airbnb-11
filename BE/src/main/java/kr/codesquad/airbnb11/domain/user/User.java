@@ -37,11 +37,6 @@ public class User {
     return new Builder(user);
   }
 
-  User withId(Integer id) {
-    return new User(id, this.isHost, this.isSuperHost, this.isAdmin, this.email, this.nickname,
-        this.githubToken);
-  }
-
   public Integer getId() {
     return id;
   }
