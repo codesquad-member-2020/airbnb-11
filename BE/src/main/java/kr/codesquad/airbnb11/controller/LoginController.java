@@ -1,8 +1,8 @@
 package kr.codesquad.airbnb11.controller;
 
-import kr.codesquad.airbnb11.common.security.JwtUtil;
 import kr.codesquad.airbnb11.domain.user.User;
 import kr.codesquad.airbnb11.domain.user.UserDTO;
+import kr.codesquad.airbnb11.service.JwtService;
 import kr.codesquad.airbnb11.service.LoginService;
 import kr.codesquad.airbnb11.service.OAuthService;
 import org.slf4j.Logger;
@@ -23,12 +23,13 @@ public class LoginController {
   private static final Logger log = LoggerFactory.getLogger(LoginController.class);
   private final OAuthService authService;
   private final LoginService loginService;
-  private final JwtUtil jwtUtil;
+  private final JwtService jwtService;
 
-  public LoginController(OAuthService authService, LoginService loginService, JwtUtil jwtUtil) {
+  public LoginController(OAuthService authService, LoginService loginService,
+      JwtService jwtService) {
     this.authService = authService;
     this.loginService = loginService;
-    this.jwtUtil = jwtUtil;
+    this.jwtService = jwtService;
   }
 
   @GetMapping
@@ -36,8 +37,8 @@ public class LoginController {
       @CookieValue(value = "jwt", required = false) String jwt) {
     if (jwt != null) {
       log.debug("jwt 토큰 값: {}", jwt);
-      log.debug("jwt에 저장된 값: {}", jwtUtil.getUserFromJws(jwt));
-      return ResponseEntity.ok(jwtUtil.getUserFromJws(jwt).toString());
+      log.debug("jwt에 저장된 값: {}", jwtService.getUserFromJws(jwt));
+      return ResponseEntity.ok(jwtService.getUserFromJws(jwt).toString());
     }
     HttpHeaders headers = loginService.redirectToGithub();
     return new ResponseEntity<>("redirect", headers, HttpStatus.SEE_OTHER);
@@ -48,12 +49,12 @@ public class LoginController {
     String accessToken = authService.getTokenFromCode(code).getAccessToken();
     log.debug("AccessToken: {}", accessToken);
 
-    User saved = loginService.insertUser(accessToken);
-    UserDTO user = loginService.createUserDTO(saved.getNickname(), saved.getEmail());
+    User savedUser = loginService.insertUser(accessToken);
+    UserDTO user = loginService.createUserDTO(savedUser);
 
     log.debug("JWT에 담길 User 정보: {}", user);
 
-    String jws = jwtUtil.createUserJws(user);
+    String jws = jwtService.createUserJws(user);
     log.debug("jws: {}", jws);
 
     HttpHeaders headers = loginService.redirectWithCookie(jws);
