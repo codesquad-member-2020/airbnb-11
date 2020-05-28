@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import styled from 'styled-components'
 
 import Logo from 'Components/Common/Logo/Logo'
@@ -28,14 +29,29 @@ S.HeaderWrap = styled.div`
 `;
 
 function Header() {
+  const { startDateInfo, endDateInfo } = useSelector(
+    ({ dateReducer }) => dateReducer
+  );
+
+  const adultCount = useSelector(({adultCountReducer}) => adultCountReducer);
+  const childrenCount = useSelector(({childrenCountReducer}) => childrenCountReducer);
+  const infantsCount = useSelector(({infantsCountReducer}) => infantsCountReducer);
+
   return (
-      <S.Header>
-        <S.HeaderWrap>
-          <Logo src={mainpageConstants.logoImageSrc} />
-          <ReservationInfoButton date="6월 15일 - 6월 18일" guest="게스트 1명" />
-          <HeaderNavigation></HeaderNavigation>
-        </S.HeaderWrap>
-      </S.Header>
+    <S.Header>
+      <S.HeaderWrap>
+        <Logo src={mainpageConstants.logoImageSrc} />
+        <ReservationInfoButton
+          date={startDateInfo.month + "월 " + startDateInfo.day + "일" + " - " +
+                endDateInfo.month + "월 " + endDateInfo.day + "일"}
+          guest={
+            "게스트 " + (adultCount + childrenCount) + "명" 
+            + (infantsCount ? ", 유아 " + infantsCount + "명" : "")
+          }
+        />
+        <HeaderNavigation></HeaderNavigation>
+      </S.HeaderWrap>
+    </S.Header>
   );
 }
 
