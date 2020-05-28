@@ -9,6 +9,7 @@ import kr.codesquad.airbnb11.domain.user.UserDTO;
 import kr.codesquad.airbnb11.domain.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class LoginService {
   private final GithubKey githubKey;
   private final OAuthService authService;
   private final UserRepository userRepository;
+
+  @Value("${host}")
+  private String host;
 
   public LoginService(GithubKey githubKey, OAuthService authService,
       UserRepository userRepository) {
@@ -48,10 +52,9 @@ public class LoginService {
 
     headers.add("Authorization", "Bearer " + jwt);
     headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
-    headers.setLocation(URI.create("http://localhost:8080/login"));
+    headers.setLocation(URI.create("http://"+host+"/login"));
     return headers;
   }
-
 
   public User insertUser(String token) {
     User user = authService.getUserInfoToToken(token);
@@ -59,7 +62,8 @@ public class LoginService {
     User savedUser;
 
     try {
-      savedUser = userRepository.findByEmail(user.getEmail()).orElseThrow(UserNotFoundException::new);
+      savedUser = userRepository.findByEmail(user.getEmail())
+          .orElseThrow(UserNotFoundException::new);
     } catch (UserNotFoundException e) {
       savedUser = userRepository.save(user);
     }
