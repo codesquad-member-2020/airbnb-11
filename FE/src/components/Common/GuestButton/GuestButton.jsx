@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
-import SearchNaviButton from "../CommonComponent/SearchNaviButton";
+import SearchNaviButton from "Components/Common/SearchNaviButton/SearchNaviButton";
 
-import adultCountAction from "../../../../statement/actions/guest/adultCountAction";
-import childrenCountAction from "../../../../statement/actions/guest/childrenCountAction";
-import infantsCountAction from "../../../../statement/actions/guest/infantsCountAction";
+import adultCountAction from "Actions/guest/adultCountAction";
+import childrenCountAction from "Actions/guest/childrenCountAction";
+import infantsCountAction from "Actions/guest/infantsCountAction";
 
 const TYPE_ADULT = "TYPE/ADULT";
 const TYPE_CHILDREN = "TYPE/CHILDREN";

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import dateReducer from './date/dateReducer'
-import focusIdReducer from './focusIdReducer'
-import adultCountReducer from './guest/adultCountReducer'
-import childrenCountReducer from './guest/childrenCountReducer'
-import infantsCountReducer from './guest/infantsCountReducer'
+import dateReducer from 'Reducers/date/dateReducer'
+import focusIdReducer from 'Reducers/focusId/focusIdReducer'
+import adultCountReducer from 'Reducers/guest/adultCountReducer'
+import childrenCountReducer from 'Reducers/guest/childrenCountReducer'
+import infantsCountReducer from 'Reducers/guest/infantsCountReducer'
 
 const rootReducer = combineReducers({
   dateReducer,

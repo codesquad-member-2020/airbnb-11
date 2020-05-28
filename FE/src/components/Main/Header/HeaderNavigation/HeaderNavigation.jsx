@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import TextButton from './TextButton/TextButton'
-import RadiusTextButton from './RadiusTextButton/RadiusTextButton'
+import TextButton from 'Components/Main/Header/HeaderNavigation/TextButton/TextButton'
+import RadiusTextButton from 'Components/Main/Header/HeaderNavigation/RadiusTextButton/RadiusTextButton'
 
 const S = {};
 S.HeaderNavigation = styled.div`

@@ -1,4 +1,4 @@
-import { INCREASE_INFANTS_COUNT, DECREASE_INFANTS_COUNT } from "../../constants/guest/infantsActionName";
+import { INCREASE_INFANTS_COUNT, DECREASE_INFANTS_COUNT } from "ActionNames/guest/infantsActionName";
 
 const maximumInfantsCount = 5;
 const minimumInfantsCount = 0;
