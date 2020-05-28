@@ -1,13 +1,14 @@
 package kr.codesquad.airbnb11.controller.request;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class SearchRequest {
 
   private String checkIn;
   private String checkOut;
-  private String priceMin;
-  private String priceMax;
+  private int priceMin;
+  private int priceMax;
   private int adult;
   private int children;
   private int infants;
@@ -28,19 +29,19 @@ public class SearchRequest {
     this.checkOut = checkOut;
   }
 
-  public String getPriceMin() {
+  public int getPriceMin() {
     return priceMin;
   }
 
-  public void setPriceMin(String priceMin) {
+  public void setPriceMin(int priceMin) {
     this.priceMin = priceMin;
   }
 
-  public String getPriceMax() {
+  public int getPriceMax() {
     return priceMax;
   }
 
-  public void setPriceMax(String priceMax) {
+  public void setPriceMax(int priceMax) {
     this.priceMax = priceMax;
   }
 
@@ -70,7 +71,7 @@ public class SearchRequest {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("checkIn", checkIn)
         .append("checkOut", checkOut)
         .append("priceMin", priceMin)

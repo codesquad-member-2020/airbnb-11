@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS room
     description      VARCHAR(500) DEFAULT '' NOT NULL COMMENT '숙소 상세 설명',
     daily_price      DECIMAL(10, 2)          NOT NULL COMMENT '하루 숙박료 USD',
     country          VARCHAR(50)             NOT NULL COMMENT '국가명',
+    location         POINT                   NOT NULL COMMENT '경위도 POINT(X, Y) X는 위도, Y는 경도 SELECT X(location) AS latitude, Y(location) AS longitude FROM room;',
     user_id          INT                     NOT NULL,
     CONSTRAINT room_pk
         PRIMARY KEY (id),
@@ -43,11 +44,10 @@ CREATE TABLE IF NOT EXISTS room
 # 예약 정보를 저장할 테이블 생성
 CREATE TABLE IF NOT EXISTS reservation
 (
-    id         INT AUTO_INCREMENT,
-    start_date DATETIME NOT NULL COMMENT '숙박 시작 날짜',
-    end_date   DATETIME NOT NULL COMMENT '숙박 종료 날짜',
-    room_id    INT      NOT NULL COMMENT '숙소의 id',
-    guest_id   INT      NOT NULL COMMENT '손님의 id',
+    id               INT AUTO_INCREMENT,
+    reservation_date DATE NOT NULL COMMENT '숙박 날짜',
+    room_id          INT  NOT NULL COMMENT '숙소의 id',
+    guest_id         INT  NOT NULL COMMENT '손님의 id',
     CONSTRAINT reservation_pk
         PRIMARY KEY (id),
     CONSTRAINT reservation_room_id_fk
@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS reservation
         FOREIGN KEY (guest_id) REFERENCES user (id)
 )
     COMMENT '예약 정보가 저장될 테이블';
+
+CREATE INDEX reservation_date_index ON reservation (reservation_date);
 
 # 리뷰 정보를 저장할 테이블 생성
 CREATE TABLE IF NOT EXISTS review

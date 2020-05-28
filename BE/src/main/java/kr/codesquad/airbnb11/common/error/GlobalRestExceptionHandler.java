@@ -32,7 +32,7 @@ public class GlobalRestExceptionHandler {
    */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<ApiError> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-    log.error("handleHttpRequestMethodNotSupportedException", e);
+    log.info("handleHttpRequestMethodNotSupportedException", e);
     final ApiError response = ApiError.of(ErrorCode.METHOD_NOT_ALLOWED);
     return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
   }
@@ -46,16 +46,6 @@ public class GlobalRestExceptionHandler {
     final ErrorCode errorCode = e.getErrorCode();
     final ApiError response = ApiError.of(errorCode);
     return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
-  }
-
-  /**
-   * 범위 벗어나는 에러
-   */
-  @ExceptionHandler(IndexOutOfBoundsException.class)
-  protected ResponseEntity<ApiError> handleIndexOutOfBoundException(IndexOutOfBoundsException e) {
-    log.error("handleIndexOutOfBoundException", e);
-    final ApiError response = ApiError.of(ErrorCode.ENTITY_NOT_FOUND);
-    return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
   }
 
   /**
