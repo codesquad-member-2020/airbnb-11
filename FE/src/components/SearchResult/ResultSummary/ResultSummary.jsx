@@ -6,9 +6,10 @@ const S = {};
 S.ResultSummary = styled.div`
   display: relative;
   height: 26px;
-  padding-top: 5px;
+  padding-top: 25px;
   padding-bottom: 5px;
   font-size: 14px;
+  margin:0 auto;
 `;
 
 function ResultSummary(props) {
