@@ -38,7 +38,7 @@ public class OAuthService {
 
   public GithubToken getTokenFromCode(String code) {
     HttpEntity<GithubPayload> request = new HttpEntity<>(
-        GithubPayload.of(githubKey.getClientId(), githubKey.getClientSecret(), code));
+        GithubPayload.of(githubKey, code));
     return restTemplate.postForEntity(GITHUB_ACCESS_TOKEN_URL, request, GithubToken.class)
         .getBody();
   }

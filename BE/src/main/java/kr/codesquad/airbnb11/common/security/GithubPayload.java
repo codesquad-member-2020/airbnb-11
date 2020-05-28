@@ -20,8 +20,8 @@ public class GithubPayload {
     this.code = code;
   }
 
-  public static GithubPayload of(String clientId, String clientSecret, String code) {
-    return new GithubPayload(clientId, clientSecret, code);
+  public static GithubPayload of(GithubKey githubKey, String code) {
+    return new GithubPayload(githubKey.getClientId(), githubKey.getClientSecret(), code);
   }
 
   public String getClientId() {

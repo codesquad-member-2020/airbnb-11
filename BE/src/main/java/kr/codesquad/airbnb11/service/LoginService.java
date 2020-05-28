@@ -72,7 +72,7 @@ public class LoginService {
     return savedUser;
   }
 
-  public UserDTO createUserDTO(String nickName, String email) {
-    return UserDTO.of(nickName, email);
+  public UserDTO createUserDTO(User user) {
+    return UserDTO.of(user.getNickname(), user.getEmail());
   }
 }
