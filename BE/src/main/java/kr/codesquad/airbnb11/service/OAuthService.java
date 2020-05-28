@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import kr.codesquad.airbnb11.common.error.exception.UserNotFoundException;
+import kr.codesquad.airbnb11.common.security.GithubKey;
 import kr.codesquad.airbnb11.common.security.GithubPayload;
 import kr.codesquad.airbnb11.common.security.GithubToken;
 import kr.codesquad.airbnb11.common.security.GithubUser;
@@ -24,17 +25,22 @@ public class OAuthService {
   private static final String GITHUB_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
   private static final String GITHUB_USER_API_URL = "https://api.github.com/user";
   private static final Logger log = LoggerFactory.getLogger(OAuthService.class);
+
   private final ObjectMapper objectMapper;
   private final RestTemplate restTemplate = new RestTemplate();
   private final UserRepository userRepository;
+  private final GithubKey githubKey;
 
-  public OAuthService(ObjectMapper objectMapper, UserRepository userRepository) {
+  public OAuthService(ObjectMapper objectMapper,
+      UserRepository userRepository, GithubKey githubKey) {
     this.objectMapper = objectMapper;
     this.userRepository = userRepository;
+    this.githubKey = githubKey;
   }
 
-  public GithubToken getCodeFromGithubToken(String code) {
-    HttpEntity<GithubPayload> request = new HttpEntity<>(GithubPayload.valueOf(code));
+  public GithubToken getTokenFromCode(String code) {
+    HttpEntity<GithubPayload> request = new HttpEntity<>(
+        GithubPayload.of(githubKey.getClientId(), githubKey.getClientSecret(), code));
     return restTemplate.postForEntity(GITHUB_ACCESS_TOKEN_URL, request, GithubToken.class)
         .getBody();
   }
