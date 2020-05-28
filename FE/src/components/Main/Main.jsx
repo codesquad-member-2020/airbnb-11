@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Header from './Header/Header'
+import Header from 'Component/Main/Header/Header'
 import SearchNavigation from 'Components/Main/SearchNavigation/SearchNavigation'
 import { setFocusId } from "Actions/focusId/focusIdAction";
 
