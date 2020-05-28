@@ -1,4 +1,4 @@
-package kr.codesquad.airbnb11.common.security;
+package kr.codesquad.airbnb11.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -14,14 +14,14 @@ import kr.codesquad.airbnb11.common.error.exception.LoginRequiredException;
 import kr.codesquad.airbnb11.domain.user.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class JwtUtil {
+@Service
+public class JwtService {
 
   private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
   private static final String USER_JWT_KEY = "user";
-  private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
+  private static final Logger log = LoggerFactory.getLogger(JwtService.class);
 
   public String createJws(String jwtKey, Object data) {
     Map<String, Object> headers = new HashMap<>();
@@ -66,13 +66,12 @@ public class JwtUtil {
   }
 
   public Map<String, Object> getDataFromJws(String jwtKey, String jws) {
-    Jws<Claims> claims;
     try {
-      claims = Jwts.parserBuilder()
+      Jws<Claims> claims = Jwts.parserBuilder()
           .setSigningKey(key)
           .build()
           .parseClaimsJws(jws);
-      return (LinkedHashMap<String, Object>) claims.getBody().get(jwtKey);
+      return (LinkedHashMap) claims.getBody().get(jwtKey);
     } catch (JwtException ex) {
       log.error("인증되지 않은 jwt token입니다. jws: {}", jws);
       // Custom Exception Unauthorized Exception
@@ -81,13 +80,12 @@ public class JwtUtil {
   }
 
   public UserDTO getUserFromJws(String jws) {
-    Jws<Claims> claims;
     try {
-      claims = Jwts.parserBuilder()
+      Jws<Claims> claims = Jwts.parserBuilder()
           .setSigningKey(key)
           .build()
           .parseClaimsJws(jws);
-      return UserDTO.of((LinkedHashMap<String, String>) claims.getBody().get(USER_JWT_KEY));
+      return UserDTO.of((LinkedHashMap) claims.getBody().get(USER_JWT_KEY));
     } catch (JwtException ex) {
       log.error("인증되지 않은 jwt token입니다. jws: {}", jws);
       // Custom Exception Unauthorized Exception
