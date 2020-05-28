@@ -1,4 +1,4 @@
-import { SET_FOCUS_ID } from "../constants/focusIdActionName";
+import { SET_FOCUS_ID } from 'ActionNames/focusId/focusIdActionName'
 
 const focusIdReducer = (state = null, action) => {
   switch (action.type) {

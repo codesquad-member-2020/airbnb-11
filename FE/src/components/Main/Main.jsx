@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from './Header/Header'
-import SearchNavigation from './SearchNavigation/SearchNavigation'
-import { setFocusId } from "../../statement/actions/focusIdAction";
+import SearchNavigation from 'Components/Main/SearchNavigation/SearchNavigation'
+import { setFocusId } from "Actions/focusId/focusIdAction";
 
 function Main() {
   const focusId = useSelector(({focusIdReducer}) => focusIdReducer);

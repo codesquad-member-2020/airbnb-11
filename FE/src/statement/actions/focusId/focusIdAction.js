@@ -1,4 +1,4 @@
-import { SET_FOCUS_ID } from '../constants/focusIdActionName'
+import { SET_FOCUS_ID } from 'ActionNames/focusId/focusIdActionName'
 
 const setFocusId = (focusId) => {
   return {

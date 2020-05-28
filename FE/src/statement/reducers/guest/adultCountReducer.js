@@ -1,4 +1,4 @@
-import { INCREASE_ADULT_COUNT, DECREASE_ADULT_COUNT } from '../../constants/guest/adultActionName';
+import { INCREASE_ADULT_COUNT, DECREASE_ADULT_COUNT } from 'ActionNames/guest/adultActionName';
 
 const maximumAdultCount = 16;
 const minimumAdultCount = 0;

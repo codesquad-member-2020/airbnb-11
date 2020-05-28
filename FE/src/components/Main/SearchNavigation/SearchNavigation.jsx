@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components'
 import { useSelector, useDispatch } from "react-redux";
 
-import GuestButton from './GuestButton/GuestButton'
-import SearchButton from './SearchButton/SearchButton'
-import DateButton from './DateButton/DateButton'
-import { setFocusId } from '../../../statement/actions/focusIdAction';
+import GuestButton from 'Components/Common/GuestButton/GuestButton'
+import SearchButton from 'Components/Main/SearchNavigation/SearchButton/SearchButton'
+import DateButton from 'Components/Common/DateButton/DateButton'
+import { setFocusId } from "Actions/focusId/focusIdAction";
 
 const S = {}
 S.SearchNavigation = styled.div`

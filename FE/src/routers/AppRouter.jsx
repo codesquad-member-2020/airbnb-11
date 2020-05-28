@@ -5,8 +5,8 @@ import {
   Route
 } from "react-router-dom";
 
-import Main from '../components/Main/Main';
-import SearchResult from '../components/SearchResult/SearchResult'
+import Main from 'Components/Main/Main';
+import SearchResult from 'Components/SearchResult/SearchResult'
 
 function AppRouter() {
   return (

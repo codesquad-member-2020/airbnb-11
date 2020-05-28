@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import SearchNaviButton from "../CommonComponent/SearchNaviButton";
+import SearchNaviButton from "Components/Common/SearchNaviButton/SearchNaviButton";
 import {
   setStartDate,
   setEndDate,
-} from "../../../../statement/actions/date/dateAction";
+} from "Actions/date/dateAction";
 
 import { DateRangePicker } from "react-dates";
 import moment from "moment";
