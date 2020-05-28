@@ -1,7 +1,7 @@
 package kr.codesquad.airbnb11.common
 
 // language=SQL
-const val SELECT_ROOMS_WITH_SEARCH_PARAMETER: String = """
+const val SELECT_ROOMS_WITH_SEARCH_PARAMS: String = """
 SELECT r.id
      , r.max_person_count
      , r.main_image

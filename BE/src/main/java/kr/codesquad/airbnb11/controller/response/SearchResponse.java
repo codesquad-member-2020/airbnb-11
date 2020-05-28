@@ -3,6 +3,9 @@ package kr.codesquad.airbnb11.controller.response;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import kr.codesquad.airbnb11.domain.room.Room;
+import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +14,12 @@ public class SearchResponse {
   private int roomsCount;
   private List<RoomResponse> rooms = new ArrayList<>();
   private List<BigDecimal> prices = new ArrayList<>();
+
+  public SearchResponse(List<Room> rooms) {
+    this.roomsCount = rooms.size();
+    this.rooms = rooms.stream().map(RoomDTO::of).map(RoomResponse::new)
+        .collect(Collectors.toList());
+  }
 
   public int getRoomsCount() {
     return roomsCount;
