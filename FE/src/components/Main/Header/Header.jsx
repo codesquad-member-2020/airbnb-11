@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import Logo from './Logo/Logo'
+import Logo from 'Components/Common/Logo/Logo'
 import HeaderNavigation from 'Components/Main/Header/HeaderNavigation/HeaderNavigation'
 import mainpageConstants from 'Constants/mainpage'
 
