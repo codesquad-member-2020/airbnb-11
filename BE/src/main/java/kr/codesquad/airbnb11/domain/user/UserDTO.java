@@ -19,8 +19,8 @@ public class UserDTO {
     this.email = userMap.get("email");
   }
 
-  public static Builder builder() {
-    return new Builder();
+  public static UserDTO of(String nickname, String email) {
+    return new UserDTO(nickname, email);
   }
 
   public static UserDTO of(Map<String, String> userMap) {
@@ -37,32 +37,9 @@ public class UserDTO {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
         .append("nickname", nickname)
         .append("email", email)
         .toString();
-  }
-
-  public static final class Builder {
-
-    private String nickname;
-    private String email;
-
-    private Builder() {
-    }
-
-    public Builder nickname(String nickname) {
-      this.nickname = nickname;
-      return this;
-    }
-
-    public Builder email(String email) {
-      this.email = email;
-      return this;
-    }
-
-    public UserDTO build() {
-      return new UserDTO(nickname, email);
-    }
   }
 }
