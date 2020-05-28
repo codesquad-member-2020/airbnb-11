@@ -3,7 +3,7 @@ package kr.codesquad.airbnb11.domain.room;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import kr.codesquad.airbnb11.common.utils.BigMoneyConverter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.joda.money.BigMoney;
@@ -25,9 +25,8 @@ public class RoomDTO {
     this.mainImage = room.getMainImage();
     this.title = room.getTitle();
     this.description = room.getDescription();
-    this.dailyPrice = BigMoney.of(CurrencyUnit.USD, room.getDailyPrice())
-        .convertedTo(CurrencyUnit.of("KRW"), new BigDecimal("1234.00"))
-        .rounded(0, RoundingMode.HALF_EVEN);
+    this.dailyPrice = BigMoneyConverter
+        .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
   }
 
