@@ -4,10 +4,8 @@ import styled from "styled-components";
 const S = {};
 
 S.Caution = styled.div`
-  width: 1600px;
   height: 40px;
   display: relative;
-  margin: 0 auto;
   padding-top: 20px;
   padding-bottom: 20px;
 `;
