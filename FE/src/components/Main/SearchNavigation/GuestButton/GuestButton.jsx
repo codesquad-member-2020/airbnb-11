@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SearchNaviButton from "../CommonComponent/SearchNaviButton";
 
 import adultCountAction from "../../../../statement/actions/guest/adultCountAction";
@@ -72,32 +72,50 @@ S.GuestController = styled.div`
 S.Count = styled.div`
   position: relative;
   float: left;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   line-height: 32px;
   font-size: 16px;
 `;
 
 S.MinusButton = styled.div`
-  background-color: red;
   width: 32px;
   height: 32px;
   float: left;
+  background-image: url("http://dev-angelo.dlinkddns.com/minus_normal.png");
+  background-size: 100% 100%;
 
   &:hover {
+    background-image: url("http://dev-angelo.dlinkddns.com/minus_hover.png");
     cursor: pointer;
   }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background-image: url("http://dev-angelo.dlinkddns.com/minus_disabled.png");
+      pointer-events: none;
+  `};
 `;
 
 S.PlusButton = styled.div`
-  background-color: red;
   width: 32px;
   height: 32px;
   float: left;
+  background-image: url("http://dev-angelo.dlinkddns.com/plus_normal.png");
+  background-size: 100% 100%;
 
   &:hover {
+    background-image: url("http://dev-angelo.dlinkddns.com/plus_hover.png");
     cursor: pointer;
   }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background-image: url("http://dev-angelo.dlinkddns.com/plus_disabled.png");
+      pointer-events: none;
+  `};
 `;
 
 function GuestButton(props) {
@@ -165,7 +183,7 @@ function GuestButton(props) {
         title={props.title}
         contents={(adultCount + childrenCount + infantsCount) > 0 ? 
           ((adultCount + childrenCount > 0) ? "게스트 " + (adultCount + childrenCount) + "명" : "") +
-          ((infantsCount > 0) ? ', ' + "유아 " + (infantsCount) + "명" : "")
+          ((infantsCount > 0) ? ((adultCount + childrenCount > 0) ? ', ' : "") + "유아 " + (infantsCount) + "명" : "")
           : props.contents}
         onClick={props.onClick}
         focus={props.focus}
@@ -178,9 +196,9 @@ function GuestButton(props) {
             <S.GuestTypeDescription>만 13세 이상</S.GuestTypeDescription>
           </S.GuestDescription>
           <S.GuestController>
-            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_ADULT)} />
+            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_ADULT)} disabled={adultCount == 0} />
             <S.Count>{adultCount}</S.Count>
-            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_ADULT)} />
+            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_ADULT)} disabled={adultCount == 16} />
           </S.GuestController>
         </S.Guest>
         <S.Guest>
@@ -189,9 +207,9 @@ function GuestButton(props) {
             <S.GuestTypeDescription>2~12세</S.GuestTypeDescription>
           </S.GuestDescription>
           <S.GuestController>
-            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_CHILDREN)} />
+            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_CHILDREN)} disabled={childrenCount == 0} />
             <S.Count>{childrenCount}</S.Count>
-            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_CHILDREN)} />
+            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_CHILDREN)} disabled={childrenCount == 5} />
           </S.GuestController>
         </S.Guest>
         <S.Guest>
@@ -200,9 +218,9 @@ function GuestButton(props) {
             <S.GuestTypeDescription>2세 미만</S.GuestTypeDescription>
           </S.GuestDescription>
           <S.GuestController>
-            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_INFANTS)} />
+            <S.MinusButton onClick={() => onMinusButtonClick(TYPE_INFANTS)} disabled={infantsCount == 0} />
             <S.Count>{infantsCount}</S.Count>
-            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_INFANTS)} />
+            <S.PlusButton onClick={() => onPlusButtonClick(TYPE_INFANTS)} disabled={infantsCount == 5} />
           </S.GuestController>
         </S.Guest>
       </S.GuestArea>
