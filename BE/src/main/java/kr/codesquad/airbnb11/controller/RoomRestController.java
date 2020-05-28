@@ -1,5 +1,6 @@
 package kr.codesquad.airbnb11.controller;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.RoomResponse.Builder;
@@ -29,17 +30,21 @@ public class RoomRestController {
   @GetMapping("/search")
   public SearchResponse searchRooms(@ModelAttribute SearchRequest searchRequest) {
     log.debug("searchRequest: {}", searchRequest);
+    BigDecimal price = BigMoney.parse("KRW 239816").getAmountMajor();
     SearchResponse searchResponse = new SearchResponse();
+
     searchResponse.setRoomsCount(1);
     searchResponse.setRooms(Collections.singletonList(Builder.aRoomResponse()
         .id(1)
         .maxPersonCount(2)
         .mainImage("https://i.imgur.com/dhisgFy.png")
         .title("Charming House")
-        .dailyPrice(BigMoney.parse("KRW 239816").getAmountMajor())
+        .dailyPrice(price)
         .country("프랑스")
         .build()
     ));
+    searchResponse.setPrices(Collections.singletonList(price));
+    log.debug("searchResponse: {}", searchResponse);
     return searchResponse;
   }
 

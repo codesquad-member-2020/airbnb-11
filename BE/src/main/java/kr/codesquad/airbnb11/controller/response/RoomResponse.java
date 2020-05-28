@@ -2,6 +2,7 @@ package kr.codesquad.airbnb11.controller.response;
 
 import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class RoomResponse {
 
@@ -62,7 +63,7 @@ public class RoomResponse {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
