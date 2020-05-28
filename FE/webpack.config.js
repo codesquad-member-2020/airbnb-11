@@ -4,10 +4,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = env => ({
   mode: env.mode,
-  entry: './src/index.jsx',
+  entry:  ['@babel/polyfill', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
+    publicPath: '/'
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),

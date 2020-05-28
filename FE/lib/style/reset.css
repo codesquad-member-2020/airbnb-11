@@ -4,8 +4,7 @@ body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,tabl
 a {color: #222; text-decoration: none;}
 a:hover {color: #2698cb;}
 /* 폰트 초기화 */
-@font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
-body, input, textarea, select, button, table {font-family:'yg-jalnan', 'Noto Sans KR', AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif; color: #222; font-size: 13px; line-height: 1.5;}
+body, input, textarea, select, button, table {font-family: 'Noto Sans KR', AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif; color: #222; font-size: 13px; line-height: 1.5;}
 /* 폰트 스타일 초기화 */
 em,address {font-style: normal;}
 /* 블릿기호 초기화 */
