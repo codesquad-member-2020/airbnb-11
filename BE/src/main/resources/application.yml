@@ -41,6 +41,10 @@ spring:
     url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
     username: airbnb11
     password: airbnb11
+  flyway:
+    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    user: airbnb11
+    password: airbnb11
 
 logging:
   level:
@@ -61,7 +65,11 @@ spring:
     url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
     username: airbnb11
     password: airbnb11
-    
+  flyway:
+    url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    user: airbnb11
+    password: airbnb11
+
 logging:
   level:
     web: debug
