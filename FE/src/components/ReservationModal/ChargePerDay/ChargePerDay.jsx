@@ -1,11 +1,21 @@
 import React from 'react';
+import styled, { keyframes } from 'styled-components'
 
-function ChargePerDay() {
+const S = {};
 
+S.ChargePerDay = styled.div`
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+function ChargePerDay(props) {
   return (
-      <>
-        <h1>ChargePerDay</h1>
-      </>
+      <S.ChargePerDay>
+        {props.chargePerDay}
+      </S.ChargePerDay>
   );
 }
 
