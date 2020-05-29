@@ -24,7 +24,9 @@ module.exports = env => ({
       Reducers: path.resolve(__dirname, "src/statement/reducers"),
       ActionNames: path.resolve(__dirname, "src/statement/actionNames/"),
       Routers: path.resolve(__dirname, "src/routers/"),
+      MockData: path.resolve(__dirname, "src/mockData/"),
       Library: path.resolve(__dirname, "lib/"),
+      CustomHooks: path.resolve(__dirname, "src/customHooks/"),
     },
   },
   module: {
