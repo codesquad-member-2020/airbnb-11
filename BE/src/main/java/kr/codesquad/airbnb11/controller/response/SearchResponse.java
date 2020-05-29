@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.controller.response;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import kr.codesquad.airbnb11.domain.room.Room;
@@ -23,6 +24,7 @@ public class SearchResponse {
     this.prices = this.rooms.stream()
         .map(RoomResponse::getDailyPrice)
         .collect(Collectors.toList());
+    Collections.sort(this.prices);
   }
 
   public int getRoomsCount() {
