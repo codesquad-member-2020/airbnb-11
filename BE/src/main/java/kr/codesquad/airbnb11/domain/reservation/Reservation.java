@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.domain.reservation;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import kr.codesquad.airbnb11.controller.request.ReservationRequest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
@@ -10,57 +11,52 @@ public class Reservation {
 
   @Id
   private Integer id;
-  private LocalDateTime startDate;
-  private LocalDateTime endDate;
+  private LocalDate reservationDate;
   private Integer roomId;
-  private Integer guest;
+  private Integer guestId;
 
-  public Reservation(LocalDateTime startDate, LocalDateTime endDate, Integer roomId,
-      Integer guest) {
-    this.startDate = startDate;
-    this.endDate = endDate;
+  public Reservation(LocalDate reservationDate, Integer roomId, Integer guestId) {
+    this.reservationDate = reservationDate;
     this.roomId = roomId;
-    this.guest = guest;
+    this.guestId = guestId;
   }
 
   @PersistenceConstructor
-  public Reservation(Integer id, LocalDateTime startDate, LocalDateTime endDate,
-      Integer roomId, Integer guest) {
+  public Reservation(Integer id, LocalDate reservationDate, Integer roomId, Integer guestId) {
     this.id = id;
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.reservationDate = reservationDate;
     this.roomId = roomId;
-    this.guest = guest;
+    this.guestId = guestId;
+  }
+
+  public static Reservation of(LocalDate accommodationDate, ReservationRequest request,
+      int userId) {
+    return new Reservation(accommodationDate, request.getRoomId(), userId);
   }
 
   public Integer getId() {
     return id;
   }
 
-  public LocalDateTime getStartDate() {
-    return startDate;
-  }
-
-  public LocalDateTime getEndDate() {
-    return endDate;
+  public LocalDate getReservationDate() {
+    return reservationDate;
   }
 
   public Integer getRoomId() {
     return roomId;
   }
 
-  public Integer getGuest() {
-    return guest;
+  public Integer getGuestId() {
+    return guestId;
   }
 
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
-        .append("startDate", startDate)
-        .append("endDate", endDate)
+        .append("date", reservationDate)
         .append("roomId", roomId)
-        .append("guest", guest)
+        .append("guest", guestId)
         .toString();
   }
 }
