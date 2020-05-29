@@ -47,8 +47,12 @@ public class LoginService {
   public HttpHeaders redirectWithCookie(String jwt) {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+
+    int maxAge = 7 * 24 * 60 * 60;
+
     headers.add("Authorization", "Bearer " + jwt);
-    headers.setLocation(URI.create("http://" + host + "/login"));
+    headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
+    headers.setLocation(URI.create("http://"+host+"/login"));
     return headers;
   }
 
@@ -69,6 +73,6 @@ public class LoginService {
   }
 
   public UserDTO createUserDTO(User user) {
-    return UserDTO.of(user);
+    return UserDTO.of(user.getNickname(), user.getEmail());
   }
 }
