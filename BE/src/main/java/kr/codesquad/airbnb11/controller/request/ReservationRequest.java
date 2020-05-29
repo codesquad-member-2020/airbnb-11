@@ -1,27 +1,29 @@
 package kr.codesquad.airbnb11.controller.request;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ReservationRequest {
 
-  private String checkIn;
-  private String checkOut;
+  private LocalDate checkIn;
+  private LocalDate checkOut;
   private Integer roomId;
 
-  public String getCheckIn() {
+  public LocalDate getCheckIn() {
     return checkIn;
   }
 
-  public void setCheckIn(String checkIn) {
+  public void setCheckIn(LocalDate checkIn) {
     this.checkIn = checkIn;
   }
 
-  public String getCheckOut() {
+  public LocalDate getCheckOut() {
     return checkOut;
   }
 
-  public void setCheckOut(String checkOut) {
+  public void setCheckOut(LocalDate checkOut) {
     this.checkOut = checkOut;
   }
 
@@ -31,6 +33,10 @@ public class ReservationRequest {
 
   public void setRoomId(Integer roomId) {
     this.roomId = roomId;
+  }
+
+  public int daysBetweenCheckInCheckOut() {
+    return (int) ChronoUnit.DAYS.between(this.checkIn, this.checkOut) + 1;
   }
 
   @Override
