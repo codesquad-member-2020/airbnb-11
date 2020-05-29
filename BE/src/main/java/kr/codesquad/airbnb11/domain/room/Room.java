@@ -9,13 +9,13 @@ import org.springframework.data.annotation.PersistenceConstructor;
 public class Room {
 
   @Id
-  private final Integer id;
-  private final Integer maxPersonCount;
-  private final String mainImage;
-  private final String title;
-  private final String description;
-  private final BigDecimal dailyPrice;
-  private final String country;
+  private Integer id;
+  private Integer maxPersonCount;
+  private String mainImage;
+  private String title;
+  private String description;
+  private BigDecimal dailyPrice;
+  private String country;
 
   @PersistenceConstructor
   private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
