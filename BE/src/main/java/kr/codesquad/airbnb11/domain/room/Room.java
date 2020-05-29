@@ -17,16 +17,6 @@ public class Room {
   private BigDecimal dailyPrice;
   private String country;
 
-  private Room(Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country) {
-    this.maxPersonCount = maxPersonCount;
-    this.mainImage = mainImage;
-    this.title = title;
-    this.description = description;
-    this.dailyPrice = dailyPrice;
-    this.country = country;
-  }
-
   @PersistenceConstructor
   private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, String country) {
@@ -86,6 +76,7 @@ public class Room {
 
   public static final class Builder {
 
+    private Integer id;
     private Integer maxPersonCount;
     private String mainImage;
     private String title;
@@ -94,6 +85,11 @@ public class Room {
     private String country;
 
     private Builder() {
+    }
+
+    public Builder id(Integer id) {
+      this.id = id;
+      return this;
     }
 
     public Builder maxPersonCount(Integer maxPersonCount) {
@@ -127,7 +123,7 @@ public class Room {
     }
 
     public Room build() {
-      return new Room(maxPersonCount, mainImage, title, description, dailyPrice, country);
+      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country);
     }
   }
 }

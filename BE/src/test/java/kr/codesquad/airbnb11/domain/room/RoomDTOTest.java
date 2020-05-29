@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import kr.codesquad.airbnb11.common.utils.BigMoneyConverter;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 import org.junit.jupiter.api.Test;
@@ -21,17 +22,16 @@ class RoomDTOTest {
     RoomDTO roomDTO = RoomDTO.of(room);
     logger.debug("roomDTO: {}", roomDTO);
 
-    BigMoney roomDTOMoneyConvertedToUSD = roomDTO.getDailyPrice()
-        .convertedTo(CurrencyUnit.USD, new BigDecimal("0.00081"))
-        .rounded(0, RoundingMode.HALF_EVEN);
+    BigMoney roomDTOMoneyConvertedToUSD = BigMoneyConverter
+        .convertKRWToUSD(roomDTO.getDailyPrice());
     logger.debug("roomDTOMoney: {}", roomDTOMoneyConvertedToUSD);
 
     BigMoney USDMoney = BigMoney.of(CurrencyUnit.USD, dailyPrice)
-        .rounded(0, RoundingMode.HALF_EVEN);
+        .rounded(2, RoundingMode.HALF_EVEN);
     logger.debug("USDMoney: {}", USDMoney);
 
     logger.debug("{}", roomDTO.getDailyPriceFormatted());
 
-    assertThat(roomDTOMoneyConvertedToUSD.compareTo(USDMoney)).isEqualTo(0);
+    assertThat(roomDTOMoneyConvertedToUSD).isEqualByComparingTo(USDMoney);
   }
 }

@@ -57,6 +57,17 @@ class RoomRepositoryTest {
     List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(12);
     assertThat(responseList.size()).isEqualTo(0);
   }
+  
+  @Test
+  void 최소인원_이상_방_검색하기() {
+    int minPersonCount = 8;
+
+    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(minPersonCount);
+    int size = responseList.size();
+
+    assertThat(size).isNotEqualTo(4);
+    assertThat(size).isEqualTo(2);
+  }
 
   @Test
   void 요금_범위검색_테스트() {
@@ -74,16 +85,5 @@ class RoomRepositoryTest {
       List<Room> responseList = repository.findAllByDailyPriceBetween(BigDecimal.ZERO, null);
     }).isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("Value of parameter with name dailyPrice must not be null!");
-  }
-
-  @Test
-  void 최소인원_이상_방_검색하기() {
-    int minPersonCount = 8;
-
-    List<Room> responseList = repository.findAllByMaxPersonCountIsGreaterThanEqual(minPersonCount);
-    int size = responseList.size();
-
-    assertThat(size).isNotEqualTo(4);
-    assertThat(size).isEqualTo(2);
   }
 }
