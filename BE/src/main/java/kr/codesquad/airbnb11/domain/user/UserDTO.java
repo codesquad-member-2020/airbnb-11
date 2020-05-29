@@ -19,8 +19,8 @@ public class UserDTO {
     this.email = userMap.get("email");
   }
 
-  public static UserDTO of(User user) {
-    return new UserDTO(user.getNickname(), user.getEmail());
+  public static UserDTO of(String nickname, String email) {
+    return new UserDTO(nickname, email);
   }
 
   public static UserDTO of(Map<String, String> userMap) {
