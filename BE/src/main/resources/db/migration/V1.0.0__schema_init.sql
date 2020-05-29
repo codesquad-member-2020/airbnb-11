@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS reservation
 )
     COMMENT '예약 정보가 저장될 테이블';
 
+CREATE UNIQUE INDEX reservation_unique_index ON reservation (reservation_date, room_id);
 CREATE INDEX reservation_date_index ON reservation (reservation_date);
 
 # 리뷰 정보를 저장할 테이블 생성
