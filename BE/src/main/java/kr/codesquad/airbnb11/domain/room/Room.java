@@ -1,12 +1,12 @@
 package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import kr.codesquad.airbnb11.domain.review.Review;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 public class Room {
@@ -21,23 +21,9 @@ public class Room {
   private String country;
 
   @MappedCollection(idColumn = "ROOM_ID", keyColumn = "ID")
-  private List<Review> reviewList;
+  private List<Review> reviewList = new ArrayList<>();
 
-  @PersistenceConstructor
-  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country,
-      List<Review> reviewList) {
-    this.id = id;
-    this.maxPersonCount = maxPersonCount;
-    this.mainImage = mainImage;
-    this.title = title;
-    this.description = description;
-    this.dailyPrice = dailyPrice;
-    this.country = country;
-    this.reviewList = reviewList;
-  }
-
-  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+  public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, String country) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
@@ -94,6 +80,7 @@ public class Room {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("reviewList", reviewList)
         .toString();
   }
 
