@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.controller.response;
 
 import java.math.BigDecimal;
+import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,6 +13,18 @@ public class RoomResponse {
   private String title;
   private BigDecimal dailyPrice;
   private String country;
+
+  public RoomResponse() {
+  }
+
+  public RoomResponse(RoomDTO roomDTO) {
+    this.id = roomDTO.getId();
+    this.maxPersonCount = roomDTO.getMaxPersonCount();
+    this.mainImage = roomDTO.getMainImage();
+    this.title = roomDTO.getTitle();
+    this.dailyPrice = roomDTO.getDailyPriceFormatted();
+    this.country = roomDTO.getCountry();
+  }
 
   public int getId() {
     return id;
