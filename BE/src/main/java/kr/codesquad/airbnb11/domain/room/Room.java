@@ -1,10 +1,13 @@
 package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
+import java.util.List;
+import kr.codesquad.airbnb11.domain.review.Review;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 
 public class Room {
 
@@ -17,7 +20,23 @@ public class Room {
   private BigDecimal dailyPrice;
   private String country;
 
+  @MappedCollection(idColumn = "ROOM_ID", keyColumn = "ID")
+  private List<Review> reviewList;
+
   @PersistenceConstructor
+  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+      String description, BigDecimal dailyPrice, String country,
+      List<Review> reviewList) {
+    this.id = id;
+    this.maxPersonCount = maxPersonCount;
+    this.mainImage = mainImage;
+    this.title = title;
+    this.description = description;
+    this.dailyPrice = dailyPrice;
+    this.country = country;
+    this.reviewList = reviewList;
+  }
+
   private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, String country) {
     this.id = id;
@@ -59,6 +78,10 @@ public class Room {
 
   public String getCountry() {
     return country;
+  }
+
+  public List<Review> getReviewList() {
+    return reviewList;
   }
 
   @Override
