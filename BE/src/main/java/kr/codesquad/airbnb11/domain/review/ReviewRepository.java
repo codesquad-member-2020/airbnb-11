@@ -1,7 +1,7 @@
 package kr.codesquad.airbnb11.domain.review;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ReviewRepository extends CrudRepository<Review, Integer> {
+public interface ReviewRepository extends PagingAndSortingRepository<Review, Integer> {
 
 }
