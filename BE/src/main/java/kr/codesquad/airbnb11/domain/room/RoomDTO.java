@@ -3,7 +3,9 @@ package kr.codesquad.airbnb11.domain.room;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
+import java.util.List;
 import kr.codesquad.airbnb11.common.utils.BigMoneyConverter;
+import kr.codesquad.airbnb11.domain.review.Review;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.joda.money.BigMoney;
@@ -18,6 +20,8 @@ public class RoomDTO {
   private String description;
   private BigMoney dailyPrice;
   private String country;
+  private String reviewPoint;
+  private Integer reviewSize;
 
   private RoomDTO(Room room) {
     this.id = room.getId();
@@ -28,6 +32,15 @@ public class RoomDTO {
     this.dailyPrice = BigMoneyConverter
         .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
+    this.reviewPoint = calculateReviewList(room.getReviewList());
+    this.reviewSize = room.getReviewList().size();
+  }
+
+  private String calculateReviewList(List<Review> reviewList) {
+    double total = reviewList.stream().mapToDouble(x -> x.getRating()).sum();
+    double size = reviewList.size();
+    return String.format("%.2f", total / size);
+
   }
 
   public static RoomDTO of(Room room) {
@@ -96,6 +109,14 @@ public class RoomDTO {
     this.country = country;
   }
 
+  public String getReviewPoint() {
+    return reviewPoint;
+  }
+
+  public Integer getReviewSize() {
+    return reviewSize;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -106,6 +127,8 @@ public class RoomDTO {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("reviewPoint", reviewPoint)
+        .append("reviewSize", reviewSize)
         .toString();
   }
 }
