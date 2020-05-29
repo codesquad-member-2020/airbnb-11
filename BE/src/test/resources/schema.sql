@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS review
     id       INT PRIMARY KEY AUTO_INCREMENT,
     rating   INT,
     content  VARCHAR(500),
-    room_id  INT,
-    guest_id INT
+    room_id  INT REFERENCES room (id),
+    guest_id INT REFERENCES user (id)
 );
