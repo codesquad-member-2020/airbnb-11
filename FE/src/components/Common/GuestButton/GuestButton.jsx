@@ -76,6 +76,7 @@ S.Count = styled.div`
   padding-right: 10px;
   line-height: 32px;
   font-size: 16px;
+  user-select: none;
 `;
 
 S.MinusButton = styled.div`
