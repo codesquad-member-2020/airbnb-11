@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.domain.review;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 
@@ -51,7 +52,7 @@ public class Review {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
         .append("rating", rating)
         .append("content", content)
