@@ -6,6 +6,10 @@ const S = {};
 S.AccomodationCard = styled.div`
   width: 300px;
   height: 300px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 S.Image = styled.div`
@@ -51,8 +55,13 @@ S.TotalCharge = styled.div`
 `;
 
 function AccomodationCard(props) {
+  const onAccomodationCardClick = e => {
+    e.stopPropagation();
+    props.onClick();
+  }
+
   return (
-      <S.AccomodationCard>
+      <S.AccomodationCard onClick={onAccomodationCardClick}>
         <S.Image src={props.src} />
         <S.TypeInfo>{props.typeInfo}</S.TypeInfo>
         <S.Title>{props.title}</S.Title>

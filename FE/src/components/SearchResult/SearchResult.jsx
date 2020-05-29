@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import { withRouter } from 'react-router-dom';
 import AccomodationCard from "Components/SearchResult/AccomodationCard/AccomodationCard";
 import Caution from "Components/SearchResult/Caution/Caution";
 import ResultSummary from "Components/SearchResult/ResultSummary/ResultSummary";
@@ -38,13 +39,17 @@ S.LoadingImage = styled.div`
   margin-bottom: 200px;
 `;
 
-function SearchResult() {
+function SearchResult({ history }) {
   const [searchResult, setSearchResult] = useState();
+
+  function onAccomodationCardClick() {
+    history.push('/searchresult/reservationmodal');
+  }
 
   useEffect(() => {
     setTimeout(() => {
       setSearchResult(searchResultData);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
@@ -62,6 +67,7 @@ function SearchResult() {
           {searchResult &&
             searchResult.map((data, index) => (
               <AccomodationCard
+                onClick={onAccomodationCardClick}
                 key={index}
                 src={data.src}
                 title={data.title}
@@ -76,4 +82,4 @@ function SearchResult() {
   );
 }
 
-export default SearchResult;
+export default withRouter(SearchResult);
