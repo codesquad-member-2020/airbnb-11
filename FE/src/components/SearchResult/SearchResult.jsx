@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import AccomodationCard from "Components/SearchResult/AccomodationCard/AccomodationCard";
 import Caution from "Components/SearchResult/Caution/Caution";
 import ResultSummary from "Components/SearchResult/ResultSummary/ResultSummary";
 import Header from "Components/SearchResult/Header/Header";
+import searchResultData from "MockData/searchResult"
 
 const S = {};
 
@@ -27,7 +28,25 @@ S.AccomodationCardGrid = styled.div`
   grid-template-columns: repeat(5, minmax(300px, 1fr));
 `;
 
+S.LoadingImage = styled.div`
+  width: 200px;
+  height: 200px;
+  background-image: url("https://cdn.clipart.email/4b453b9d5509587f169c211be6908ca9_loading-gif-png-picture-654600-loading-gif-png_600-450.gif");
+  background-size: 100% 100%;
+  margin: 0 auto;
+  margin-top: 200px;
+  margin-bottom: 200px;
+`;
+
 function SearchResult() {
+  const [searchResult, setSearchResult] = useState();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSearchResult(searchResultData);
+    }, 3000);
+  }, []);
+
   return (
     <S.SearchResult>
       <Header />
@@ -38,49 +57,19 @@ function SearchResult() {
           title="예약에 앞서 여행 제한 사항을 확인하세요."
           description="에어비앤비 커뮤니티의 건강과 안전이 최우선입니다. 정부 지침을 준수하고 꼭 필요한 경우에만 여행하실 것을 부탁드립니다."
         />
+        {!searchResult && <S.LoadingImage/>}
         <S.AccomodationCardGrid>
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
-          <AccomodationCard
-            src="https://a0.muscache.com/im/pictures/2e8af4e2-480c-4dac-880d-a3d3dda13215.jpg"
-            typeInfo="개인실 · 침대 0개"
-            title="ONe Bedroom * Long term * Short term * Every Term"
-            chargePerDay="13,907원/1박"
-            totalCharge="총 요금: 55,629원"
-          />
+          {searchResult &&
+            searchResult.map((data, index) => (
+              <AccomodationCard
+                key={index}
+                src={data.src}
+                title={data.title}
+                typeInfo={data.typeInfo}
+                chargePerDay={data.chargePerDay}
+                totalCharge={data.totalCharge}
+              />
+            ))}
         </S.AccomodationCardGrid>
       </S.SearchResultContentWrap>
     </S.SearchResult>
