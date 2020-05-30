@@ -1,9 +1,10 @@
 package kr.codesquad.airbnb11.controller;
 
-import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -13,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
-import kr.codesquad.airbnb11.domain.reservation.ReservationRepository;
 import kr.codesquad.airbnb11.domain.room.Room;
 import kr.codesquad.airbnb11.service.RoomService;
 import org.junit.jupiter.api.DisplayName;
@@ -37,9 +37,6 @@ class RoomRestControllerTest {
 
   @MockBean
   private RoomService roomService;
-
-  @MockBean
-  private ReservationRepository reservationRepository;
 
 //  @Autowired
 //  private WebApplicationContext wac;
@@ -95,8 +92,21 @@ class RoomRestControllerTest {
 
   @Test
   @DisplayName("rooms reserve API test")
-  void roomsReserveApiTest() {
-    fail("Not Implemented");
-  }
+  void roomsReserveApiTest() throws Exception {
+    // given
+    String reservationRequestJsonString = "{\"checkIn\": \"2020-05-30\", \"checkOut\": \"2020-05-31\", \"roomId\": 1}";
+    log.debug("json String: {}", reservationRequestJsonString);
 
+    // then
+    MockHttpServletRequestBuilder requestBuilder = post("/rooms/reservation")
+        .content(reservationRequestJsonString)
+        .contentType(MediaType.APPLICATION_JSON);
+
+    mockMvc.perform(requestBuilder)
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.success", is(true)))
+        .andExpect(jsonPath("$.response", is("예약이 정상적으로 완료되었습니다.")))
+        .andExpect(jsonPath("$.error", is(nullValue())));
+  }
 }
