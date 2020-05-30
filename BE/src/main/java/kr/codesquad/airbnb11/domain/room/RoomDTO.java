@@ -37,7 +37,7 @@ public class RoomDTO {
   }
 
   private String calculateReviewList(List<Review> reviewList) {
-    double total = reviewList.stream().mapToDouble(x -> x.getRating()).sum();
+    double total = reviewList.stream().mapToDouble(Review::getRating).sum();
     double size = reviewList.size();
     return String.format("%.2f", total / size);
 
