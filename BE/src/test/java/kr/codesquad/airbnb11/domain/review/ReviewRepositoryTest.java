@@ -63,10 +63,10 @@ class ReviewRepositoryTest {
 
   @Test
   void 리뷰_점수_숫자_조회하기() {
-    log.debug("reviewPoint : {}", roomDTO1.getReviewPoint());
-    assertThat(roomDTO1.getReviewPoint()).isEqualTo("2.50");
+    log.debug("reviewPoint : {}", roomDTO1.getRating());
+    assertThat(roomDTO1.getRating()).isEqualTo("2.50");
 
-    log.debug("reviewPoint : {}", roomDTO1.getReviewSize());
-    assertThat(roomDTO1.getReviewSize()).isEqualTo(4);
+    log.debug("reviewPoint : {}", roomDTO1.getReviewCount());
+    assertThat(roomDTO1.getReviewCount()).isEqualTo(4);
   }
 }

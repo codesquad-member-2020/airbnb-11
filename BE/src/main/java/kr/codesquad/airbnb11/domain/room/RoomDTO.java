@@ -20,8 +20,8 @@ public class RoomDTO {
   private String description;
   private BigMoney dailyPrice;
   private String country;
-  private String reviewPoint;
-  private Integer reviewSize;
+  private String rating;
+  private Integer reviewCount;
 
   private RoomDTO(Room room) {
     this.id = room.getId();
@@ -32,8 +32,8 @@ public class RoomDTO {
     this.dailyPrice = BigMoneyConverter
         .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
-    this.reviewPoint = calculateReviewList(room.getReviewList());
-    this.reviewSize = room.getReviewList().size();
+    this.rating = calculateReviewList(room.getReviewList());
+    this.reviewCount = room.getReviewList().size();
   }
 
   private String calculateReviewList(List<Review> reviewList) {
@@ -109,12 +109,12 @@ public class RoomDTO {
     this.country = country;
   }
 
-  public String getReviewPoint() {
-    return reviewPoint;
+  public String getRating() {
+    return rating;
   }
 
-  public Integer getReviewSize() {
-    return reviewSize;
+  public Integer getReviewCount() {
+    return reviewCount;
   }
 
   @Override
@@ -127,8 +127,8 @@ public class RoomDTO {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
-        .append("reviewPoint", reviewPoint)
-        .append("reviewSize", reviewSize)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .toString();
   }
 }
