@@ -1,4 +1,4 @@
-import { INCREASE_CHILDREN_COUNT, DECREASE_CHILDREN_COUNT } from '../../constants/guest/childrenActionName'
+import { INCREASE_CHILDREN_COUNT, DECREASE_CHILDREN_COUNT } from 'ActionNames/guest/childrenActionName'
 
 const increase = () => {
   return {

@@ -5,15 +5,16 @@ import {
   Route
 } from "react-router-dom";
 
-import Main from '../components/Main/Main';
-import SearchResult from '../components/SearchResult/SearchResult'
+import Main from 'Components/Main/Main';
+//import SearchResult from 'Components/SearchResult/SearchResult'
+import SearchResultRouter from 'Routers/SearchResultRouter'
 
 function AppRouter() {
   return (
     <Router>
       <Switch>
         <Route exact={true} path="/" component={Main} />
-        <Route path="/searchresult" component={SearchResult} />
+        <Route path="/searchresult" component={SearchResultRouter} />
       </Switch>
     </Router>
   );

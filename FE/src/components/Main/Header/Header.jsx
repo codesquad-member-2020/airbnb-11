@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import Logo from './Logo/Logo'
-import HeaderNavigation from './HeaderNavigation/HeaderNavigation'
-import mainpageConstants from '../../../constants/mainpage'
+import Logo from 'Components/Common/Logo/Logo'
+import HeaderNavigation from 'Components/Main/Header/HeaderNavigation/HeaderNavigation'
+import mainpageConstants from 'Constants/mainpage'
 
 const S = {}
 S.Header = styled.div`

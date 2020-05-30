@@ -19,10 +19,7 @@ function HeaderNavigation(props) {
   return (
       <>
         <S.HeaderNavigation>
-          <TextButton title="숙소 호스트 되기" href="#"></TextButton>
-          <TextButton title="체험 호스팅하기" href="#"></TextButton>
           <TextButton title="도움말" href="#"></TextButton>
-          <TextButton title="로그인" href="#"></TextButton>
           <RadiusTextButton title="회원 가입" href="#"></RadiusTextButton>
         </S.HeaderNavigation>
       </>
