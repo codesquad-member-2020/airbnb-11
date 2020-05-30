@@ -20,7 +20,7 @@ public class RoomDTO {
   private String description;
   private BigMoney dailyPrice;
   private String country;
-  private String rating;
+  private Double rating;
   private Integer reviewCount;
 
   private RoomDTO(Room room) {
@@ -36,10 +36,10 @@ public class RoomDTO {
     this.reviewCount = room.getReviewList().size();
   }
 
-  private String calculateReviewList(List<Review> reviewList) {
+  private Double calculateReviewList(List<Review> reviewList) {
     double total = reviewList.stream().mapToDouble(Review::getRating).sum();
     double size = reviewList.size();
-    return String.format("%.2f", total / size);
+    return Math.round((total / size) * 100) / 100.0;
 
   }
 
@@ -109,7 +109,7 @@ public class RoomDTO {
     this.country = country;
   }
 
-  public String getRating() {
+  public Double getRating() {
     return rating;
   }
 

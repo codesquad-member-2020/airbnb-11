@@ -53,7 +53,7 @@ class ReviewRepositoryTest {
     Review v1 = new Review(1, "good1", r1.getId(), u1.getId());
     Review v2 = new Review(2, "good2", r1.getId(), u1.getId());
     Review v3 = new Review(3, "good3", r1.getId(), u1.getId());
-    Review v4 = new Review(4, "good4", r1.getId(), u1.getId());
+    Review v4 = new Review(1, "good4", r1.getId(), u1.getId());
 
     reviewRepository.saveAll(Arrays.asList(v1, v2, v3, v4));
 
@@ -64,7 +64,7 @@ class ReviewRepositoryTest {
   @Test
   void 리뷰_점수_숫자_조회하기() {
     log.debug("reviewPoint : {}", roomDTO1.getRating());
-    assertThat(roomDTO1.getRating()).isEqualTo("2.50");
+    assertThat(roomDTO1.getRating()).isEqualTo((Double) 1.75);
 
     log.debug("reviewPoint : {}", roomDTO1.getReviewCount());
     assertThat(roomDTO1.getReviewCount()).isEqualTo(4);
