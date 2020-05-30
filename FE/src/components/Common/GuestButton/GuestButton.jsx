@@ -188,7 +188,6 @@ function GuestButton(props) {
           : props.contents}
         onClick={props.onClick}
         focus={props.focus}
-        customKey={props.customKey}
       />
       <S.GuestArea focus={props.focus}>
         <S.Guest>

@@ -12,10 +12,8 @@ import SearchResultRouter from 'Routers/SearchResultRouter'
 function AppRouter() {
   return (
     <Router>
-      <Switch>
-        <Route exact={true} path="/" component={Main} />
-        <Route path="/searchresult" component={SearchResultRouter} />
-      </Switch>
+      <Route exact={true} path="/" component={Main} />
+      <Route path="/searchresult" component={SearchResultRouter} />
     </Router>
   );
 }

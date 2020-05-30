@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Logo from 'Components/Common/Logo/Logo'
 import HeaderNavigation from 'Components/Main/Header/HeaderNavigation/HeaderNavigation'
-import mainpageConstants from 'Constants/mainpage'
+import { logo } from 'Constants/mainpage'
 
 const S = {}
 S.Header = styled.div`
@@ -21,7 +21,7 @@ function Header() {
 
   return (
       <S.Header>
-        <Logo src={mainpageConstants.logoImageSrc} />
+        <Logo src={logo.logoImageSrc} />
         <HeaderNavigation></HeaderNavigation>
       </S.Header>
   );
