@@ -10,6 +10,7 @@ import kr.codesquad.airbnb11.domain.room.RoomDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoomService {
@@ -31,6 +32,7 @@ public class RoomService {
     return searchResponse;
   }
 
+  @Transactional
   public void reserveRoom(ReservationRequest reservationRequest, int userId) {
     int daysBetweenCheckInCheckOut = reservationRequest.daysBetweenCheckInCheckOut();
     log.debug("두 날짜간 차이: {}", daysBetweenCheckInCheckOut);
