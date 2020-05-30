@@ -23,7 +23,7 @@ public class Room {
   @MappedCollection(idColumn = "ROOM_ID", keyColumn = "ID")
   private List<Review> reviewList = new ArrayList<>();
 
-  public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, String country) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
