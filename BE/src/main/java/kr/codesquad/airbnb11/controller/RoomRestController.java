@@ -7,7 +7,7 @@ import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.domain.reservation.Reservation;
 import kr.codesquad.airbnb11.domain.reservation.ReservationRepository;
-import kr.codesquad.airbnb11.domain.room.RoomDAO;
+import kr.codesquad.airbnb11.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +23,11 @@ public class RoomRestController {
 
   private static final Logger log = LoggerFactory.getLogger(RoomRestController.class);
 
-  private final RoomDAO roomDAO;
+  private final RoomService roomService;
   private final ReservationRepository reservationRepository;
 
-  public RoomRestController(RoomDAO roomDAO,
-      ReservationRepository reservationRepository) {
-    this.roomDAO = roomDAO;
+  public RoomRestController(RoomService roomService, ReservationRepository reservationRepository) {
+    this.roomService = roomService;
     this.reservationRepository = reservationRepository;
   }
 
@@ -36,8 +35,7 @@ public class RoomRestController {
   public SearchResponse searchRooms(@ModelAttribute SearchRequest searchRequest) {
     log.debug("searchRequest: {}", searchRequest);
 
-    SearchResponse searchResponse = new SearchResponse(
-        roomDAO.selectRoomsWithSearchParams(searchRequest));
+    SearchResponse searchResponse = roomService.findAvailableRooms(searchRequest);
     log.debug("searchResponse: {}", searchResponse);
     return searchResponse;
   }

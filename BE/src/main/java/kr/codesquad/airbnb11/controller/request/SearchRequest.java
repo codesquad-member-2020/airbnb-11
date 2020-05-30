@@ -16,6 +16,20 @@ public class SearchRequest {
   private Integer children;
   private Integer infants;
 
+  public SearchRequest() {
+  }
+
+  public SearchRequest(String checkIn, String checkOut, Integer priceMin, Integer priceMax,
+      Integer adult, Integer children, Integer infants) {
+    this.checkIn = checkIn;
+    this.checkOut = checkOut;
+    this.priceMin = priceMin;
+    this.priceMax = priceMax;
+    this.adult = adult;
+    this.children = children;
+    this.infants = infants;
+  }
+
   public String getCheckIn() {
     return checkIn;
   }
