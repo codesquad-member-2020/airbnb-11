@@ -1,7 +1,13 @@
-const main = {
+const logo = {
   logoImageSrc: "http://dev-angelo.dlinkddns.com/code-squad.png"
 };
 
-Object.freeze(main);
+const componentId = {
+  guestButton: "guest_button",
+  dateButton: "date_button"
+}
 
-export default main;
+Object.freeze(logo);
+Object.freeze(componentId);
+
+export {logo, componentId};

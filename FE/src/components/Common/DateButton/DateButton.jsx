@@ -149,7 +149,6 @@ function DateButton(props) {
         }
         onClick={onDateButtonClick}
         focus={props.focus}
-        customKey={props.customKey}
       />
       <DatePickerWrap focus={props.focus}>
         <DateRangePicker
