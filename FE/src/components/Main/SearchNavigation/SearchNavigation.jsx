@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import styled from 'styled-components'
+import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
-import GuestButton from 'Components/Common/GuestButton/GuestButton'
-import SearchButton from 'Components/Main/SearchNavigation/SearchButton/SearchButton'
-import DateButton from 'Components/Common/DateButton/DateButton'
+import GuestButton from "Components/Common/GuestButton/GuestButton";
+import SearchButton from "Components/Main/SearchNavigation/SearchButton/SearchButton";
+import DateButton from "Components/Common/DateButton/DateButton";
 import { setFocusId } from "Actions/focusId/focusIdAction";
+import { componentId } from "Constants/mainpage";
 
-const S = {}
+const S = {};
 S.SearchNavigation = styled.div`
   position: relative;
   display: flex;
@@ -25,25 +26,36 @@ S.SearchNavigation = styled.div`
 `;
 
 function SearchNavigation({ history }) {
-  const focusId = useSelector(({focusIdReducer}) => focusIdReducer);
+  const focusId = useSelector(({ focusIdReducer }) => focusIdReducer);
   const dispatch = useDispatch();
 
   const [focusedId, setFocusedId] = useState(null);
 
   function onNaviButtonClick(key) {
     dispatch(setFocusId(key));
+    console.log(key);
   }
 
   function onSearchButtonClick() {
-    history.push('/searchresult');
+    history.push("/searchresult");
   }
 
   return (
-      <S.SearchNavigation>
-        <DateButton title="체크인/체크아웃" contents="날짜 추가" customKey={0} focus={0 === focusId} onClick={() => onNaviButtonClick(0)} />
-        <GuestButton title="인원" contents="게스트 추가" customKey={1} focus={1 === focusId} onClick={() => onNaviButtonClick(1)} />
-        <SearchButton contents="검색" onClick={onSearchButtonClick} />
-      </S.SearchNavigation>
+    <S.SearchNavigation>
+      <DateButton
+        title="체크인/체크아웃"
+        contents="날짜 추가"
+        focus={componentId.dateButton === focusId}
+        onClick={() => onNaviButtonClick(componentId.dateButton)}
+      />
+      <GuestButton
+        title="인원"
+        contents="게스트 추가"
+        focus={componentId.guestButton === focusId}
+        onClick={() => onNaviButtonClick(componentId.guestButton)}
+      />
+      <SearchButton contents="검색" onClick={onSearchButtonClick} />
+    </S.SearchNavigation>
   );
 }
 
