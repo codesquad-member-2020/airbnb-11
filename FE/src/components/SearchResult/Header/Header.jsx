@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Logo from 'Components/Common/Logo/Logo'
 import HeaderNavigation from 'Components/SearchResult/Header/HeaderNavigation/HeaderNavigation'
 import ReservationInfoButton from 'Components/SearchResult/Header/ReservationInfoButton/ReservationInfoButton'
-import mainpageConstants from 'Constants/mainpage'
+import { logo } from 'Constants/mainpage'
 
 const S = {}
 S.Header = styled.div`
@@ -40,7 +40,7 @@ function Header() {
   return (
     <S.Header>
       <S.HeaderWrap>
-        <Logo src={mainpageConstants.logoImageSrc} />
+        <Logo src={logo.logoImageSrc} />
         <ReservationInfoButton
           date={startDateInfo.month + "월 " + startDateInfo.day + "일" + " - " +
                 endDateInfo.month + "월 " + endDateInfo.day + "일"}
