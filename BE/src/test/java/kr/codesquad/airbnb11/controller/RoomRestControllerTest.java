@@ -65,7 +65,7 @@ class RoomRestControllerTest {
     SearchRequest searchRequest = new SearchRequest();
 
     List<Room> rooms = Arrays.asList(room1, room2, room3, room4);
-    SearchResponse searchResponse = new SearchResponse(rooms);
+    SearchResponse searchResponse = new SearchResponse(rooms.size(), rooms);
     log.debug("테스트 검색 결과: {}", searchResponse);
 
     // when
