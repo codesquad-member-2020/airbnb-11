@@ -1,5 +1,7 @@
 package kr.codesquad.airbnb11.controller.response;
 
+import static kr.codesquad.airbnb11.common.SQLKt.OFFSET_COUNT;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -11,12 +13,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class SearchResponse {
 
-  private int roomsCount;
+  private Integer roomsCount;
   private List<RoomResponse> rooms;
   private List<BigDecimal> prices;
 
-  public SearchResponse(List<Room> rooms) {
-    this.roomsCount = rooms.size();
+  public SearchResponse(Integer roomsCount, List<Room> rooms) {
+    this.roomsCount = roomsCount;
     this.rooms = rooms.stream()
         .map(RoomDTO::of)
         .map(RoomResponse::new)
@@ -27,11 +29,11 @@ public class SearchResponse {
     Collections.sort(this.prices);
   }
 
-  public int getRoomsCount() {
+  public Integer getRoomsCount() {
     return roomsCount;
   }
 
-  public void setRoomsCount(int roomsCount) {
+  public void setRoomsCount(Integer roomsCount) {
     this.roomsCount = roomsCount;
   }
 
@@ -49,6 +51,10 @@ public class SearchResponse {
 
   public void setPrices(List<BigDecimal> prices) {
     this.prices = prices;
+  }
+
+  public int getMaxPage() {
+    return (roomsCount / OFFSET_COUNT) + (roomsCount % OFFSET_COUNT > 0 ? 1 : 0);
   }
 
   @Override
