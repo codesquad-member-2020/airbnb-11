@@ -11,7 +11,9 @@ SELECT r.id
      , r.country
      , r.location
      , r.user_id
-  FROM room r
+     , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
+  FROM room       r
+  INNER JOIN user u ON r.user_id = u.id
  WHERE r.id NOT IN (
      SELECT DISTINCT rev.room_id
        FROM reservation rev
