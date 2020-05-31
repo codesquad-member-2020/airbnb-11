@@ -55,13 +55,15 @@ class RoomRestControllerTest {
   void roomsSearchApiTest() throws Exception {
     // given
     Room room1 = Room.builder().id(1).country("대한민국").dailyPrice(new BigDecimal("20"))
-        .description("").title("1번").mainImage("image").maxPersonCount(2).build();
+        .description("").title("1번").mainImage("image").maxPersonCount(2).isSuperHost(true).build();
     Room room2 = Room.builder().id(2).country("프랑스").dailyPrice(new BigDecimal("35"))
-        .description("").title("2번").mainImage("image").maxPersonCount(4).build();
+        .description("").title("2번").mainImage("image").maxPersonCount(4).isSuperHost(true).build();
     Room room3 = Room.builder().id(3).country("미국").dailyPrice(new BigDecimal("100"))
-        .description("").title("3번").mainImage("image").maxPersonCount(4).build();
+        .description("").title("3번").mainImage("image").maxPersonCount(4).isSuperHost(false)
+        .build();
     Room room4 = Room.builder().id(4).country("미국").dailyPrice(new BigDecimal("50"))
-        .description("").title("4번").mainImage("image").maxPersonCount(4).build();
+        .description("").title("4번").mainImage("image").maxPersonCount(4).isSuperHost(false)
+        .build();
     SearchRequest searchRequest = new SearchRequest();
 
     List<Room> rooms = Arrays.asList(room1, room2, room3, room4);
