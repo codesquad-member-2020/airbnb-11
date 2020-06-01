@@ -37,6 +37,7 @@ public class RoomDAO {
             .description(rs.getString("description"))
             .dailyPrice(new BigDecimal(rs.getString("daily_price")))
             .country(rs.getString("country"))
+            .isSuperHost(rs.getBoolean("is_super_host"))
             .build()
     );
   }
