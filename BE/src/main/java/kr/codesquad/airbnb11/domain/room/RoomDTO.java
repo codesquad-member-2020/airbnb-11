@@ -20,6 +20,7 @@ public class RoomDTO {
   private String description;
   private BigMoney dailyPrice;
   private String country;
+  private Boolean isSuperHost;
   private double rating;
   private Integer reviewCount;
 
@@ -32,6 +33,7 @@ public class RoomDTO {
     this.dailyPrice = BigMoneyConverter
         .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
+    this.isSuperHost = room.getSuperHost();
     this.rating = calculateReviewList(room.getReviewList());
     this.reviewCount = room.getReviewList().size();
   }
@@ -40,7 +42,6 @@ public class RoomDTO {
     double total = reviewList.stream().mapToDouble(Review::getRating).sum();
     double size = reviewList.size();
     return Math.round((total / size) * 100) / 100.0;
-
   }
 
   public static RoomDTO of(Room room) {
@@ -108,6 +109,14 @@ public class RoomDTO {
   public void setCountry(String country) {
     this.country = country;
   }
+  
+  public Boolean getSuperHost() {
+    return isSuperHost;
+  }
+
+  public void setSuperHost(Boolean superHost) {
+    this.isSuperHost = superHost;
+  }
 
   public double getRating() {
     return rating;
@@ -127,6 +136,7 @@ public class RoomDTO {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("isSuperHost", isSuperHost)
         .append("rating", rating)
         .append("reviewCount", reviewCount)
         .toString();

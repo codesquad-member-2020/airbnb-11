@@ -19,12 +19,13 @@ public class Room {
   private String description;
   private BigDecimal dailyPrice;
   private String country;
+  private Boolean isSuperHost;
 
   @MappedCollection(idColumn = "ROOM_ID", keyColumn = "REVIEW_KEY")
   private List<Review> reviewList = new ArrayList<>();
 
   private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country) {
+      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -32,6 +33,7 @@ public class Room {
     this.description = description;
     this.dailyPrice = dailyPrice;
     this.country = country;
+    this.isSuperHost = isSuperHost;
   }
 
   public static Builder builder() {
@@ -66,6 +68,10 @@ public class Room {
     return country;
   }
 
+  public Boolean getSuperHost() {
+    return isSuperHost;
+  }
+  
   public List<Review> getReviewList() {
     return reviewList;
   }
@@ -80,6 +86,7 @@ public class Room {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("isSuperHost", isSuperHost)
         .append("reviewList", reviewList)
         .toString();
   }
@@ -93,6 +100,7 @@ public class Room {
     private String description;
     private BigDecimal dailyPrice;
     private String country;
+    private Boolean isSuperHost;
 
     private Builder() {
     }
@@ -132,8 +140,14 @@ public class Room {
       return this;
     }
 
+    public Builder isSuperHost(Boolean isSuperHost) {
+      this.isSuperHost = isSuperHost;
+      return this;
+    }
+
     public Room build() {
-      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country);
+      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
+          isSuperHost);
     }
   }
 }

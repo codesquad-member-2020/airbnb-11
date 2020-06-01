@@ -1,9 +1,14 @@
 package kr.codesquad.airbnb11.common.config;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.util.List;
 import kr.codesquad.airbnb11.common.security.GithubKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -33,5 +38,15 @@ public class WebConfig implements WebMvcConfigurer {
         .allowedOrigins("*")
         .allowedHeaders("*")
         .allowCredentials(true);
+  }
+
+  // MockMvc가 한글 인코딩이 깨져서 발생하는 현상을 해결하기 위한 방법(1)
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.stream()
+        .filter(converter -> converter instanceof MappingJackson2HttpMessageConverter)
+        .findFirst()
+        .ifPresent(converter -> ((MappingJackson2HttpMessageConverter) converter)
+            .setDefaultCharset(UTF_8));
   }
 }
