@@ -33,7 +33,6 @@ function SearchNavigation({ history }) {
 
   function onNaviButtonClick(key) {
     dispatch(setFocusId(key));
-    console.log(key);
   }
 
   function onSearchButtonClick() {
