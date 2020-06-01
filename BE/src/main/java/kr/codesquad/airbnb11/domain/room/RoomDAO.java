@@ -1,5 +1,6 @@
 package kr.codesquad.airbnb11.domain.room;
 
+import static kr.codesquad.airbnb11.common.SQLKt.COUNT_ROOMS_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOMS_WITH_SEARCH_PARAMS;
 
 import java.math.BigDecimal;
@@ -40,5 +41,12 @@ public class RoomDAO {
             .isSuperHost(rs.getBoolean("is_super_host"))
             .build()
     );
+  }
+
+  public Integer countRoomsWithSearchParams(SearchRequest searchRequest) {
+    SqlParameterSource parameters = new MapSqlParameterSource(searchRequest.getParameterMap());
+    log.debug("parameters: {}", parameters);
+
+    return jdbcTemplate.queryForObject(COUNT_ROOMS_WITH_SEARCH_PARAMS, parameters, Integer.class);
   }
 }

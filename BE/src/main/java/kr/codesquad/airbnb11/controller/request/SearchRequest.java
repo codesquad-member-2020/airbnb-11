@@ -1,5 +1,7 @@
 package kr.codesquad.airbnb11.controller.request;
 
+import static kr.codesquad.airbnb11.common.SQLKt.OFFSET_COUNT;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,8 +17,10 @@ public class SearchRequest {
   private Integer adult;
   private Integer children;
   private Integer infants;
+  private int page;
 
   public SearchRequest() {
+    page = 1;
   }
 
   public SearchRequest(String checkIn, String checkOut, Integer priceMin, Integer priceMax,
@@ -86,6 +90,14 @@ public class SearchRequest {
     this.infants = infants;
   }
 
+  public int getPage() {
+    return page;
+  }
+
+  public void setPage(int page) {
+    this.page = page;
+  }
+
   // 유아는 guest인원에 포함하지 않음.
   @Nullable
   public Integer getMinPersonCount() {
@@ -107,6 +119,7 @@ public class SearchRequest {
     parameterMap.put("priceMin", this.getPriceMin());
     parameterMap.put("priceMax", this.getPriceMax());
     parameterMap.put("minPersonCount", this.getMinPersonCount());
+    parameterMap.put("offset", (OFFSET_COUNT * (this.getPage() - 1))); // MySQL LIMIT OFFSET
     return parameterMap;
   }
 
@@ -120,6 +133,7 @@ public class SearchRequest {
         .append("adult", adult)
         .append("children", children)
         .append("infants", infants)
+        .append("page", page)
         .toString();
   }
 }

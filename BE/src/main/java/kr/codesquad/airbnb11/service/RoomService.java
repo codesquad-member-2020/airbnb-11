@@ -1,11 +1,13 @@
 package kr.codesquad.airbnb11.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import kr.codesquad.airbnb11.controller.request.ReservationRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.domain.reservation.Reservation;
 import kr.codesquad.airbnb11.domain.reservation.ReservationRepository;
+import kr.codesquad.airbnb11.domain.room.Room;
 import kr.codesquad.airbnb11.domain.room.RoomDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,10 @@ public class RoomService {
   }
 
   public SearchResponse findAvailableRooms(SearchRequest searchRequest) {
-    SearchResponse searchResponse = new SearchResponse(
-        roomDAO.selectRoomsWithSearchParams(searchRequest));
+    Integer roomsCount = roomDAO.countRoomsWithSearchParams(searchRequest);
+    List<Room> rooms = roomDAO.selectRoomsWithSearchParams(searchRequest);
+
+    SearchResponse searchResponse = new SearchResponse(roomsCount, rooms);
     log.debug("검색 결과: {}", searchResponse);
     return searchResponse;
   }
