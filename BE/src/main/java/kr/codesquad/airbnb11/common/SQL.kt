@@ -12,9 +12,10 @@ SELECT r.id
      , r.description
      , r.daily_price
      , r.country
-     , r.location
      , r.user_id
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
+     , X(r.location) AS latitude
+     , Y(r.location) AS longitude
   FROM room       r
   INNER JOIN user u ON r.user_id = u.id
  WHERE r.id NOT IN (
