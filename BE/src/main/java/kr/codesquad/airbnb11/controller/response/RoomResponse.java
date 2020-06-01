@@ -13,6 +13,7 @@ public class RoomResponse {
   private String title;
   private BigDecimal dailyPrice;
   private String country;
+  private boolean isSuperHost;
 
   public RoomResponse() {
   }
@@ -24,6 +25,7 @@ public class RoomResponse {
     this.title = roomDTO.getTitle();
     this.dailyPrice = roomDTO.getDailyPriceFormatted();
     this.country = roomDTO.getCountry();
+    this.isSuperHost = roomDTO.getSuperHost();
   }
 
   public int getId() {
@@ -74,6 +76,14 @@ public class RoomResponse {
     this.country = country;
   }
 
+  public boolean getSuperHost() {
+    return isSuperHost;
+  }
+
+  public void setSuperHost(boolean superHost) {
+    isSuperHost = superHost;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -83,6 +93,7 @@ public class RoomResponse {
         .append("title", title)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("isSuperHost", isSuperHost)
         .toString();
   }
 
@@ -94,6 +105,7 @@ public class RoomResponse {
     private String title;
     private BigDecimal dailyPrice;
     private String country;
+    private boolean isSuperHost;
 
     private Builder() {
     }
@@ -132,6 +144,11 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder isSuperHost(boolean isSuperHost) {
+      this.isSuperHost = isSuperHost;
+      return this;
+    }
+
     public RoomResponse build() {
       RoomResponse roomResponse = new RoomResponse();
       roomResponse.setId(id);
@@ -140,6 +157,7 @@ public class RoomResponse {
       roomResponse.setTitle(title);
       roomResponse.setDailyPrice(dailyPrice);
       roomResponse.setCountry(country);
+      roomResponse.setSuperHost(isSuperHost);
       return roomResponse;
     }
   }
