@@ -20,7 +20,7 @@ public class Room {
   private BigDecimal dailyPrice;
   private String country;
 
-  @MappedCollection(idColumn = "ROOM_ID", keyColumn = "ID")
+  @MappedCollection(idColumn = "ROOM_ID", keyColumn = "REVIEW_KEY")
   private List<Review> reviewList = new ArrayList<>();
 
   private Room(Integer id, Integer maxPersonCount, String mainImage, String title,

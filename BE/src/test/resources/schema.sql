@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS room
     description      VARCHAR(500) DEFAULT '',
     daily_price      DECIMAL(10, 2),
     country          VARCHAR(50),
-    location         GEOMETRY(POINT),
+    location         GEOMETRY( POINT),
     user_id          INT
 );
 
@@ -39,9 +39,10 @@ CREATE TABLE IF NOT EXISTS reservation
 
 CREATE TABLE IF NOT EXISTS review
 (
-    id       INT PRIMARY KEY AUTO_INCREMENT,
-    rating   INT,
-    content  VARCHAR(500),
-    room_id  INT REFERENCES room (id),
-    guest_id INT REFERENCES user (id)
+    id         INT PRIMARY KEY AUTO_INCREMENT,
+    rating     INT,
+    content    VARCHAR(500),
+    review_key INT DEFAULT 0,
+    room_id    INT REFERENCES room (id),
+    guest_id   INT REFERENCES user (id)
 );
