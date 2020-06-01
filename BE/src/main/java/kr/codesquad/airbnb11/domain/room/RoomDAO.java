@@ -39,6 +39,8 @@ public class RoomDAO {
             .dailyPrice(new BigDecimal(rs.getString("daily_price")))
             .country(rs.getString("country"))
             .isSuperHost(rs.getBoolean("is_super_host"))
+            .latitude(new BigDecimal(rs.getString("latitude")))
+            .longitude(new BigDecimal(rs.getString("longitude")))
             .build()
     );
   }
