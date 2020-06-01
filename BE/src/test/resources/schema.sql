@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS room
     description      VARCHAR(500) DEFAULT '',
     daily_price      DECIMAL(10, 2),
     country          VARCHAR(50),
-    location         GEOMETRY( POINT),
+    location         GEOMETRY(POINT),
     user_id          INT
 );
 
