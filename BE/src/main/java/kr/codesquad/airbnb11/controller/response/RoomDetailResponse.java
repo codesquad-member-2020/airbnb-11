@@ -2,6 +2,7 @@ package kr.codesquad.airbnb11.controller.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import kr.codesquad.airbnb11.controller.request.RoomDetailRequest;
 import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -27,7 +28,7 @@ public class RoomDetailResponse {
   public RoomDetailResponse() {
   }
 
-  public RoomDetailResponse(RoomDTO roomDTO) {
+  public RoomDetailResponse(RoomDTO roomDTO, RoomDetailRequest roomDetailRequest) {
     this.roomId = roomDTO.getId();
     this.maxPersonCount = roomDTO.getMaxPersonCount();
     this.title = roomDTO.getTitle();
@@ -39,6 +40,10 @@ public class RoomDetailResponse {
     this.isSuperHost = roomDTO.getSuperHost();
     this.latitude = roomDTO.getLatitude();
     this.longitude = roomDTO.getLongitude();
+    this.guestCount = roomDetailRequest.getGuestCount();
+    this.infantCount = roomDetailRequest.getInfants();
+    this.checkIn = roomDetailRequest.getCheckIn();
+    this.checkOut = roomDetailRequest.getCheckOut();
   }
 
   public int getRoomId() {
