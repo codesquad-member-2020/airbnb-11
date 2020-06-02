@@ -1,6 +1,10 @@
 package kr.codesquad.airbnb11.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import kr.codesquad.airbnb11.domain.reservation.Reservation;
 import kr.codesquad.airbnb11.domain.reservation.ReservationRepository;
+import kr.codesquad.airbnb11.domain.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,5 +18,13 @@ public class ReservationService {
 
   public ReservationService(ReservationRepository reservationRepository) {
     this.reservationRepository = reservationRepository;
+  }
+
+  public List<Reservation> findUsersReservation(User user) {
+    log.debug("사용자의 Id: {}", user.getId());
+
+    return reservationRepository
+        .findAllByGuestIdAndReservationDateGreaterThanEqualOrderByReservationDate(user.getId(),
+            LocalDate.now());
   }
 }
