@@ -11,4 +11,7 @@ public interface ReservationRepository extends PagingAndSortingRepository<Reserv
 
   List<Reservation> findAllByGuestIdAndReservationDateLessThanOrderByReservationDate(
       Integer guestId, LocalDate date);
+
+  List<Reservation> deleteByGuestIdAndRoomIdAndReservationDateBetween(
+      Integer guestId, Integer roomId, LocalDate startDate, LocalDate endDate);
 }
