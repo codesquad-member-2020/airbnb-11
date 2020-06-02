@@ -16,10 +16,14 @@ public class Room {
   private String description;
   private BigDecimal dailyPrice;
   private String country;
+  private Boolean isSuperHost;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
 
   @PersistenceConstructor
-  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country) {
+  public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost,
+      BigDecimal latitude, BigDecimal longitude) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -27,6 +31,9 @@ public class Room {
     this.description = description;
     this.dailyPrice = dailyPrice;
     this.country = country;
+    this.isSuperHost = isSuperHost;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
   public static Builder builder() {
@@ -61,6 +68,18 @@ public class Room {
     return country;
   }
 
+  public Boolean getSuperHost() {
+    return isSuperHost;
+  }
+
+  public BigDecimal getLatitude() {
+    return this.latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return this.longitude;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -71,6 +90,9 @@ public class Room {
         .append("description", description)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("isSuperHost", isSuperHost)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 
@@ -83,6 +105,9 @@ public class Room {
     private String description;
     private BigDecimal dailyPrice;
     private String country;
+    private Boolean isSuperHost;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     private Builder() {
     }
@@ -122,8 +147,24 @@ public class Room {
       return this;
     }
 
+    public Builder isSuperHost(Boolean isSuperHost) {
+      this.isSuperHost = isSuperHost;
+      return this;
+    }
+
+    public Builder latitude(BigDecimal latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(BigDecimal longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
     public Room build() {
-      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country);
+      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
+          isSuperHost, latitude, longitude);
     }
   }
 }
