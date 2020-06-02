@@ -1,7 +1,9 @@
 package kr.codesquad.airbnb11.controller.response;
 
 import java.math.BigDecimal;
+import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class RoomResponse {
 
@@ -11,6 +13,24 @@ public class RoomResponse {
   private String title;
   private BigDecimal dailyPrice;
   private String country;
+  private boolean isSuperHost;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
+
+  public RoomResponse() {
+  }
+
+  public RoomResponse(RoomDTO roomDTO) {
+    this.id = roomDTO.getId();
+    this.maxPersonCount = roomDTO.getMaxPersonCount();
+    this.mainImage = roomDTO.getMainImage();
+    this.title = roomDTO.getTitle();
+    this.dailyPrice = roomDTO.getDailyPriceFormatted();
+    this.country = roomDTO.getCountry();
+    this.isSuperHost = roomDTO.getSuperHost();
+    this.latitude = roomDTO.getLatitude();
+    this.longitude = roomDTO.getLongitude();
+  }
 
   public int getId() {
     return id;
@@ -60,15 +80,42 @@ public class RoomResponse {
     this.country = country;
   }
 
+  public boolean getSuperHost() {
+    return isSuperHost;
+  }
+
+  public void setSuperHost(boolean superHost) {
+    isSuperHost = superHost;
+  }
+
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
+  }
+
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
         .append("title", title)
         .append("dailyPrice", dailyPrice)
         .append("country", country)
+        .append("isSuperHost", isSuperHost)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 
@@ -80,6 +127,9 @@ public class RoomResponse {
     private String title;
     private BigDecimal dailyPrice;
     private String country;
+    private boolean isSuperHost;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     private Builder() {
     }
@@ -118,6 +168,21 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder isSuperHost(boolean isSuperHost) {
+      this.isSuperHost = isSuperHost;
+      return this;
+    }
+
+    public Builder latitude(BigDecimal latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(BigDecimal longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
     public RoomResponse build() {
       RoomResponse roomResponse = new RoomResponse();
       roomResponse.setId(id);
@@ -126,6 +191,9 @@ public class RoomResponse {
       roomResponse.setTitle(title);
       roomResponse.setDailyPrice(dailyPrice);
       roomResponse.setCountry(country);
+      roomResponse.setSuperHost(isSuperHost);
+      roomResponse.setLatitude(latitude);
+      roomResponse.setLongitude(longitude);
       return roomResponse;
     }
   }

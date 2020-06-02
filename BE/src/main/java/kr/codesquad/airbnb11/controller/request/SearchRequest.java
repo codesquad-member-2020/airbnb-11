@@ -1,16 +1,38 @@
 package kr.codesquad.airbnb11.controller.request;
 
+import static kr.codesquad.airbnb11.common.SQLKt.OFFSET_COUNT;
+
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.lang.Nullable;
 
 public class SearchRequest {
 
   private String checkIn;
   private String checkOut;
-  private String priceMin;
-  private String priceMax;
-  private int adult;
-  private int children;
-  private int infants;
+  private Integer priceMin;
+  private Integer priceMax;
+  private Integer adult;
+  private Integer children;
+  private Integer infants;
+  private int page;
+
+  public SearchRequest() {
+    page = 1;
+  }
+
+  public SearchRequest(String checkIn, String checkOut, Integer priceMin, Integer priceMax,
+      Integer adult, Integer children, Integer infants) {
+    this.checkIn = checkIn;
+    this.checkOut = checkOut;
+    this.priceMin = priceMin;
+    this.priceMax = priceMax;
+    this.adult = adult;
+    this.children = children;
+    this.infants = infants;
+  }
 
   public String getCheckIn() {
     return checkIn;
@@ -28,49 +50,82 @@ public class SearchRequest {
     this.checkOut = checkOut;
   }
 
-  public String getPriceMin() {
+  public Integer getPriceMin() {
     return priceMin;
   }
 
-  public void setPriceMin(String priceMin) {
+  public void setPriceMin(Integer priceMin) {
     this.priceMin = priceMin;
   }
 
-  public String getPriceMax() {
+  public Integer getPriceMax() {
     return priceMax;
   }
 
-  public void setPriceMax(String priceMax) {
+  public void setPriceMax(Integer priceMax) {
     this.priceMax = priceMax;
   }
 
-  public int getAdult() {
+  public Integer getAdult() {
     return adult;
   }
 
-  public void setAdult(int adult) {
+  public void setAdult(Integer adult) {
     this.adult = adult;
   }
 
-  public int getChildren() {
+  public Integer getChildren() {
     return children;
   }
 
-  public void setChildren(int children) {
+  public void setChildren(Integer children) {
     this.children = children;
   }
 
-  public int getInfants() {
+  public Integer getInfants() {
     return infants;
   }
 
-  public void setInfants(int infants) {
+  public void setInfants(Integer infants) {
     this.infants = infants;
+  }
+
+  public int getPage() {
+    return page;
+  }
+
+  public void setPage(int page) {
+    this.page = page;
+  }
+
+  // 유아는 guest인원에 포함하지 않음.
+  @Nullable
+  public Integer getMinPersonCount() {
+    if (this.adult == null && this.children == null) {
+      return null;
+    } else if (this.adult == null) {
+      return this.children;
+    } else if (this.children == null) {
+      return this.adult;
+    } else {
+      return this.adult + this.children;
+    }
+  }
+
+  public Map<String, Object> getParameterMap() {
+    Map<String, Object> parameterMap = new HashMap<>();
+    parameterMap.put("checkIn", this.getCheckIn());
+    parameterMap.put("checkOut", this.getCheckOut());
+    parameterMap.put("priceMin", this.getPriceMin());
+    parameterMap.put("priceMax", this.getPriceMax());
+    parameterMap.put("minPersonCount", this.getMinPersonCount());
+    parameterMap.put("offset", (OFFSET_COUNT * (this.getPage() - 1))); // MySQL LIMIT OFFSET
+    return parameterMap;
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("checkIn", checkIn)
         .append("checkOut", checkOut)
         .append("priceMin", priceMin)
@@ -78,6 +133,7 @@ public class SearchRequest {
         .append("adult", adult)
         .append("children", children)
         .append("infants", infants)
+        .append("page", page)
         .toString();
   }
 }

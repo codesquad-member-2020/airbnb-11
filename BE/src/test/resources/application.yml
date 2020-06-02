@@ -3,7 +3,7 @@ spring:
     enabled: false
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:airbnb;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    url: jdbc:h2:mem:testdb;
     username: sa
     password:
 
@@ -12,3 +12,9 @@ logging:
     web: debug
     sql: debug
     kr.codesquad.airbnb11: debug
+
+host: localhost:8080
+github:
+  client-id: 9875df2fa499cdb9ff25
+  client-secret: d1dff8a224738636f3fb0e6a3781b5ee8c17f494
+
