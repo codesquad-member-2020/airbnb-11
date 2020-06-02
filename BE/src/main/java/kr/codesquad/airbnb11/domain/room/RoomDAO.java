@@ -76,6 +76,8 @@ public class RoomDAO {
             .commission(new BigDecimal(rs.getString("commission")))
             .country(rs.getString("country"))
             .isSuperHost(rs.getBoolean("is_super_host"))
+            .rating(rs.getDouble("rating"))
+            .reviewCount(rs.getInt("review_count"))
             .latitude(new BigDecimal(rs.getString("latitude")))
             .longitude(new BigDecimal(rs.getString("longitude")))
             .build()

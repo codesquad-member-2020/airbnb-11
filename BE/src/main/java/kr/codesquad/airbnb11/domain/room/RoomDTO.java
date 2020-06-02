@@ -169,8 +169,16 @@ public class RoomDTO {
     return rating;
   }
 
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
+
   public int getReviewCount() {
     return reviewCount;
+  }
+
+  public void setReviewCount(int reviewCount) {
+    this.reviewCount = reviewCount;
   }
 
   public BigDecimal getLatitude() {

@@ -62,6 +62,8 @@ SELECT r.id
      , r.service_price
      , r.commission
      , r.country
+     , r.rating
+     , r.review_count
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
      , X(r.location) AS latitude
      , Y(r.location) AS longitude

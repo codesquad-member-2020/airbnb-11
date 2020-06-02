@@ -23,6 +23,8 @@ public class RoomDetailResponse {
   private BigDecimal commission;
   private String country;
   private boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
 
@@ -39,6 +41,8 @@ public class RoomDetailResponse {
     this.commission = roomDTO.getCommissionFormatted();
     this.country = roomDTO.getCountry();
     this.isSuperHost = roomDTO.getSuperHost();
+    this.rating = roomDTO.getRating();
+    this.reviewCount = roomDTO.getReviewCount();
     this.latitude = roomDTO.getLatitude();
     this.longitude = roomDTO.getLongitude();
     this.guestCount = roomDetailRequest.getGuestCount();
@@ -176,6 +180,22 @@ public class RoomDetailResponse {
     this.longitude = longitude;
   }
 
+  public double getRating() {
+    return rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
+  public void setReviewCount(int reviewCount) {
+    this.reviewCount = reviewCount;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -193,6 +213,8 @@ public class RoomDetailResponse {
         .append("commission", commission)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
         .toString();
@@ -214,6 +236,8 @@ public class RoomDetailResponse {
     private BigDecimal commission;
     private String country;
     private boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
 
@@ -294,6 +318,16 @@ public class RoomDetailResponse {
       return this;
     }
 
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
+      return this;
+    }
+
     public Builder latitude(BigDecimal latitude) {
       this.latitude = latitude;
       return this;
@@ -319,6 +353,8 @@ public class RoomDetailResponse {
       roomDetailResponse.setServicePrice(servicePrice);
       roomDetailResponse.setCommission(commission);
       roomDetailResponse.setCountry(country);
+      roomDetailResponse.setRating(rating);
+      roomDetailResponse.setReviewCount(reviewCount);
       roomDetailResponse.setLatitude(latitude);
       roomDetailResponse.setLongitude(longitude);
       roomDetailResponse.isSuperHost = this.isSuperHost;
