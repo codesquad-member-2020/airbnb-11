@@ -1,5 +1,7 @@
 package kr.codesquad.airbnb11.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import kr.codesquad.airbnb11.domain.user.User;
 import kr.codesquad.airbnb11.domain.user.UserDTO;
 import kr.codesquad.airbnb11.service.JwtService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = "Login")
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -32,6 +35,7 @@ public class LoginController {
     this.jwtService = jwtService;
   }
 
+  @ApiOperation(value = "", notes = "Github 로그인")
   @GetMapping
   public ResponseEntity<String> loginWithGithub(
       @CookieValue(value = "jwt", required = false) String jwt) {
@@ -44,6 +48,7 @@ public class LoginController {
     return new ResponseEntity<>("redirect", headers, HttpStatus.SEE_OTHER);
   }
 
+  @ApiOperation(value = "", notes = "Github callBack")
   @GetMapping("/oauth")
   public ResponseEntity<String> oauthAuthentication(@RequestParam("code") String code) {
     String accessToken = authService.getTokenFromCode(code).getAccessToken();
