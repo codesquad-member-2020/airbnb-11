@@ -37,7 +37,20 @@ public class ReservationRestController {
     User user = userRepository.findById(1).orElseThrow(UserNotFoundException::new);
     log.debug("사용자 정보: {}", user);
 
-    List<Reservation> reservations = reservationService.findUsersReservation(user);
+    List<Reservation> reservations = reservationService.findUsersUpcomingReservation(user);
+    log.debug("사용자의 예약 목록: {}", reservations);
+
+    return reservations;
+  }
+
+  @ApiOperation(value = "", notes = "유저의 과거 예약정보 조회기능")
+  @GetMapping("/past")
+  public List<Reservation> showPastReservations() {
+    // TODO: user 정보 받아서 User에 대한 것만 조회되도록 변경
+    User user = userRepository.findById(1).orElseThrow(UserNotFoundException::new);
+    log.debug("사용자 정보: {}", user);
+
+    List<Reservation> reservations = reservationService.findUsersPastReservation(user);
     log.debug("사용자의 예약 목록: {}", reservations);
 
     return reservations;

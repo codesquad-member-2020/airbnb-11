@@ -7,6 +7,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface ReservationRepository extends PagingAndSortingRepository<Reservation, Integer> {
 
   List<Reservation> findAllByGuestIdAndReservationDateGreaterThanEqualOrderByReservationDate(
-      Integer guestId,
-      LocalDate date);
+      Integer guestId, LocalDate date);
+
+  List<Reservation> findAllByGuestIdAndReservationDateLessThanOrderByReservationDate(
+      Integer guestId, LocalDate date);
 }

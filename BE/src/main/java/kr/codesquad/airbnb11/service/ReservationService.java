@@ -20,11 +20,19 @@ public class ReservationService {
     this.reservationRepository = reservationRepository;
   }
 
-  public List<Reservation> findUsersReservation(User user) {
+  public List<Reservation> findUsersUpcomingReservation(User user) {
     log.debug("사용자의 Id: {}", user.getId());
 
     return reservationRepository
         .findAllByGuestIdAndReservationDateGreaterThanEqualOrderByReservationDate(user.getId(),
+            LocalDate.now());
+  }
+
+  public List<Reservation> findUsersPastReservation(User user) {
+    log.debug("사용자의 Id: {}", user.getId());
+
+    return reservationRepository
+        .findAllByGuestIdAndReservationDateLessThanOrderByReservationDate(user.getId(),
             LocalDate.now());
   }
 }
