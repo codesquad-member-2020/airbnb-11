@@ -22,7 +22,7 @@ public class SpringFoxConfig {
         .host(host)
         .select()
         .apis(RequestHandlerSelectors.basePackage("kr.codesquad.airbnb11.controller"))
-        .paths(PathSelectors.ant("/rooms/*"))
+        .paths(PathSelectors.ant("/**"))
         .build();
   }
 }

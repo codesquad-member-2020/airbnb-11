@@ -1,5 +1,7 @@
 package kr.codesquad.airbnb11.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import kr.codesquad.airbnb11.common.error.ApiResult;
 import kr.codesquad.airbnb11.controller.request.ReservationRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = "Room")
 @RequestMapping("/rooms")
 @RestController
 public class RoomRestController {
@@ -26,6 +29,7 @@ public class RoomRestController {
     this.roomService = roomService;
   }
 
+  @ApiOperation(value = "", notes = "검색 기능")
   @GetMapping("/search")
   public SearchResponse searchRooms(@ModelAttribute SearchRequest searchRequest) {
     log.debug("searchRequest: {}", searchRequest);
@@ -35,6 +39,7 @@ public class RoomRestController {
     return searchResponse;
   }
 
+  @ApiOperation(value = "", notes = "예약 기능")
   @PostMapping("/reservation")
   public ApiResult<String> reserveRoom(@RequestBody ReservationRequest reservationRequest) {
     log.debug("예약 요청 객체: {}", reservationRequest);
