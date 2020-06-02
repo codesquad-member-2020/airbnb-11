@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
+    "leaflet": "^1.6.0",
     "react": "^16.13.1",
     "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
+    "react-leaflet": "^2.7.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
