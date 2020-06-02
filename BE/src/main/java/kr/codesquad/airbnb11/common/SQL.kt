@@ -14,6 +14,8 @@ SELECT r.id
      , r.country
      , r.location
      , r.user_id
+     , r.rating
+     , r.review_count
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
   FROM room       r
   INNER JOIN user u ON r.user_id = u.id

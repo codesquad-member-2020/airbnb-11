@@ -3,9 +3,7 @@ package kr.codesquad.airbnb11.domain.room;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
-import java.util.List;
 import kr.codesquad.airbnb11.common.utils.BigMoneyConverter;
-import kr.codesquad.airbnb11.domain.review.Review;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.joda.money.BigMoney;
@@ -22,7 +20,7 @@ public class RoomDTO {
   private String country;
   private Boolean isSuperHost;
   private double rating;
-  private Integer reviewCount;
+  private int reviewCount;
 
   private RoomDTO(Room room) {
     this.id = room.getId();
@@ -34,14 +32,8 @@ public class RoomDTO {
         .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
     this.isSuperHost = room.getSuperHost();
-    this.rating = calculateReviewList(room.getReviewList());
-    this.reviewCount = room.getReviewList().size();
-  }
-
-  private double calculateReviewList(List<Review> reviewList) {
-    double total = reviewList.stream().mapToDouble(Review::getRating).sum();
-    double size = reviewList.size();
-    return Math.round((total / size) * 100) / 100.0;
+    this.rating = room.getRating();
+    this.reviewCount = room.getReviewCount();
   }
 
   public static RoomDTO of(Room room) {
@@ -109,7 +101,7 @@ public class RoomDTO {
   public void setCountry(String country) {
     this.country = country;
   }
-  
+
   public Boolean getSuperHost() {
     return isSuperHost;
   }
@@ -122,7 +114,7 @@ public class RoomDTO {
     return rating;
   }
 
-  public Integer getReviewCount() {
+  public int getReviewCount() {
     return reviewCount;
   }
 

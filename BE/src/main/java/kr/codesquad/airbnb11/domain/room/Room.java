@@ -1,13 +1,8 @@
 package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import kr.codesquad.airbnb11.domain.review.Review;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 
 public class Room {
 
@@ -20,12 +15,12 @@ public class Room {
   private BigDecimal dailyPrice;
   private String country;
   private Boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
 
-  @MappedCollection(idColumn = "ROOM_ID", keyColumn = "REVIEW_KEY")
-  private List<Review> reviewList = new ArrayList<>();
-
-  private Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost) {
+  public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
+      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost, double rating,
+      int reviewCount) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -34,6 +29,8 @@ public class Room {
     this.dailyPrice = dailyPrice;
     this.country = country;
     this.isSuperHost = isSuperHost;
+    this.rating = rating;
+    this.reviewCount = reviewCount;
   }
 
   public static Builder builder() {
@@ -71,14 +68,18 @@ public class Room {
   public Boolean getSuperHost() {
     return isSuperHost;
   }
-  
-  public List<Review> getReviewList() {
-    return reviewList;
+
+  public double getRating() {
+    return rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
@@ -87,7 +88,8 @@ public class Room {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
-        .append("reviewList", reviewList)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .toString();
   }
 
@@ -101,6 +103,8 @@ public class Room {
     private BigDecimal dailyPrice;
     private String country;
     private Boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
 
     private Builder() {
     }
@@ -145,9 +149,19 @@ public class Room {
       return this;
     }
 
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
+      return this;
+    }
+
     public Room build() {
       return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
-          isSuperHost);
+          isSuperHost, rating, reviewCount);
     }
   }
 }
