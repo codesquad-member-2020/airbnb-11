@@ -19,6 +19,8 @@ public class RoomDTO {
   private BigMoney dailyPrice;
   private String country;
   private Boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
 
@@ -32,6 +34,8 @@ public class RoomDTO {
         .convertUSDToKRW(BigMoney.of(CurrencyUnit.USD, room.getDailyPrice()));
     this.country = room.getCountry();
     this.isSuperHost = room.getSuperHost();
+    this.rating = room.getRating();
+    this.reviewCount = room.getReviewCount();
     this.latitude = room.getLatitude();
     this.longitude = room.getLongitude();
   }
@@ -107,7 +111,15 @@ public class RoomDTO {
   }
 
   public void setSuperHost(Boolean superHost) {
-    isSuperHost = superHost;
+    this.isSuperHost = superHost;
+  }
+
+  public double getRating() {
+    return rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
   }
 
   public BigDecimal getLatitude() {
@@ -137,6 +149,8 @@ public class RoomDTO {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
         .toString();

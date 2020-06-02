@@ -2,9 +2,7 @@ package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 public class Room {
 
@@ -17,13 +15,15 @@ public class Room {
   private BigDecimal dailyPrice;
   private String country;
   private Boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
 
-  @PersistenceConstructor
+
   public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, String country, Boolean isSuperHost,
-      BigDecimal latitude, BigDecimal longitude) {
+      double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -32,6 +32,8 @@ public class Room {
     this.dailyPrice = dailyPrice;
     this.country = country;
     this.isSuperHost = isSuperHost;
+    this.rating = rating;
+    this.reviewCount = reviewCount;
     this.latitude = latitude;
     this.longitude = longitude;
   }
@@ -72,6 +74,14 @@ public class Room {
     return isSuperHost;
   }
 
+  public double getRating() {
+    return rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
   public BigDecimal getLatitude() {
     return this.latitude;
   }
@@ -82,7 +92,7 @@ public class Room {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
@@ -91,6 +101,8 @@ public class Room {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
         .toString();
@@ -106,8 +118,11 @@ public class Room {
     private BigDecimal dailyPrice;
     private String country;
     private Boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
+
 
     private Builder() {
     }
@@ -152,6 +167,16 @@ public class Room {
       return this;
     }
 
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
+      return this;
+    }
+
     public Builder latitude(BigDecimal latitude) {
       this.latitude = latitude;
       return this;
@@ -164,7 +189,7 @@ public class Room {
 
     public Room build() {
       return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
-          isSuperHost, latitude, longitude);
+          isSuperHost, rating, reviewCount, latitude, longitude);
     }
   }
 }

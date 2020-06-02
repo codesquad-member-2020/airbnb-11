@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS room
     daily_price      DECIMAL(10, 2)          NOT NULL COMMENT '하루 숙박료 USD',
     country          VARCHAR(50)             NOT NULL COMMENT '국가명',
     location         POINT                   NOT NULL COMMENT '경위도 POINT(X, Y) X는 위도, Y는 경도 SELECT X(location) AS latitude, Y(location) AS longitude FROM room;',
+    rating           DOUBLE                  NOT NULL COMMENT '별점',
+    review_count     INT                     NOT NULL COMMENT '리뷰 개수',
     user_id          INT                     NOT NULL,
     CONSTRAINT room_pk
         PRIMARY KEY (id),
@@ -59,20 +61,3 @@ CREATE TABLE IF NOT EXISTS reservation
 
 CREATE UNIQUE INDEX reservation_unique_index ON reservation (reservation_date, room_id);
 CREATE INDEX reservation_date_index ON reservation (reservation_date);
-
-# 리뷰 정보를 저장할 테이블 생성
-CREATE TABLE IF NOT EXISTS review
-(
-    id       INT AUTO_INCREMENT,
-    rating   INT          NOT NULL COMMENT '별점 1~5점',
-    content  VARCHAR(500) NOT NULL COMMENT '리뷰 내용',
-    room_id  INT          NOT NULL COMMENT '숙소 id',
-    guest_id INT          NOT NULL COMMENT '손님의 id',
-    CONSTRAINT review_pk
-        PRIMARY KEY (id),
-    CONSTRAINT review_room_id_fk
-        FOREIGN KEY (room_id) REFERENCES room (id),
-    CONSTRAINT review_user_id_fk
-        FOREIGN KEY (guest_id) REFERENCES user (id)
-)
-    COMMENT '리뷰를 저장하는 테이블';

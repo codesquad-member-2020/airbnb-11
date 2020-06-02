@@ -13,6 +13,8 @@ SELECT r.id
      , r.daily_price
      , r.country
      , r.user_id
+     , r.rating
+     , r.review_count
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
      , X(r.location) AS latitude
      , Y(r.location) AS longitude

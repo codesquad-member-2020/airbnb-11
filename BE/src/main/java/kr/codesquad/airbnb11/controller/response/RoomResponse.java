@@ -14,6 +14,8 @@ public class RoomResponse {
   private BigDecimal dailyPrice;
   private String country;
   private boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
 
@@ -28,6 +30,8 @@ public class RoomResponse {
     this.dailyPrice = roomDTO.getDailyPriceFormatted();
     this.country = roomDTO.getCountry();
     this.isSuperHost = roomDTO.getSuperHost();
+    this.rating = roomDTO.getRating();
+    this.reviewCount = roomDTO.getReviewCount();
     this.latitude = roomDTO.getLatitude();
     this.longitude = roomDTO.getLongitude();
   }
@@ -88,6 +92,22 @@ public class RoomResponse {
     isSuperHost = superHost;
   }
 
+  public double getRating() {
+    return rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
+  public void setReviewCount(int reviewCount) {
+    this.reviewCount = reviewCount;
+  }
+
   public BigDecimal getLatitude() {
     return latitude;
   }
@@ -114,6 +134,8 @@ public class RoomResponse {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
         .toString();
@@ -128,6 +150,8 @@ public class RoomResponse {
     private BigDecimal dailyPrice;
     private String country;
     private boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
 
@@ -173,6 +197,16 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
+      return this;
+    }
+
     public Builder latitude(BigDecimal latitude) {
       this.latitude = latitude;
       return this;
@@ -191,6 +225,8 @@ public class RoomResponse {
       roomResponse.setTitle(title);
       roomResponse.setDailyPrice(dailyPrice);
       roomResponse.setCountry(country);
+      roomResponse.setRating(rating);
+      roomResponse.setReviewCount(reviewCount);
       roomResponse.setSuperHost(isSuperHost);
       roomResponse.setLatitude(latitude);
       roomResponse.setLongitude(longitude);
