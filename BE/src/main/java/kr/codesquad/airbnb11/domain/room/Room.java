@@ -17,10 +17,13 @@ public class Room {
   private Boolean isSuperHost;
   private double rating;
   private int reviewCount;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
+
 
   public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost, double rating,
-      int reviewCount) {
+      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost,
+      double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -31,6 +34,8 @@ public class Room {
     this.isSuperHost = isSuperHost;
     this.rating = rating;
     this.reviewCount = reviewCount;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
   public static Builder builder() {
@@ -77,6 +82,14 @@ public class Room {
     return reviewCount;
   }
 
+  public BigDecimal getLatitude() {
+    return this.latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return this.longitude;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this)
@@ -90,6 +103,8 @@ public class Room {
         .append("isSuperHost", isSuperHost)
         .append("rating", rating)
         .append("reviewCount", reviewCount)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 
@@ -105,6 +120,9 @@ public class Room {
     private Boolean isSuperHost;
     private double rating;
     private int reviewCount;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+
 
     private Builder() {
     }
@@ -159,9 +177,19 @@ public class Room {
       return this;
     }
 
+    public Builder latitude(BigDecimal latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(BigDecimal longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
     public Room build() {
       return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
-          isSuperHost, rating, reviewCount);
+          isSuperHost, rating, reviewCount, latitude, longitude);
     }
   }
 }

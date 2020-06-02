@@ -21,6 +21,8 @@ public class RoomDTO {
   private Boolean isSuperHost;
   private double rating;
   private int reviewCount;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
 
   private RoomDTO(Room room) {
     this.id = room.getId();
@@ -34,6 +36,8 @@ public class RoomDTO {
     this.isSuperHost = room.getSuperHost();
     this.rating = room.getRating();
     this.reviewCount = room.getReviewCount();
+    this.latitude = room.getLatitude();
+    this.longitude = room.getLongitude();
   }
 
   public static RoomDTO of(Room room) {
@@ -118,6 +122,22 @@ public class RoomDTO {
     return reviewCount;
   }
 
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -131,6 +151,8 @@ public class RoomDTO {
         .append("isSuperHost", isSuperHost)
         .append("rating", rating)
         .append("reviewCount", reviewCount)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 }

@@ -16,6 +16,8 @@ public class RoomResponse {
   private boolean isSuperHost;
   private double rating;
   private int reviewCount;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
 
   public RoomResponse() {
   }
@@ -30,6 +32,8 @@ public class RoomResponse {
     this.isSuperHost = roomDTO.getSuperHost();
     this.rating = roomDTO.getRating();
     this.reviewCount = roomDTO.getReviewCount();
+    this.latitude = roomDTO.getLatitude();
+    this.longitude = roomDTO.getLongitude();
   }
 
   public int getId() {
@@ -104,6 +108,22 @@ public class RoomResponse {
     this.reviewCount = reviewCount;
   }
 
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -116,6 +136,8 @@ public class RoomResponse {
         .append("isSuperHost", isSuperHost)
         .append("rating", rating)
         .append("reviewCount", reviewCount)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 
@@ -130,6 +152,8 @@ public class RoomResponse {
     private boolean isSuperHost;
     private double rating;
     private int reviewCount;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     private Builder() {
     }
@@ -183,6 +207,16 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder latitude(BigDecimal latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(BigDecimal longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
     public RoomResponse build() {
       RoomResponse roomResponse = new RoomResponse();
       roomResponse.setId(id);
@@ -194,6 +228,8 @@ public class RoomResponse {
       roomResponse.setRating(rating);
       roomResponse.setReviewCount(reviewCount);
       roomResponse.setSuperHost(isSuperHost);
+      roomResponse.setLatitude(latitude);
+      roomResponse.setLongitude(longitude);
       return roomResponse;
     }
   }
