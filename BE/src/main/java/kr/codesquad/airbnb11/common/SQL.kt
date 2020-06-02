@@ -11,6 +11,9 @@ SELECT r.id
      , r.title
      , r.description
      , r.daily_price
+     , r.cleaning_price
+     , r.service_price
+     , r.commission
      , r.country
      , r.user_id
      , r.rating
