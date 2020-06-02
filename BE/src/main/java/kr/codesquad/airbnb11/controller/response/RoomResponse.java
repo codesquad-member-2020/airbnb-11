@@ -14,6 +14,8 @@ public class RoomResponse {
   private BigDecimal dailyPrice;
   private String country;
   private boolean isSuperHost;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
 
   public RoomResponse() {
   }
@@ -26,6 +28,8 @@ public class RoomResponse {
     this.dailyPrice = roomDTO.getDailyPriceFormatted();
     this.country = roomDTO.getCountry();
     this.isSuperHost = roomDTO.getSuperHost();
+    this.latitude = roomDTO.getLatitude();
+    this.longitude = roomDTO.getLongitude();
   }
 
   public int getId() {
@@ -84,6 +88,22 @@ public class RoomResponse {
     isSuperHost = superHost;
   }
 
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -94,6 +114,8 @@ public class RoomResponse {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 
@@ -106,6 +128,8 @@ public class RoomResponse {
     private BigDecimal dailyPrice;
     private String country;
     private boolean isSuperHost;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     private Builder() {
     }
@@ -149,6 +173,16 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder latitude(BigDecimal latitude) {
+      this.latitude = latitude;
+      return this;
+    }
+
+    public Builder longitude(BigDecimal longitude) {
+      this.longitude = longitude;
+      return this;
+    }
+
     public RoomResponse build() {
       RoomResponse roomResponse = new RoomResponse();
       roomResponse.setId(id);
@@ -158,6 +192,8 @@ public class RoomResponse {
       roomResponse.setDailyPrice(dailyPrice);
       roomResponse.setCountry(country);
       roomResponse.setSuperHost(isSuperHost);
+      roomResponse.setLatitude(latitude);
+      roomResponse.setLongitude(longitude);
       return roomResponse;
     }
   }
