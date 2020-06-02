@@ -1,14 +1,21 @@
 package kr.codesquad.airbnb11.controller.request;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class RoomDetailRequest {
 
   private int roomId;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate checkIn;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate checkOut;
+
   private Integer adult;
   private Integer children;
   private Integer infants;
@@ -82,6 +89,10 @@ public class RoomDetailRequest {
     } else {
       return this.adult + this.children;
     }
+  }
+
+  public int daysBetweenCheckInCheckOut() {
+    return (int) ChronoUnit.DAYS.between(this.checkIn, this.checkOut) + 1;
   }
 
   @Override

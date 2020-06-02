@@ -61,7 +61,7 @@ public class RoomDAO {
     SqlParameterSource parameters = new MapSqlParameterSource("id", roomDetailRequest.getRoomId());
     log.debug("parameters: {}", parameters);
 
-    return jdbcTemplate.query(SELECT_ROOM_DETAIL_BY_ID, (rs, rowNum) ->
+    return jdbcTemplate.query(SELECT_ROOM_DETAIL_BY_ID, parameters, (rs, rowNum) ->
         Room.builder()
             .id(rs.getInt("id"))
             .maxPersonCount(rs.getInt("max_person_count"))

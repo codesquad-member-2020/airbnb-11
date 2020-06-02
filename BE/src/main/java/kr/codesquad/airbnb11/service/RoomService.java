@@ -2,13 +2,17 @@ package kr.codesquad.airbnb11.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import kr.codesquad.airbnb11.common.error.exception.EntityNotFoundException;
 import kr.codesquad.airbnb11.controller.request.ReservationRequest;
+import kr.codesquad.airbnb11.controller.request.RoomDetailRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
+import kr.codesquad.airbnb11.controller.response.RoomDetailResponse;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.domain.reservation.Reservation;
 import kr.codesquad.airbnb11.domain.reservation.ReservationRepository;
 import kr.codesquad.airbnb11.domain.room.Room;
 import kr.codesquad.airbnb11.domain.room.RoomDAO;
+import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -51,5 +55,13 @@ public class RoomService {
       reservation = reservationRepository.save(reservation);
       log.debug("DB 저장 후, 예약정보: {}", reservation);
     }
+  }
+
+  public RoomDetailResponse findRoomDetailByRoomId(RoomDetailRequest roomDetailRequest) {
+    RoomDTO roomDTO = RoomDTO.of(roomDAO.selectRoomDetailById(roomDetailRequest)
+        .orElseThrow(() -> new EntityNotFoundException("해당하는 방이 존재하지 않아요!")));
+    log.debug("방 검색 결과: {}", roomDTO);
+
+    return new RoomDetailResponse(roomDTO, roomDetailRequest);
   }
 }

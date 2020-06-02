@@ -13,6 +13,7 @@ public class RoomDetailResponse {
   private int maxPersonCount;
   private int guestCount;
   private int infantCount;
+  private int days;
   private LocalDate checkIn;
   private LocalDate checkOut;
   private String title;
@@ -44,6 +45,7 @@ public class RoomDetailResponse {
     this.infantCount = roomDetailRequest.getInfants();
     this.checkIn = roomDetailRequest.getCheckIn();
     this.checkOut = roomDetailRequest.getCheckOut();
+    this.days = roomDetailRequest.daysBetweenCheckInCheckOut();
   }
 
   public int getRoomId() {
@@ -76,6 +78,14 @@ public class RoomDetailResponse {
 
   public void setInfantCount(int infantCount) {
     this.infantCount = infantCount;
+  }
+
+  public int getDays() {
+    return days;
+  }
+
+  public void setDays(int days) {
+    this.days = days;
   }
 
   public LocalDate getCheckIn() {
@@ -173,6 +183,7 @@ public class RoomDetailResponse {
         .append("maxPersonCount", maxPersonCount)
         .append("guestCount", guestCount)
         .append("infantCount", infantCount)
+        .append("days", days)
         .append("checkIn", checkIn)
         .append("checkOut", checkOut)
         .append("title", title)
@@ -193,6 +204,7 @@ public class RoomDetailResponse {
     private int maxPersonCount;
     private int guestCount;
     private int infantCount;
+    private int days;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private String title;
@@ -229,6 +241,11 @@ public class RoomDetailResponse {
 
     public Builder infantCount(int infantCount) {
       this.infantCount = infantCount;
+      return this;
+    }
+
+    public Builder days(int days) {
+      this.days = days;
       return this;
     }
 
@@ -293,6 +310,7 @@ public class RoomDetailResponse {
       roomDetailResponse.setMaxPersonCount(maxPersonCount);
       roomDetailResponse.setGuestCount(guestCount);
       roomDetailResponse.setInfantCount(infantCount);
+      roomDetailResponse.setDays(days);
       roomDetailResponse.setCheckIn(checkIn);
       roomDetailResponse.setCheckOut(checkOut);
       roomDetailResponse.setTitle(title);
