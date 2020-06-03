@@ -2,6 +2,7 @@ package kr.codesquad.airbnb11.domain.room;
 
 import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
 
 public class Room {
@@ -13,6 +14,9 @@ public class Room {
   private String title;
   private String description;
   private BigDecimal dailyPrice;
+  private BigDecimal cleaningPrice;
+  private BigDecimal servicePrice;
+  private BigDecimal commission;
   private String country;
   private Boolean isSuperHost;
   private double rating;
@@ -22,7 +26,8 @@ public class Room {
 
 
   public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost,
+      String description, BigDecimal dailyPrice, BigDecimal cleaningPrice,
+      BigDecimal servicePrice, BigDecimal commission, String country, Boolean isSuperHost,
       double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
@@ -30,6 +35,9 @@ public class Room {
     this.title = title;
     this.description = description;
     this.dailyPrice = dailyPrice;
+    this.cleaningPrice = cleaningPrice;
+    this.servicePrice = servicePrice;
+    this.commission = commission;
     this.country = country;
     this.isSuperHost = isSuperHost;
     this.rating = rating;
@@ -66,6 +74,18 @@ public class Room {
     return dailyPrice;
   }
 
+  public BigDecimal getCleaningPrice() {
+    return cleaningPrice;
+  }
+
+  public BigDecimal getServicePrice() {
+    return servicePrice;
+  }
+
+  public BigDecimal getCommission() {
+    return commission;
+  }
+
   public String getCountry() {
     return country;
   }
@@ -83,22 +103,25 @@ public class Room {
   }
 
   public BigDecimal getLatitude() {
-    return this.latitude;
+    return latitude;
   }
 
   public BigDecimal getLongitude() {
-    return this.longitude;
+    return longitude;
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("id", id)
         .append("maxPersonCount", maxPersonCount)
         .append("mainImage", mainImage)
         .append("title", title)
         .append("description", description)
         .append("dailyPrice", dailyPrice)
+        .append("cleaningPrice", cleaningPrice)
+        .append("servicePrice", servicePrice)
+        .append("commission", commission)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
         .append("rating", rating)
@@ -116,13 +139,15 @@ public class Room {
     private String title;
     private String description;
     private BigDecimal dailyPrice;
+    private BigDecimal cleaningPrice;
+    private BigDecimal servicePrice;
+    private BigDecimal commission;
     private String country;
     private Boolean isSuperHost;
     private double rating;
     private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
-
 
     private Builder() {
     }
@@ -157,6 +182,21 @@ public class Room {
       return this;
     }
 
+    public Builder cleaningPrice(BigDecimal cleaningPrice) {
+      this.cleaningPrice = cleaningPrice;
+      return this;
+    }
+
+    public Builder servicePrice(BigDecimal servicePrice) {
+      this.servicePrice = servicePrice;
+      return this;
+    }
+
+    public Builder commission(BigDecimal commission) {
+      this.commission = commission;
+      return this;
+    }
+
     public Builder country(String country) {
       this.country = country;
       return this;
@@ -188,8 +228,8 @@ public class Room {
     }
 
     public Room build() {
-      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
-          isSuperHost, rating, reviewCount, latitude, longitude);
+      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, cleaningPrice,
+          servicePrice, commission, country, isSuperHost, rating, reviewCount, latitude, longitude);
     }
   }
 }

@@ -11,6 +11,9 @@ SELECT r.id
      , r.title
      , r.description
      , r.daily_price
+     , r.cleaning_price
+     , r.service_price
+     , r.commission
      , r.country
      , r.user_id
      , r.rating
@@ -46,4 +49,25 @@ SELECT COUNT(*)
  )
    AND r.max_person_count >= IFNULL(:minPersonCount, 0)
    AND r.daily_price BETWEEN IFNULL(:priceMin, 0) AND IFNULL(:priceMax, 1000000)
+"""
+
+// language=SQL
+const val SELECT_ROOM_DETAIL_BY_ID: String = """
+SELECT r.id
+     , r.max_person_count
+     , r.title
+     , r.description
+     , r.daily_price
+     , r.cleaning_price
+     , r.service_price
+     , r.commission
+     , r.country
+     , r.rating
+     , r.review_count
+     , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
+     , X(r.location) AS latitude
+     , Y(r.location) AS longitude
+  FROM room       r
+  INNER JOIN user u ON r.user_id = u.id
+ WHERE r.id = :id
 """
