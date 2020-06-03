@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from 'Components/Main/Header/Header'
 import SearchNavigation from 'Components/Main/SearchNavigation/SearchNavigation'
 import { setFocusId } from "Actions/focusId/focusIdAction";
+import BGImage from 'Components/Main/BGImage/BGImage'
 
 function Main() {
   const focusId = useSelector(({focusIdReducer}) => focusIdReducer);
@@ -16,8 +17,8 @@ function Main() {
       <div onClick={onMainClick}>
         <Header />
         <SearchNavigation />
-        <img src="http://dev-angelo.dlinkddns.com/bg_1.png"></img>
-        <img src="http://dev-angelo.dlinkddns.com/bg_2.png"></img>
+        <BGImage imageSrc="http://dev-angelo.dlinkddns.com/bg_1.png" imageWidth={1580} imageHeight={623} />
+        <BGImage imageSrc="http://dev-angelo.dlinkddns.com/bg_2.png" imageWidth={1580} imageHeight={900} />
       </div>
   );
 }

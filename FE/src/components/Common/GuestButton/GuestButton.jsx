@@ -7,9 +7,9 @@ import adultCountAction from "Actions/guest/adultCountAction";
 import childrenCountAction from "Actions/guest/childrenCountAction";
 import infantsCountAction from "Actions/guest/infantsCountAction";
 
-const TYPE_ADULT = "TYPE/ADULT";
-const TYPE_CHILDREN = "TYPE/CHILDREN";
-const TYPE_INFANTS = "TYPE/INFANTS";
+const TYPE_ADULT = "TYPE_ADULT";
+const TYPE_CHILDREN = "TYPE_CHILDREN";
+const TYPE_INFANTS = "TYPE_INFANTS";
 
 const S = {};
 S.GuestButton = styled.div`
@@ -133,49 +133,25 @@ function GuestButton(props) {
   function onPlusButtonClick(type) {
     let increaseFunc = null;
 
-    switch (type) {
-      case TYPE_ADULT: {
-        increaseFunc = adultCountAction.increase;
-        break;
-      }
-      case TYPE_CHILDREN: {
-        increaseFunc = childrenCountAction.increase;
-        break;
-      }
-      case TYPE_INFANTS: {
-        increaseFunc = infantsCountAction.increase;
-        break;
-      }
-      default: {
-        break;
-      }
+    const increaseFuncMap = {
+      TYPE_ADULT: adultCountAction.increase,
+      TYPE_CHILDREN: childrenCountAction.increase,
+      TYPE_INFANTS: infantsCountAction.increase
     }
 
-    dispatch(increaseFunc());
+    dispatch(increaseFuncMap[type]());
   }
 
   function onMinusButtonClick(type) {
     let decreaseFunc = null;
 
-    switch (type) {
-      case TYPE_ADULT: {
-        decreaseFunc = adultCountAction.decrease;
-        break;
-      }
-      case TYPE_CHILDREN: {
-        decreaseFunc = childrenCountAction.decrease;
-        break;
-      }
-      case TYPE_INFANTS: {
-        decreaseFunc = infantsCountAction.decrease;
-        break;
-      }
-      default: {
-        break;
-      }
+    const decreaseFuncMap = {
+      TYPE_ADULT: adultCountAction.decrease,
+      TYPE_CHILDREN: childrenCountAction.decrease,
+      TYPE_INFANTS: infantsCountAction.decrease
     }
 
-    dispatch(decreaseFunc());
+    dispatch((decreaseFuncMap[type])());
   }
 
   return (

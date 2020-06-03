@@ -15,13 +15,13 @@ const slidein = keyframes `
 `;
 
 S.ReservationModal = styled.div`
-  position: absolute;
+  position: fixed;
   left: 0px;
   top: 0px;
   width: 100%;
   height: 100%;
   background-color: red;
-  z-index: 1;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.8);
   animation-duration: 0.7s;
   animation-name: ${slidein};

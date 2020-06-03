@@ -6,6 +6,7 @@ const S = {};
 S.AccomodationCard = styled.div`
   width: 300px;
   height: 300px;
+  margin: 0 auto;
 
   &:hover {
     cursor: pointer;
@@ -17,6 +18,7 @@ S.Image = styled.div`
   height: 200px;
   background-image: url(${props => props.src});
   background-size: 100% 100%;
+  border-radius: 12px;
 `;
 
 S.TypeInfo = styled.div`

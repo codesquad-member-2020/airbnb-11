@@ -9,7 +9,11 @@ import { logo } from 'Constants/mainpage'
 
 const S = {}
 S.Header = styled.div`
-  position: relative;
+  position: fixed;
+  height: 100px;
+  top: 0;
+  z-index: 10;
+  background-color: white;
   border-bottom: 1px solid #dadfe0;
 `;
 

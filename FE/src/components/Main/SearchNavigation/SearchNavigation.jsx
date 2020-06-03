@@ -26,6 +26,12 @@ S.SearchNavigation = styled.div`
 `;
 
 function SearchNavigation({ history }) {
+  const { startDate, endDate, startDateInfo, endDateInfo } = useSelector(
+    ({ dateReducer }) => dateReducer
+  );
+  const adultCount = useSelector(({adultCountReducer}) => adultCountReducer);
+  const childrenCount = useSelector(({childrenCountReducer}) => childrenCountReducer);
+  const infantsCount = useSelector(({infantsCountReducer}) => infantsCountReducer);
   const focusId = useSelector(({ focusIdReducer }) => focusIdReducer);
   const dispatch = useDispatch();
 
@@ -33,10 +39,18 @@ function SearchNavigation({ history }) {
 
   function onNaviButtonClick(key) {
     dispatch(setFocusId(key));
-    console.log(key);
   }
 
   function onSearchButtonClick() {
+    if ( startDate === null || endDate === null ) {
+      alert("체크인/체크아웃 날짜를 입력해주세요.")
+      return;
+    }
+    else if ( (adultCount + childrenCount + infantsCount) === 0 ) {
+      alert("인원을 입력해주세요.")
+      return;
+    }
+
     history.push("/searchresult");
   }
 
