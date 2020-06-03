@@ -1,0 +1,60 @@
+spring:
+  profiles:
+    active: dev
+  flyway:
+    clean-on-validation-error: true
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: env,beans
+        include: "*"
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/airbnb?characterEncoding=UTF-8
+    username: airbnb
+    password: airbnb
+  flyway:
+    user: airbnb
+    password: airbnb
+    url: jdbc:mysql://localhost:3306/airbnb?characterEncoding=UTF-8
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
+
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://airbnb11.ckvak2aogy3v.us-east-1.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    username: airbnb11
+    password: airbnb11
+    
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
+
+---
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://accommodation-db.cr55utyiscde.ap-northeast-2.rds.amazonaws.com/airbnb?characterEncoding=UTF-8
+    username: airbnb11
+    password: airbnb11
+
+logging:
+  level:
+    web: debug
+    sql: debug
+    kr.codesquad.airbnb11: debug
