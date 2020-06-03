@@ -19,8 +19,8 @@ SELECT r.id
      , r.rating
      , r.review_count
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
-     , X(r.location) AS latitude
-     , Y(r.location) AS longitude
+     , X(r.location) AS longitude
+     , Y(r.location) AS latitude
   FROM room       r
   INNER JOIN user u ON r.user_id = u.id
  WHERE r.id NOT IN (
@@ -65,8 +65,8 @@ SELECT r.id
      , r.rating
      , r.review_count
      , IF(u.is_super_host, 'TRUE', 'FALSE') AS is_super_host
-     , X(r.location) AS latitude
-     , Y(r.location) AS longitude
+     , X(r.location) AS longitude
+     , Y(r.location) AS latitude
   FROM room       r
   INNER JOIN user u ON r.user_id = u.id
  WHERE r.id = :id
