@@ -18,7 +18,11 @@ class RoomDTOTest {
   @Test
   void RoomDTO_생성_테스트() {
     BigDecimal dailyPrice = new BigDecimal("43.00");
-    Room room = Room.builder().dailyPrice(dailyPrice).build();
+    Room room = Room.builder().dailyPrice(dailyPrice)
+        .cleaningPrice(dailyPrice)
+        .commission(dailyPrice)
+        .servicePrice(dailyPrice)
+        .build();
     RoomDTO roomDTO = RoomDTO.of(room);
     logger.debug("roomDTO: {}", roomDTO);
 
