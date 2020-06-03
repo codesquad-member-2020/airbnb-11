@@ -4,6 +4,8 @@ import Header from 'Components/Main/Header/Header'
 import SearchNavigation from 'Components/Main/SearchNavigation/SearchNavigation'
 import { setFocusId } from "Actions/focusId/focusIdAction";
 import BGImage from 'Components/Main/BGImage/BGImage'
+import Cookies from 'universal-cookie';
+import * as jwtDecode from 'jwt-decode';
 
 function Main() {
   const focusId = useSelector(({focusIdReducer}) => focusIdReducer);
@@ -12,6 +14,19 @@ function Main() {
   function onMainClick() {
     dispatch(setFocusId(null));
   }
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const jwtToken = cookies.get('jwt');
+    
+    if (jwtToken !== undefined) {
+      const decoded = jwtDecode(jwtToken);
+      console.log("decoded=" + JSON.stringify(decoded));
+    }
+    else {
+      console.log("jwtToken is not set")
+    }
+  }, [])
 
   return (
       <div onClick={onMainClick}>
