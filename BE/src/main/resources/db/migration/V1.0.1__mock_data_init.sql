@@ -71,3 +71,15 @@ INSERT INTO room (max_person_count, main_image, title, daily_price, cleaning_pri
 VALUES (10, 'https://a2.muscache.com/im/pictures/100311920/8a1547f9_original.jpg?aki_policy=large',
         'Sofa bed in cozy, clean apartment', 180, 23, 41, 13, '독일',
         ST_GeomFromText('POINT(8.6821 50.1109)'), 4.91, 323, 1);
+
+INSERT INTO room (max_person_count, main_image, title, daily_price, cleaning_price, service_price,
+                  commission, country, location, rating, review_count, user_id)
+VALUES (2, 'image',
+        '코드스쿼드', 43, 10, 5, 5, '대한민국',
+        ST_GeomFromText('POINT(127.03341954607245 37.49081965861202)'), 4.99, 93, 1);
+
+INSERT INTO room (max_person_count, main_image, title, daily_price, cleaning_price, service_price,
+                  commission, country, location, rating, review_count, user_id)
+VALUES (2, 'image',
+        '가츠오우', 100, 100, 10, 5, '대한민국',
+        ST_GeomFromText('POINT(127.03282635769422 37.491869498553775)'), 4.21, 403, 2);

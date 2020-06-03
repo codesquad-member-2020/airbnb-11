@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS room
     service_price    DECIMAL(10, 2)          NOT NULL COMMENT '서비스 수수료 USD',
     commission       DECIMAL(10, 2)          NOT NULL COMMENT '숙박세와 수수료 USD',
     country          VARCHAR(50)             NOT NULL COMMENT '국가명',
-    location         POINT                   NOT NULL COMMENT '경위도 POINT(X, Y) X는 경도, Y는 위도 SELECT X(location) AS longitude, Y(location) AS latitude FROM room;',
+    location         POINT                   NOT NULL COMMENT '경위도 POINT(X, Y) X는 경도, Y는 위도 SELECT ST_X(location) AS longitude, ST_Y(location) AS latitude FROM room;',
     rating           DOUBLE                  NOT NULL COMMENT '별점',
     review_count     INT                     NOT NULL COMMENT '리뷰 개수',
     user_id          INT                     NOT NULL,

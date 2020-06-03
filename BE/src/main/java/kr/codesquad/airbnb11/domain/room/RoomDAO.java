@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.domain.room;
 
 import static kr.codesquad.airbnb11.common.SQLKt.COUNT_ROOMS_WITH_SEARCH_PARAMS;
+import static kr.codesquad.airbnb11.common.SQLKt.SELECT_NEAR_ROOM;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOMS_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOM_DETAIL_BY_ID;
 
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
 import kr.codesquad.airbnb11.controller.request.RoomDetailRequest;
-import kr.codesquad.airbnb11.controller.request.SearchNearRoomRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,11 +85,11 @@ public class RoomDAO {
     ).stream().findFirst();
   }
 
-  public List<Room> selectNearRoom(SearchNearRoomRequest searchRequest) {
+  public List<Room> selectNearRoom(SearchRequest searchRequest) {
     SqlParameterSource parameters = new MapSqlParameterSource(searchRequest.getParameterMap());
     log.debug("parameters: {}", parameters);
 
-    return jdbcTemplate.query(SELECT_ROOMS_WITH_SEARCH_PARAMS, parameters, (rs, rowNum) ->
+    return jdbcTemplate.query(SELECT_NEAR_ROOM, parameters, (rs, rowNum) ->
         Room.builder()
             .id(rs.getInt("id"))
             .maxPersonCount(rs.getInt("max_person_count"))
