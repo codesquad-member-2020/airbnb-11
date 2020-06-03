@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.sql.DataSource;
 import kr.codesquad.airbnb11.controller.request.RoomDetailRequest;
+import kr.codesquad.airbnb11.controller.request.SearchNearRoomRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,5 +83,31 @@ public class RoomDAO {
             .longitude(new BigDecimal(rs.getString("longitude")))
             .build()
     ).stream().findFirst();
+  }
+
+  public List<Room> selectNearRoom(SearchNearRoomRequest searchRequest) {
+    SqlParameterSource parameters = new MapSqlParameterSource(searchRequest.getParameterMap());
+    log.debug("parameters: {}", parameters);
+
+    return jdbcTemplate.query(SELECT_ROOMS_WITH_SEARCH_PARAMS, parameters, (rs, rowNum) ->
+        Room.builder()
+            .id(rs.getInt("id"))
+            .maxPersonCount(rs.getInt("max_person_count"))
+            .mainImage(rs.getString("main_image"))
+            .title(rs.getString("title"))
+            .description(rs.getString("description"))
+            .dailyPrice(new BigDecimal(rs.getString("daily_price")))
+            .cleaningPrice(new BigDecimal(rs.getString("cleaning_price")))
+            .servicePrice(new BigDecimal(rs.getString("service_price")))
+            .commission(new BigDecimal(rs.getString("commission")))
+            .country(rs.getString("country"))
+            .isSuperHost(rs.getBoolean("is_super_host"))
+            .rating(rs.getDouble("rating"))
+            .reviewCount(rs.getInt("review_count"))
+            .latitude(new BigDecimal(rs.getString("latitude")))
+            .longitude(new BigDecimal(rs.getString("longitude")))
+            .distance(new BigDecimal(rs.getString("distance")))
+            .build()
+    );
   }
 }
