@@ -21,12 +21,39 @@ S.Image = styled.div`
   border-radius: 12px;
 `;
 
-S.TypeInfo = styled.div`
+S.CountryHost = styled.div`
+  float: left;
   width: 300px;
   padding-top: 5px;
   padding-bottom: 5px;
   line-height: 15px;
   font-size: 16px;
+`;
+
+S.IsSuperHost = styled.div`
+  position: relative;
+  float: left;
+  width: 80px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 12px;
+  text-align: center;
+`;
+
+S.Country = styled.div`
+  position: relative;
+  float: left;
+  width: 150px;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 19px;
+  font-size: 16px;
+  text-align: left;
 `;
 
 S.Title = styled.div`
@@ -38,10 +65,30 @@ S.Title = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
+  font-weight: bold;
 `;
 
 S.ChargePerDay = styled.div`
+  float: left;
+  display: relative;
   width: 300px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 15px;
+  font-size: 16px;
+`;
+
+S.Charge = styled.div`
+  float: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 15px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+S.PerDay = styled.div`
+  float: left;
   padding-top: 5px;
   padding-bottom: 5px;
   line-height: 15px;
@@ -54,6 +101,7 @@ S.TotalCharge = styled.div`
   padding-bottom: 5px;
   line-height: 15px;
   font-size: 14px;
+  color: gray;
 `;
 
 function AccomodationCard(props) {
@@ -65,9 +113,15 @@ function AccomodationCard(props) {
   return (
       <S.AccomodationCard onClick={onAccomodationCardClick}>
         <S.Image src={props.src} />
-        <S.TypeInfo>{props.typeInfo}</S.TypeInfo>
+        <S.CountryHost>
+          {props.isHost && <S.IsSuperHost>슈퍼호스트</S.IsSuperHost>}
+          <S.Country>{props.country}</S.Country>
+        </S.CountryHost>
         <S.Title>{props.title}</S.Title>
-        <S.ChargePerDay>{props.chargePerDay}</S.ChargePerDay>
+        <S.ChargePerDay>
+          <S.Charge>{props.chargePerDay}</S.Charge>
+          <S.PerDay>/박</S.PerDay>
+        </S.ChargePerDay>
         <S.TotalCharge>{props.totalCharge}</S.TotalCharge>
       </S.AccomodationCard>
   );

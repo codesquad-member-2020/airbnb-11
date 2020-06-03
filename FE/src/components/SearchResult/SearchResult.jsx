@@ -75,6 +75,7 @@ function SearchResult({ history }) {
       .then((result) => result.json())
       .then((data) => {
         setSearchResult(data);
+        console.log(data);
       });
   }, []);
 
@@ -121,6 +122,8 @@ function SearchResult({ history }) {
                       day: endDateInfo.day,
                     }
                   ) * data.dailyPrice).toLocaleString() + "원"}
+                  isHost={data.superHost}
+                  country={data.country}
                 />
               ))}
           </S.AccomodationCardGrid>
