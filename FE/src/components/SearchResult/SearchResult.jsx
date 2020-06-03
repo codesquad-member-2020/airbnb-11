@@ -21,14 +21,14 @@ S.SearchResult = styled.div`
 S.SearchResultLeft = styled.div`
   position: relative;
   margin-top: 100px;
-  width: 780px;
+  width: ${props => props.isMapVisible ? "780" : "1560"}px;
   float: left;
   overflow: hidden;
 `;
 
 S.SearchResultContentWrap = styled.div`
   position: relative;
-  width: 780px;
+  width: 100%;
   margin: 0 auto;
 `;
 
@@ -39,7 +39,7 @@ S.AccomodationCardGrid = styled.div`
   grid-template-rows: 300px;
   grid-column-gap: 15px;
   grid-row-gap: 40px;
-  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  grid-template-columns: ${props => props.isMapVisible ? "repeat(2, minmax(300px, 1fr))" : "repeat(5, minmax(300px, 1fr))"};
 `;
 
 S.LoadingImage = styled.div`
@@ -55,14 +55,11 @@ S.LoadingImage = styled.div`
 
 function SearchResult({ history }) {
   const [searchResult, setSearchResult] = useState(undefined);
+  const [isMapVisible, setIsMapVisible] = useState(true);
 
   const { startDateInfo, endDateInfo } = useSelector(
     ({ dateReducer }) => dateReducer
   );
-
-  const adultCount = useSelector(({adultCountReducer}) => adultCountReducer);
-  const childrenCount = useSelector(({childrenCountReducer}) => childrenCountReducer);
-  const infantsCount = useSelector(({infantsCountReducer}) => infantsCountReducer);
 
   function onAccomodationCardClick() {
     history.push('/searchresult/reservationmodal');
@@ -83,7 +80,7 @@ function SearchResult({ history }) {
     <S.SearchResult>
       <Header />
       {!searchResult && <S.LoadingImage />}
-      <S.SearchResultLeft>
+      <S.SearchResultLeft isMapVisible={isMapVisible}>
         <S.SearchResultContentWrap>
           {searchResult && (
             <ResultSummary
@@ -101,7 +98,7 @@ function SearchResult({ history }) {
             title="예약에 앞서 여행 제한 사항을 확인하세요."
             description="에어비앤비 커뮤니티의 건강과 안전이 최우선입니다. 정부 지침을 준수하고 꼭 필요한 경우에만 여행하실 것을 부탁드립니다."
           />
-          <S.AccomodationCardGrid>
+          <S.AccomodationCardGrid isMapVisible={isMapVisible}>
             {searchResult &&
               searchResult.rooms.map((data, index) => (
                 <AccomodationCard
@@ -129,7 +126,7 @@ function SearchResult({ history }) {
           </S.AccomodationCardGrid>
         </S.SearchResultContentWrap>
       </S.SearchResultLeft>
-      {searchResult && <Map />}
+      {(searchResult && isMapVisible) && <Map />}
     </S.SearchResult>
   );
 }
