@@ -65,6 +65,10 @@ function SearchResult({ history }) {
     history.push('/searchresult/reservationmodal');
   }
 
+  function onCloseButtonClick() {
+    setIsMapVisible(false);
+  }
+
   useEffect(() => {
     const url = process.env.REACT_APP_SEARCH_API;
 
@@ -126,7 +130,7 @@ function SearchResult({ history }) {
           </S.AccomodationCardGrid>
         </S.SearchResultContentWrap>
       </S.SearchResultLeft>
-      {(searchResult && isMapVisible) && <Map />}
+      {(searchResult && isMapVisible) && <Map onCloseButtonClick={onCloseButtonClick}/>}
     </S.SearchResult>
   );
 }
