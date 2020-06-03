@@ -31,9 +31,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew bootJar
 
-      - name: Make zip file
-        run: zip -qq -r ./Build.zip .
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -42,7 +39,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./Build.zip s3://accommodation-s3/server/Build.zip
+        run: aws deploy push --application-name airbnb-11 --description "This is a revision for the application" --s3-location s3://accommodation-s3/server/Build.zip --source .
 
       - name: Code Deploy
         run: aws deploy create-deployment --application-name airbnb-11 --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name master --s3-location bucket=accommodation-s3,bundleType=zip,key=server/Build.zip
