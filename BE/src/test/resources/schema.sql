@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS room
     daily_price      DECIMAL(10, 2),
     country          VARCHAR(50),
     location         GEOMETRY(POINT),
+    rating           INT,
+    review_count     INT,
     user_id          INT
 );
 
@@ -35,13 +37,4 @@ CREATE TABLE IF NOT EXISTS reservation
     end_date   DATETIME,
     room_id    INT,
     guest_id   INT
-);
-
-CREATE TABLE IF NOT EXISTS review
-(
-    id       INT PRIMARY KEY AUTO_INCREMENT,
-    rating   INT,
-    content  VARCHAR(500),
-    room_id  INT,
-    guest_id INT
 );
