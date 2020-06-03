@@ -10,6 +10,7 @@ import { logo } from 'Constants/mainpage'
 const S = {}
 S.Header = styled.div`
   position: fixed;
+  height: 100px;
   top: 0;
   z-index: 10;
   background-color: white;
