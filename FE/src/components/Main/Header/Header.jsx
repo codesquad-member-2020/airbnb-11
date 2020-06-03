@@ -22,7 +22,7 @@ function Header() {
   return (
       <S.Header>
         <Logo src={logo.logoImageSrc} />
-        <HeaderNavigation></HeaderNavigation>
+        <HeaderNavigation loginUrl={process.env.REACT_APP_LOGIN_API}></HeaderNavigation>
       </S.Header>
   );
 }
