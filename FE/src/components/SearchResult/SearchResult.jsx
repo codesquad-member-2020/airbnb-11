@@ -5,7 +5,6 @@ import AccomodationCard from "Components/SearchResult/AccomodationCard/Accomodat
 import Caution from "Components/SearchResult/Caution/Caution";
 import ResultSummary from "Components/SearchResult/ResultSummary/ResultSummary";
 import Header from "Components/SearchResult/Header/Header";
-import useFetch from "CustomHooks/useFetch"
 import fetchResuest from "../../utils/fetchRequest"
 import Map from "Components/SearchResult/Map/Map";
 
@@ -61,12 +60,11 @@ function SearchResult({ history }) {
   }
 
   useEffect(() => {
-    const url = "http://13.124.223.191/api/rooms/search?adult=1&checkIn=2020-07-01&checkOut=2020-07-02&parameterMap=%7B%7D";
+    const url = process.env.REACT_APP_SEARCH_API;
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
-        console.log(data);
         setSearchResult(data);
       });
   }, []);

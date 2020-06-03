@@ -53,7 +53,7 @@ function Header() {
             + (infantsCount ? ", 유아 " + infantsCount + "명" : "")
           }
         />
-        <HeaderNavigation></HeaderNavigation>
+        <HeaderNavigation loginUrl={process.env.REACT_APP_LOGIN_API}></HeaderNavigation>
       </S.HeaderWrap>
     </S.Header>
   );

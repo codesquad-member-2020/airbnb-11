@@ -11,7 +11,6 @@ S.BGImage = styled.div`
 `;
 
 function BGImage(props) {
-  console.log(props);
   return (
       <>
         <S.BGImage imageSrc={props.imageSrc} imageWidth={props.imageWidth} imageHeight={props.imageHeight}>
