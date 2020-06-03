@@ -90,7 +90,8 @@ function SearchResult({ history }) {
                 searchResult.roomsCount +
                 "개의 숙소" +
                 " · " +
-                "6월 15일 - 6월 18일 · 게스트 1명"
+                startDateInfo.month + "월 "+ startDateInfo.day + " 일" + " - " +
+                endDateInfo.month + "월 "+ endDateInfo.day + " 일"
               }
             />
           )}
