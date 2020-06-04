@@ -22,11 +22,9 @@ public class ReservationInterceptor extends HandlerInterceptorAdapter {
   @Autowired
   private LoginService loginService;
 
-  public ReservationInterceptor() {
-  }
-
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+      Object handler) {
 
     String token = "";
     Cookie[] cookies = request.getCookies();
