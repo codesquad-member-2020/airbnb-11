@@ -52,7 +52,7 @@ public class LoginService {
 
     headers.add("Authorization", "Bearer " + jwt);
     headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
-    headers.setLocation(URI.create("http://"+host+"/login"));
+    headers.setLocation(URI.create("http://"+host+"/"));
     return headers;
   }
 
