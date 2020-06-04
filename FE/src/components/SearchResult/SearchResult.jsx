@@ -71,6 +71,7 @@ function SearchResult({ history }) {
   }
 
   function onPositionClick(position) {
+    console.log(position);
     setCenterPosition(position);
     setMapMarkers(undefined);
 
@@ -80,8 +81,8 @@ function SearchResult({ history }) {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: position[0],
-      longitude: position[1]
+      latitude: position[0] + 0.006,
+      longitude: position[1] - 0.02
     };
 
     let urlInfo = '';
@@ -109,6 +110,7 @@ function SearchResult({ history }) {
   }
 
   function onCenterChanged({latitude, longitude}) {
+    console.log(latitude, longitude);
     setMapMarkers(undefined);
 
     const requestInfo = {
@@ -117,8 +119,8 @@ function SearchResult({ history }) {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: latitude,
-      longitude: longitude
+      latitude: latitude + 0.006,
+      longitude: longitude - 0.02
     };
 
     let urlInfo = '';
@@ -128,6 +130,8 @@ function SearchResult({ history }) {
     });
 
     const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
+
+    console.log(requestInfo);
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
@@ -216,7 +220,8 @@ function SearchResult({ history }) {
                     isMapVisible={isMapVisible}
                     onAccomodationCardClick={onAccomodationCardClick}
                     onPositionClick={onPositionClick}
-                    key={data.id}
+                    key={index}
+                    id={data.id}
                     src={data.mainImage}
                     title={data.title}
                     chargePerDay={"₩" + data.dailyPrice.toLocaleString() + "원"}
@@ -244,6 +249,8 @@ function SearchResult({ history }) {
                     rating={data.rating}
                     longitude={data.longitude}
                     latitude={data.latitude}
+                    checkIn={startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day}
+                    checkOut={endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day}
                   />
                 ))}
               </S.AccomodationCardGrid>
