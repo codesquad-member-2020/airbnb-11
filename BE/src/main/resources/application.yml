@@ -29,6 +29,7 @@ logging:
     kr.codesquad.airbnb11: debug
 
 host: localhost:8080
+root: localhost:8080/
 github:
   client-id: 9875df2fa499cdb9ff25
   client-secret: d1dff8a224738636f3fb0e6a3781b5ee8c17f494
@@ -53,6 +54,7 @@ logging:
     kr.codesquad.airbnb11: debug
 
 host: 13.124.223.191/api
+root: 13.124.223.191/
 github:
   client-id: ee75619e5811bb328936
   client-secret: a13148ae7b76f7ce892d6d315da636b9b19a2faf
@@ -77,6 +79,7 @@ logging:
     kr.codesquad.airbnb11: debug
 
 host: 3.232.101.173/api
+root: 3.232.101.173/
 github:
   client-id: 079d5502cd95167fd24b
   client-secret: d79455358c12197814137009b0ad5c7fb733ee2a
