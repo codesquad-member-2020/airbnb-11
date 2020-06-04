@@ -120,9 +120,9 @@ S.PlusButton = styled.div`
 `;
 
 function GuestButton(props) {
-  const adultCount = useSelector(({adultCountReducer}) => adultCountReducer);
-  const childrenCount = useSelector(({childrenCountReducer}) => childrenCountReducer);
-  const infantsCount = useSelector(({infantsCountReducer}) => infantsCountReducer);
+  const { adultCount, childrenCount, infantsCount } = useSelector(
+    ({ guestCountReducer }) => guestCountReducer
+  );
 
   const dispatch = useDispatch();
 

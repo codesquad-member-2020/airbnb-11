@@ -37,9 +37,9 @@ function Header() {
     ({ dateReducer }) => dateReducer
   );
 
-  const adultCount = useSelector(({adultCountReducer}) => adultCountReducer);
-  const childrenCount = useSelector(({childrenCountReducer}) => childrenCountReducer);
-  const infantsCount = useSelector(({infantsCountReducer}) => infantsCountReducer);
+  const { adultCount, childrenCount, infantsCount } = useSelector(
+    ({ guestCountReducer }) => guestCountReducer
+  );
 
   return (
     <S.Header>
