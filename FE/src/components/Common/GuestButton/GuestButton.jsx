@@ -36,7 +36,7 @@ S.Guest = styled.div`
   position: relative;
   width: 337px;
   height: 38px;
-  padding: 16px 4px 16px 0px;
+  padding: 16px 0px 16px 0px;
 `;
 
 S.GuestDescription = styled.div`
@@ -65,18 +65,19 @@ S.GuestTypeDescription = styled.p`
 S.GuestController = styled.div`
   position: relative;
   height: 32px;
-  float: left;
   vertical-align: center;
 `;
 
 S.Count = styled.div`
   position: relative;
   float: left;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
   line-height: 32px;
   font-size: 16px;
   user-select: none;
+  text-align: center;
 `;
 
 S.MinusButton = styled.div`

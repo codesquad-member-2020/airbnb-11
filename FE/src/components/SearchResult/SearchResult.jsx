@@ -102,7 +102,7 @@ function SearchResult({ history }) {
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
-        setCenterPosition([(data.rooms)[0].longitude, (data.rooms)[0].latitude]);
+        setCenterPosition([(data.rooms)[0].latitude, (data.rooms)[0].longitude]);
         setSearchResult(data);
       });
   }, []);

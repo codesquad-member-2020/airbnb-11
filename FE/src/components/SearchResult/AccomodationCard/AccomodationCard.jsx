@@ -173,7 +173,7 @@ function AccomodationCard(props) {
 
   const onPositionClick = e => {
     e.stopPropagation();
-    props.onPositionClick([props.longitude, props.latitude]);
+    props.onPositionClick([props.latitude, props.longitude]);
   }
 
   return (
