@@ -53,7 +53,7 @@ function SearchNavigation() {
       return;
     }
 
-    history.push("/searchresult");
+    history.push("/searchresult/1");
   }
 
   return (

@@ -53,7 +53,14 @@ S.LoadingImage = styled.div`
   margin-bottom: 200px;
 `;
 
-function SearchResult() {
+S.Button = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: red;
+`;
+
+function SearchResult(props) {
+  console.log(props.match.params);
   const history = useHistory();
 
   const [searchResult, setSearchResult] = useState(undefined);
@@ -67,12 +74,11 @@ function SearchResult() {
   const [centerPosition, setCenterPosition] = useState([0, 0]);
   const [mapMarkers, setMapMarkers] = useState(undefined);
 
-  function onAccomodationCardClick() {
-    history.push("/searchresult/reservationmodal");
+  function onAccomodationCardClick(roomId) {
+    history.push("/searchresult/" + props.match.params.pageNumber + "/reservationmodal/" + roomId);
   }
 
   function onPositionClick(position) {
-    console.log(position);
     setMapMarkers(undefined);
     setCenterPosition(position);
 
@@ -109,8 +115,11 @@ function SearchResult() {
     setIsMapVisible(false);
   }
 
+  function testFunc() {
+    history.push("/searchresult/" + 2);
+  }
+
   function onCenterChanged({latitude, longitude}) {
-    console.log(latitude, longitude);
     setMapMarkers(undefined);
 
     const requestInfo = {
@@ -145,7 +154,7 @@ function SearchResult() {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      page: 1
+      page: props.match.params.pageNumber
     };
 
     let urlInfo = '';
@@ -185,7 +194,7 @@ function SearchResult() {
           setMapMarkers(data);
         });
     });
-  }, []);
+  }, [props.match.params]);
 
   return (
     <S.SearchResult>
@@ -257,6 +266,7 @@ function SearchResult() {
           {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms} nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
         </>
       )}
+                <S.Button onClick={testFunc}>wef</S.Button>
     </S.SearchResult>
   );
 }

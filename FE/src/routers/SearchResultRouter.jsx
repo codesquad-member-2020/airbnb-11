@@ -7,11 +7,11 @@ import {
 import SearchResult from 'Components/SearchResult/SearchResult'
 import ReservationModal from 'Components/ReservationModal/ReservationModal'
 
-function SearchresultRouter() {
+function SearchresultRouter(props) {
   return (
     <Router>
-      <Route path="/searchresult" component={SearchResult} />
-      <Route path="/searchresult/reservationmodal" component={ReservationModal} />
+      <Route path="/searchresult/:pageNumber" component={SearchResult} />
+      <Route path="/searchresult/:pageNumber/reservationmodal" component={ReservationModal} />
     </Router>
   );
 }

@@ -168,7 +168,7 @@ S.PositionButton = styled.button`
 function AccomodationCard(props) {
   const onAccomodationCardClick = e => {
     e.stopPropagation();
-    props.onAccomodationCardClick();
+    props.onAccomodationCardClick(props.id);
   }
 
   const onPositionClick = e => {
