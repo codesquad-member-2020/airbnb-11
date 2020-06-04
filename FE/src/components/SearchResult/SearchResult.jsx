@@ -64,6 +64,7 @@ function SearchResult({ history }) {
     ({ dateReducer }) => dateReducer
   );
   const [centerPosition, setCenterPosition] = useState([0, 0]);
+  const [mapMarkers, setMapMarkers] = useState(undefined);
 
   function onAccomodationCardClick() {
     history.push("/searchresult/reservationmodal");
@@ -71,6 +72,32 @@ function SearchResult({ history }) {
 
   function onPositionClick(position) {
     setCenterPosition(position);
+    setMapMarkers(undefined);
+
+    const requestInfo = {
+      adult: adultCount,
+      children: childrenCount,
+      infants: infantsCount,
+      checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
+      checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
+      latitude: position[0],
+      longitude: position[1]
+    };
+
+    let urlInfo = '';
+    const requestInfoKeys = Object.keys(requestInfo);
+    requestInfoKeys.map((data, index) => {
+      urlInfo += data + "=" + requestInfo[data] + "&";
+    });
+
+    const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
+
+    fetchResuest(url, "GET")
+      .then((result) => result.json())
+      .then((data) => {
+        setMapMarkers(data);
+    });
+    
   }
 
   function onMapOnClick() {
@@ -79,6 +106,34 @@ function SearchResult({ history }) {
 
   function onCloseButtonClick() {
     setIsMapVisible(false);
+  }
+
+  function onCenterChanged({latitude, longitude}) {
+    setMapMarkers(undefined);
+
+    const requestInfo = {
+      adult: adultCount,
+      children: childrenCount,
+      infants: infantsCount,
+      checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
+      checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
+      latitude: latitude,
+      longitude: longitude
+    };
+
+    let urlInfo = '';
+    const requestInfoKeys = Object.keys(requestInfo);
+    requestInfoKeys.map((data, index) => {
+      urlInfo += data + "=" + requestInfo[data] + "&";
+    });
+
+    const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
+
+    fetchResuest(url, "GET")
+      .then((result) => result.json())
+      .then((data) => {
+        setMapMarkers(data);
+    });
   }
 
   useEffect(() => {
@@ -104,7 +159,30 @@ function SearchResult({ history }) {
       .then((data) => {
         setCenterPosition([(data.rooms)[0].latitude, (data.rooms)[0].longitude]);
         setSearchResult(data);
-      });
+
+        const requestInfo = {
+          adult: adultCount,
+          children: childrenCount,
+          infants: infantsCount,
+          checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
+          checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
+          latitude: (data.rooms)[0].latitude,
+          longitude: (data.rooms)[0].longitude
+        };
+
+        let urlInfo = '';
+        const requestInfoKeys = Object.keys(requestInfo);
+        requestInfoKeys.map((data, index) => {
+          urlInfo += data + "=" + requestInfo[data] + "&";
+        });
+        const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
+
+        fetchResuest(url, "GET")
+        .then((result) => result.json())
+        .then((data) => {
+          setMapMarkers(data);
+        });
+    });
   }, []);
 
   return (
@@ -171,7 +249,7 @@ function SearchResult({ history }) {
               </S.AccomodationCardGrid>
             </S.SearchResultContentWrap>
           </S.SearchResultLeft>
-          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}/>}
+          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
         </>
       )}
     </S.SearchResult>
