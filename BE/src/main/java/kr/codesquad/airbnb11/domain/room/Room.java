@@ -23,12 +23,14 @@ public class Room {
   private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
+  private BigDecimal distance;
 
 
   public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
       String description, BigDecimal dailyPrice, BigDecimal cleaningPrice,
       BigDecimal servicePrice, BigDecimal commission, String country, Boolean isSuperHost,
-      double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude) {
+      double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude,
+      BigDecimal distance) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
@@ -44,6 +46,7 @@ public class Room {
     this.reviewCount = reviewCount;
     this.latitude = latitude;
     this.longitude = longitude;
+    this.distance = distance;
   }
 
   public static Builder builder() {
@@ -110,6 +113,10 @@ public class Room {
     return longitude;
   }
 
+  public BigDecimal getDistance() {
+    return distance;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -128,6 +135,7 @@ public class Room {
         .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
+        .append("distance", distance)
         .toString();
   }
 
@@ -148,6 +156,7 @@ public class Room {
     private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private BigDecimal distance;
 
     private Builder() {
     }
@@ -227,9 +236,15 @@ public class Room {
       return this;
     }
 
+    public Builder distance(BigDecimal distance) {
+      this.distance = distance;
+      return this;
+    }
+
     public Room build() {
       return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, cleaningPrice,
-          servicePrice, commission, country, isSuperHost, rating, reviewCount, latitude, longitude);
+          servicePrice, commission, country, isSuperHost, rating, reviewCount, latitude, longitude,
+          distance);
     }
   }
 }

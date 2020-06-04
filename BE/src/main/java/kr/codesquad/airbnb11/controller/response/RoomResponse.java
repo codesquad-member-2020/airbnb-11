@@ -18,6 +18,7 @@ public class RoomResponse {
   private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
+  private BigDecimal distance;
 
   public RoomResponse() {
   }
@@ -34,6 +35,7 @@ public class RoomResponse {
     this.reviewCount = roomDTO.getReviewCount();
     this.latitude = roomDTO.getLatitude();
     this.longitude = roomDTO.getLongitude();
+    this.distance = roomDTO.getDistance();
   }
 
   public int getId() {
@@ -124,6 +126,18 @@ public class RoomResponse {
     this.longitude = longitude;
   }
 
+  public boolean isSuperHost() {
+    return isSuperHost;
+  }
+
+  public BigDecimal getDistance() {
+    return distance;
+  }
+
+  public void setDistance(BigDecimal distance) {
+    this.distance = distance;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -138,6 +152,7 @@ public class RoomResponse {
         .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
+        .append("distance", distance)
         .toString();
   }
 
@@ -154,6 +169,7 @@ public class RoomResponse {
     private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private BigDecimal distance;
 
     private Builder() {
     }
@@ -217,6 +233,11 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder distance(BigDecimal distance) {
+      this.distance = distance;
+      return this;
+    }
+
     public RoomResponse build() {
       RoomResponse roomResponse = new RoomResponse();
       roomResponse.setId(id);
@@ -230,6 +251,7 @@ public class RoomResponse {
       roomResponse.setSuperHost(isSuperHost);
       roomResponse.setLatitude(latitude);
       roomResponse.setLongitude(longitude);
+      roomResponse.setDistance(distance);
       return roomResponse;
     }
   }

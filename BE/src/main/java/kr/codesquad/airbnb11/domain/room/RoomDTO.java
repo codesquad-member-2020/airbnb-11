@@ -26,6 +26,7 @@ public class RoomDTO {
   private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
+  private BigDecimal distance;
 
   private RoomDTO(Room room) {
     this.id = room.getId();
@@ -47,6 +48,7 @@ public class RoomDTO {
     this.reviewCount = room.getReviewCount();
     this.latitude = room.getLatitude();
     this.longitude = room.getLongitude();
+    this.distance = room.getDistance();
   }
 
   public static RoomDTO of(Room room) {
@@ -197,6 +199,14 @@ public class RoomDTO {
     this.longitude = longitude;
   }
 
+  public BigDecimal getDistance() {
+    return distance;
+  }
+
+  public void setDistance(BigDecimal distance) {
+    this.distance = distance;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -215,6 +225,7 @@ public class RoomDTO {
         .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
+        .append("distance", distance)
         .toString();
   }
 }

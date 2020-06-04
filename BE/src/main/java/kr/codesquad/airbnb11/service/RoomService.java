@@ -32,8 +32,17 @@ public class RoomService {
   }
 
   public SearchResponse findAvailableRooms(SearchRequest searchRequest) {
-    Integer roomsCount = roomDAO.countRoomsWithSearchParams(searchRequest);
     List<Room> rooms = roomDAO.selectRoomsWithSearchParams(searchRequest);
+    Integer roomsCount = roomDAO.countRoomsWithSearchParams(searchRequest);
+
+    SearchResponse searchResponse = new SearchResponse(roomsCount, rooms);
+    log.debug("검색 결과: {}", searchResponse);
+    return searchResponse;
+  }
+
+  public SearchResponse findNearRooms(SearchRequest searchRequest) {
+    List<Room> rooms = roomDAO.selectNearRoom(searchRequest);
+    int roomsCount = rooms.size();
 
     SearchResponse searchResponse = new SearchResponse(roomsCount, rooms);
     log.debug("검색 결과: {}", searchResponse);
