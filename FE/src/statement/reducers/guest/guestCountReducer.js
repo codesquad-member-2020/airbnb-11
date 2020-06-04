@@ -31,7 +31,7 @@ const guestCountReducer = (state = initialState, action) => {
     case DECREASE_ADULT_COUNT: {
       if (
         state.adultCount <= minimumCount ||
-        (state.adultCount > 0 &&
+        (state.adultCount === 1 &&
           (state.childrenCount > 0 || state.infantsCount > 0))
       )
         return state;
@@ -44,7 +44,7 @@ const guestCountReducer = (state = initialState, action) => {
     case INCREASE_CHILDREN_COUNT: {
       if (state.childrenCount >= maximumChildrenCount) return state;
 
-      const cvtAdultCount = state.infantsCount === 0 ? 1 : state.adultCount;
+      const cvtAdultCount = (!state.childrenCount && !state.adultCount) ? 1 : state.adultCount;
 
       return {
         ...state,
@@ -63,7 +63,7 @@ const guestCountReducer = (state = initialState, action) => {
     case INCREASE_INFANTS_COUNT: {
       if (state.infantsCount >= maximumInfantsCount) return state;
 
-      const cvtAdultCount = state.infantsCount === 0 ? 1 : state.adultCount;
+      const cvtAdultCount = (!state.infantsCount && !state.adultCount) ? 1 : state.adultCount;
 
       return {
         ...state,
