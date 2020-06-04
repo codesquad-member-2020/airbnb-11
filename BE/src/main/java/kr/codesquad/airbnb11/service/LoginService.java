@@ -24,8 +24,8 @@ public class LoginService {
   private final OAuthService authService;
   private final UserRepository userRepository;
 
-  @Value("${host}")
-  private String host;
+  @Value("${root}")
+  private String root;
 
   public LoginService(GithubKey githubKey, OAuthService authService,
       UserRepository userRepository) {
@@ -53,7 +53,8 @@ public class LoginService {
 
     headers.add("Authorization", "Bearer " + jwt);
     headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
-    headers.setLocation(URI.create("http://" + host + "/"));
+    log.debug("root : {} ", root);
+    headers.setLocation(URI.create("http://" + root));
     return headers;
   }
 
@@ -78,7 +79,7 @@ public class LoginService {
     return UserDTO.of(user.getNickname(), user.getEmail());
   }
 
-  public boolean findUserByEmail(UserDTO userDTO) {
+  public boolean isUserExist(UserDTO userDTO) {
     String email = userDTO.getEmail();
     log.debug("email : {}", email);
     return userRepository.findByEmail(email).isPresent();

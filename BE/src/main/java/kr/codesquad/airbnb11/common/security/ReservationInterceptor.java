@@ -1,5 +1,6 @@
-package kr.codesquad.airbnb11.controller;
+package kr.codesquad.airbnb11.common.security;
 
+import java.util.Arrays;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,42 +10,43 @@ import kr.codesquad.airbnb11.service.JwtService;
 import kr.codesquad.airbnb11.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Component
 public class ReservationInterceptor extends HandlerInterceptorAdapter {
 
-  private static Logger log = LoggerFactory.getLogger(ReservationInterceptor.class);
+  private final static Logger log = LoggerFactory.getLogger(ReservationInterceptor.class);
 
-  @Autowired
-  private JwtService jwtService;
+  private final JwtService jwtService;
 
-  @Autowired
-  private LoginService loginService;
+  private final LoginService loginService;
+
+  public ReservationInterceptor(JwtService jwtService,
+      LoginService loginService) {
+    this.jwtService = jwtService;
+    this.loginService = loginService;
+  }
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
       Object handler) {
-
-    String token = "";
     Cookie[] cookies = request.getCookies();
 
     if (cookies == null || cookies.length < 1) {
-      throw new LoginRequiredException("로그인이 필요합니다");
+      throw new LoginRequiredException();
     }
 
-    for (Cookie cookie : cookies) {
-      if (cookie.getName().equals("jwt")) {
-        token = cookie.getValue();
-        log.debug("token : {}", token);
-        break;
-      }
-    }
+    String token = Arrays.stream(cookies)
+        .filter(c -> c.getName().equals("jwt"))
+        .map(Cookie::getValue)
+        .reduce(String::concat)
+        .orElse("");
 
     UserDTO user = jwtService.getUserFromJws(token);
     log.debug("user : {}", user);
 
-    if (loginService.findUserByEmail(user)) {
+    if (loginService.isUserExist(user)) {
       return true;
     }
     return false;
