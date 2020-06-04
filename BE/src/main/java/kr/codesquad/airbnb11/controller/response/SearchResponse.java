@@ -6,10 +6,13 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import kr.codesquad.airbnb11.common.utils.BigMoneyConverter;
 import kr.codesquad.airbnb11.domain.room.Room;
 import kr.codesquad.airbnb11.domain.room.RoomDTO;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 
 public class SearchResponse {
 
@@ -25,6 +28,20 @@ public class SearchResponse {
         .collect(Collectors.toList());
     this.prices = this.rooms.stream()
         .map(RoomResponse::getDailyPrice)
+        .collect(Collectors.toList());
+    Collections.sort(this.prices);
+  }
+
+  public SearchResponse(Integer roomsCount, List<Room> rooms, List<BigDecimal> prices) {
+    this.roomsCount = roomsCount;
+    this.rooms = rooms.stream()
+        .map(RoomDTO::of)
+        .map(RoomResponse::new)
+        .collect(Collectors.toList());
+    this.prices = prices.stream()
+        .map(p -> BigMoney.of(CurrencyUnit.USD, p))
+        .map(BigMoneyConverter::convertUSDToKRW)
+        .map(BigMoney::getAmountMajor)
         .collect(Collectors.toList());
     Collections.sort(this.prices);
   }
