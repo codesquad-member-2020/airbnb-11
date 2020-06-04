@@ -9,6 +9,7 @@ import Header from "Components/SearchResult/Header/Header";
 import fetchResuest from "../../utils/fetchRequest"
 import Map from "Components/SearchResult/Map/Map";
 import calcDiffDate from "../../utils/calcDateDiff"
+import IconTextButton from './IconTextButton/IconTextButton'
 
 const S = {};
 
@@ -72,6 +73,10 @@ function SearchResult({ history }) {
     setCenterPosition(position);
   }
 
+  function onMapOnClick() {
+    setIsMapVisible(true);
+  }
+
   function onCloseButtonClick() {
     setIsMapVisible(false);
   }
@@ -126,6 +131,7 @@ function SearchResult({ history }) {
                 title="예약에 앞서 여행 제한 사항을 확인하세요."
                 description="에어비앤비 커뮤니티의 건강과 안전이 최우선입니다. 정부 지침을 준수하고 꼭 필요한 경우에만 여행하실 것을 부탁드립니다."
               />
+              {!isMapVisible && <IconTextButton onMapOnClick={onMapOnClick} />}
               <S.AccomodationCardGrid isMapVisible={isMapVisible}>
                 {searchResult.rooms.map((data, index) => (
                   <AccomodationCard
