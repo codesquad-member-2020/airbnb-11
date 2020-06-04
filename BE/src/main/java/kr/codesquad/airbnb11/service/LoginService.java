@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
@@ -52,10 +53,11 @@ public class LoginService {
 
     headers.add("Authorization", "Bearer " + jwt);
     headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
-    headers.setLocation(URI.create("http://"+host+"/"));
+    headers.setLocation(URI.create("http://" + host + "/"));
     return headers;
   }
 
+  @Transactional
   public User insertUser(String token) {
     User user = authService.getUserInfoToToken(token);
     log.debug("DB 저장 전 User 정보: {}", user);
@@ -74,5 +76,11 @@ public class LoginService {
 
   public UserDTO createUserDTO(User user) {
     return UserDTO.of(user.getNickname(), user.getEmail());
+  }
+
+  public boolean findUserByEmail(UserDTO userDTO) {
+    String email = userDTO.getEmail();
+    log.debug("email : {}", email);
+    return userRepository.findByEmail(email).isPresent();
   }
 }
