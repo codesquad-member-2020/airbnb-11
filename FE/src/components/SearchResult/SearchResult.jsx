@@ -98,8 +98,8 @@ function SearchResult({ history }) {
               {searchResult && (
                 <ResultSummary
                   summary={
-                    searchResult.roomsCount +
-                    "개의 숙소" +
+                    (searchResult.roomsCount >= 300 ? "300개 이상의 " : searchResult.roomsCount + "개의 ") +
+                    "숙소" +
                     " · " +
                     startDateInfo.month +
                     "월 " +
