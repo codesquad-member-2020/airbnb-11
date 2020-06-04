@@ -29,8 +29,6 @@ S.Map = styled.div`
 `;
 
 function Map(props) {
-
-  console.log(props);  
   return (
     <S.Map>
       <LeafMap center={props.centerPosition} zoom={13}>
