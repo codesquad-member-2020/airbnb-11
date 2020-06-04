@@ -2,6 +2,7 @@ package kr.codesquad.airbnb11.domain.room;
 
 import static kr.codesquad.airbnb11.common.SQLKt.COUNT_ROOMS_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_NEAR_ROOM;
+import static kr.codesquad.airbnb11.common.SQLKt.SELECT_PRICES_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOMS_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOM_DETAIL_BY_ID;
 
@@ -109,5 +110,13 @@ public class RoomDAO {
             .distance(new BigDecimal(rs.getString("distance")))
             .build()
     );
+  }
+
+  public List<BigDecimal> selectPricesWithSearchParams(SearchRequest searchRequest) {
+    SqlParameterSource parameters = new MapSqlParameterSource(searchRequest.getParameterMap());
+    log.debug("parameters: {}", parameters);
+
+    return jdbcTemplate.query(SELECT_PRICES_WITH_SEARCH_PARAMS, parameters, (rs, rowNum) ->
+        new BigDecimal(rs.getString("daily_price")));
   }
 }
