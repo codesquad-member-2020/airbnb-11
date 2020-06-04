@@ -4,7 +4,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.util.List;
 import kr.codesquad.airbnb11.common.security.GithubKey;
-import kr.codesquad.airbnb11.controller.ReservationInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -23,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Value("${github.client-secret}")
   String clientSecret;
 
+
   @Bean
   public GithubKey githubKey() {
     return new GithubKey(clientId, clientSecret);
@@ -31,11 +30,6 @@ public class WebConfig implements WebMvcConfigurer {
   @Bean
   public RestTemplate restTemplate() {
     return new RestTemplate();
-  }
-
-  @Bean
-  public ReservationInterceptor reservationInterceptor() {
-    return new ReservationInterceptor();
   }
 
   @Override
@@ -55,12 +49,5 @@ public class WebConfig implements WebMvcConfigurer {
         .findFirst()
         .ifPresent(converter -> ((MappingJackson2HttpMessageConverter) converter)
             .setDefaultCharset(UTF_8));
-  }
-
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(reservationInterceptor())
-        .addPathPatterns("/reservations/**")
-        .addPathPatterns("/rooms/reservation");
   }
 }
