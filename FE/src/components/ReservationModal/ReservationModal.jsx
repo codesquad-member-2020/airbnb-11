@@ -23,7 +23,7 @@ S.ReservationModal = styled.div`
   background-color: red;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.8);
-  animation-duration: 0.7s;
+  animation-duration: 0.3s;
   animation-name: ${slidein};
 `;
 

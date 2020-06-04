@@ -73,8 +73,8 @@ function SearchResult() {
 
   function onPositionClick(position) {
     console.log(position);
-    setCenterPosition(position);
     setMapMarkers(undefined);
+    setCenterPosition(position);
 
     const requestInfo = {
       adult: adultCount,
@@ -82,8 +82,8 @@ function SearchResult() {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: position[0] + 0.006,
-      longitude: position[1] - 0.02
+      latitude: position[0] + 0.0027,
+      longitude: position[1] - 0.0283
     };
 
     let urlInfo = '';
@@ -99,7 +99,6 @@ function SearchResult() {
       .then((data) => {
         setMapMarkers(data);
     });
-    
   }
 
   function onMapOnClick() {
@@ -120,8 +119,8 @@ function SearchResult() {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: latitude + 0.006,
-      longitude: longitude - 0.02
+      latitude: latitude + 0.0027,
+      longitude: longitude - 0.0283
     };
 
     let urlInfo = '';
