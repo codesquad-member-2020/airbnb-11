@@ -1,5 +1,6 @@
 package kr.codesquad.airbnb11.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import kr.codesquad.airbnb11.common.error.exception.EntityNotFoundException;
@@ -34,8 +35,9 @@ public class RoomService {
   public SearchResponse findAvailableRooms(SearchRequest searchRequest) {
     List<Room> rooms = roomDAO.selectRoomsWithSearchParams(searchRequest);
     Integer roomsCount = roomDAO.countRoomsWithSearchParams(searchRequest);
+    List<BigDecimal> prices = roomDAO.selectPricesWithSearchParams(searchRequest);
 
-    SearchResponse searchResponse = new SearchResponse(roomsCount, rooms);
+    SearchResponse searchResponse = new SearchResponse(roomsCount, rooms, prices);
     log.debug("검색 결과: {}", searchResponse);
     return searchResponse;
   }
