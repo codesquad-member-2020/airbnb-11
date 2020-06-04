@@ -16,14 +16,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Component
 public class ReservationInterceptor extends HandlerInterceptorAdapter {
 
-  private final static Logger log = LoggerFactory.getLogger(ReservationInterceptor.class);
+  private static final Logger log = LoggerFactory.getLogger(ReservationInterceptor.class);
 
   private final JwtService jwtService;
-
   private final LoginService loginService;
 
-  public ReservationInterceptor(JwtService jwtService,
-      LoginService loginService) {
+  public ReservationInterceptor(JwtService jwtService, LoginService loginService) {
     this.jwtService = jwtService;
     this.loginService = loginService;
   }
