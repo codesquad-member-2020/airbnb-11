@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Map as LeafMap, TileLayer, Marker, Popup } from "react-leaflet";
+import CloseButton from "Components/SearchResult/Map/CloseButton/CloseButton";
 
 const S = {};
 S.Map = styled.div`
@@ -27,7 +28,7 @@ S.Map = styled.div`
   }
 `;
 
-function Map() {
+function Map(props) {
   const state = {
     center: [51.505, -0.091],
     zoom: 13,
@@ -56,6 +57,7 @@ function Map() {
           </Popup>
         </Marker>
       </LeafMap>
+      <CloseButton onCloseButtonClick={props.onCloseButtonClick}>X</CloseButton>
       </S.Map>
   );
 }

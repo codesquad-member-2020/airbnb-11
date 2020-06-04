@@ -3,9 +3,6 @@
 # build production files
 /dist
 
-# environment
-.env*
-
 # dependencies
 /node_modules
 /.pnp

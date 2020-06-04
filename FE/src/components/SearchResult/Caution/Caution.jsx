@@ -28,7 +28,7 @@ S.Title = styled.div`
 S.Description = styled.div`
   float: left;
   font-size: 15px;
-  line-height: 20px;
+  line-height: 40px;
 `;
 
 function Caution(props) {
