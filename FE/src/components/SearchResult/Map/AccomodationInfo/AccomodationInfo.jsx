@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 const S = {};
 
-S.AccomodationCard = styled.div`
+S.AccomodationInfo = styled.div`
   width: 300px;
   height: 300px;
 
@@ -131,13 +131,8 @@ function AccomodationInfo(props) {
     props.onAccomodationCardClick();
   }
 
-  const onPositionClick = e => {
-    e.stopPropagation();
-    props.onPositionClick([props.latitude, props.longitude]);
-  }
-
   return (
-      <S.AccomodationCard onClick={onAccomodationCardClick}>
+      <S.AccomodationInfo>
         <S.Image src={props.src} />
         <S.CountryHost>
           {props.isHost && <S.IsSuperHost>슈퍼호스트</S.IsSuperHost>}
@@ -152,7 +147,7 @@ function AccomodationInfo(props) {
           <S.Charge>{props.chargePerDay}</S.Charge>
           <S.PerDay>/박</S.PerDay>
         </S.ChargePerDay>
-      </S.AccomodationCard>
+      </S.AccomodationInfo>
   );
 }
 
