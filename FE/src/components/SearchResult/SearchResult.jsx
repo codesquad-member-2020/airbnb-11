@@ -125,6 +125,7 @@ function SearchResult({ history }) {
                   ) * data.dailyPrice).toLocaleString() + "원"}
                   isHost={data.superHost}
                   country={data.country}
+                  rating={data.rating}
                 />
               ))}
           </S.AccomodationCardGrid>

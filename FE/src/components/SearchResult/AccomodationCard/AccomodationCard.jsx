@@ -6,7 +6,6 @@ const S = {};
 S.AccomodationCard = styled.div`
   width: 300px;
   height: 300px;
-  margin: 0 auto;
 
   &:hover {
     cursor: pointer;
@@ -47,13 +46,44 @@ S.IsSuperHost = styled.div`
 S.Country = styled.div`
   position: relative;
   float: left;
-  width: 150px;
+  width: 90px;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
   line-height: 19px;
   font-size: 16px;
   text-align: left;
+`;
+
+S.Rating = styled.div`
+  float: right;
+  right: 0;
+  width: 55px;
+  height: 29px;
+  line-height: 15px;
+  font-size: 16px;
+`;
+
+S.RatingIcon = styled.div`
+  position: relative;
+  float: left;
+  width: 20px;
+  height: 29px;
+  line-height: 24px;
+  font-size: 20px;
+  text-align: center;
+  color: red;
+`;
+
+S.RatingRate = styled.div`
+  position: relative;
+  float: left;
+  width: 35px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 19px;
+  font-size: 16px;
+  text-align: center;
 `;
 
 S.Title = styled.div`
@@ -116,6 +146,10 @@ function AccomodationCard(props) {
         <S.CountryHost>
           {props.isHost && <S.IsSuperHost>슈퍼호스트</S.IsSuperHost>}
           <S.Country>{props.country}</S.Country>
+          <S.Rating>
+            <S.RatingIcon>★</S.RatingIcon>
+            <S.RatingRate>{props.rating}</S.RatingRate>
+          </S.Rating>
         </S.CountryHost>
         <S.Title>{props.title}</S.Title>
         <S.ChargePerDay>
