@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components'
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ChargePerDay from 'Components/ReservationModal/ChargePerDay/ChargePerDay'
 import CheckInOutDate from 'Components/ReservationModal/CheckInOutDate/CheckInOutDate'
 import GuestCount from 'Components/ReservationModal/GuestCount/GuestCount'
@@ -66,7 +66,9 @@ S.ChargeWrap = styled.div`
   height: 50px;
 `;
 
-function ReservationModal({ history }) {
+function ReservationModal() {
+  const history = useHistory();
+
   function onCloseButtonClick() {
     history.goBack();
   }
@@ -92,4 +94,4 @@ function ReservationModal({ history }) {
   );
 }
 
-export default withRouter(ReservationModal);
+export default ReservationModal;

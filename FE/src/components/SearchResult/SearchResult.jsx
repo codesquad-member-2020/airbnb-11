@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useSelector } from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AccomodationCard from "Components/SearchResult/AccomodationCard/AccomodationCard";
 import Caution from "Components/SearchResult/Caution/Caution";
 import ResultSummary from "Components/SearchResult/ResultSummary/ResultSummary";
@@ -53,8 +53,9 @@ S.LoadingImage = styled.div`
   margin-bottom: 200px;
 `;
 
+function SearchResult() {
+  const history = useHistory();
 
-function SearchResult({ history }) {
   const [searchResult, setSearchResult] = useState(undefined);
   const [isMapVisible, setIsMapVisible] = useState(true);
   const { adultCount, childrenCount, infantsCount } = useSelector(
@@ -130,8 +131,6 @@ function SearchResult({ history }) {
     });
 
     const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
-
-    console.log(requestInfo);
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
@@ -256,11 +255,11 @@ function SearchResult({ history }) {
               </S.AccomodationCardGrid>
             </S.SearchResultContentWrap>
           </S.SearchResultLeft>
-          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
+          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms} nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
         </>
       )}
     </S.SearchResult>
   );
 }
 
-export default withRouter(SearchResult);
+export default SearchResult;
