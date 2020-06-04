@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
   @Value("${github.client-secret}")
   String clientSecret;
 
-
   @Bean
   public GithubKey githubKey() {
     return new GithubKey(clientId, clientSecret);
