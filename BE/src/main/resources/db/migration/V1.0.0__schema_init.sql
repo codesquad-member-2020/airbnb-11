@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS room
     id               INT AUTO_INCREMENT,
     max_person_count INT                     NOT NULL COMMENT '최대 수용 가능 인원',
     main_image       VARCHAR(500)            NOT NULL COMMENT '목록에 뿌려질 이미지(반드시 있어야 함)',
-    title            VARCHAR(50)             NOT NULL COMMENT '숙소 설명 제목',
+    title            VARCHAR(250)             NOT NULL COMMENT '숙소 설명 제목',
     description      VARCHAR(500) DEFAULT '' NOT NULL COMMENT '숙소 상세 설명',
     daily_price      DECIMAL(10, 2)          NOT NULL COMMENT '하루 숙박료 USD',
     cleaning_price   DECIMAL(10, 2)          NOT NULL COMMENT '청소비 USD',
