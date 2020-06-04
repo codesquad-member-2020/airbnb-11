@@ -54,22 +54,22 @@ S.LoadingImage = styled.div`
 
 
 function SearchResult({ history }) {
-  const test = {
-    abc: 0,
-    def: 1,
-  };
-
-  console.log(test.abc);
-
   const [searchResult, setSearchResult] = useState(undefined);
   const [isMapVisible, setIsMapVisible] = useState(true);
-
+  const { adultCount, childrenCount, infantsCount } = useSelector(
+    ({ guestCountReducer }) => guestCountReducer
+  );
   const { startDateInfo, endDateInfo } = useSelector(
     ({ dateReducer }) => dateReducer
   );
+  const [centerPosition, setCenterPosition] = useState([0, 0]);
 
   function onAccomodationCardClick() {
     history.push("/searchresult/reservationmodal");
+  }
+
+  function onPositionClick(position) {
+    setCenterPosition(position);
   }
 
   function onCloseButtonClick() {
@@ -77,13 +77,28 @@ function SearchResult({ history }) {
   }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_SEARCH_API;
+    const requestInfo = {
+      adult: adultCount,
+      children: childrenCount,
+      infants: infantsCount,
+      checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
+      checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
+      page: 1
+    };
+
+    let urlInfo = '';
+    const requestInfoKeys = Object.keys(requestInfo);
+    requestInfoKeys.map((data, index) => {
+      urlInfo += data + "=" + requestInfo[data] + "&";
+    });
+
+    const url = process.env.REACT_APP_SEARCH_API + "?" + urlInfo;
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
+        setCenterPosition([(data.rooms)[0].longitude, (data.rooms)[0].latitude]);
         setSearchResult(data);
-        console.log(data);
       });
   }, []);
 
@@ -99,17 +114,10 @@ function SearchResult({ history }) {
                 <ResultSummary
                   summary={
                     (searchResult.roomsCount >= 300 ? "300개 이상의 " : searchResult.roomsCount + "개의 ") +
-                    "숙소" +
-                    " · " +
-                    startDateInfo.month +
-                    "월 " +
-                    startDateInfo.day +
-                    " 일" +
+                    "숙소" + " · " +
+                    startDateInfo.month + "월 " + startDateInfo.day + " 일" +
                     " - " +
-                    endDateInfo.month +
-                    "월 " +
-                    endDateInfo.day +
-                    " 일"
+                    endDateInfo.month + "월 " + endDateInfo.day + " 일"
                   }
                 />
               )}
@@ -121,7 +129,9 @@ function SearchResult({ history }) {
               <S.AccomodationCardGrid isMapVisible={isMapVisible}>
                 {searchResult.rooms.map((data, index) => (
                   <AccomodationCard
-                    onClick={onAccomodationCardClick}
+                    isMapVisible={isMapVisible}
+                    onAccomodationCardClick={onAccomodationCardClick}
+                    onPositionClick={onPositionClick}
                     key={data.id}
                     src={data.mainImage}
                     title={data.title}
@@ -148,12 +158,14 @@ function SearchResult({ history }) {
                     isHost={data.superHost}
                     country={data.country}
                     rating={data.rating}
+                    longitude={data.longitude}
+                    latitude={data.latitude}
                   />
                 ))}
               </S.AccomodationCardGrid>
             </S.SearchResultContentWrap>
           </S.SearchResultLeft>
-          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} />}
+          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}/>}
         </>
       )}
     </S.SearchResult>
