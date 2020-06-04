@@ -134,14 +134,51 @@ S.TotalCharge = styled.div`
   color: gray;
 `;
 
+S.PositionButton = styled.button`
+  position: relative;
+  float: right;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border: 1px solid #dadfe0;
+  border-radius: 12px;
+  line-height: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  background-image: url("https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75% 100%;
+  color: gray;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background-color: rgba(239, 239, 239);
+  }
+
+  &:active {
+    background-color: lightgray;
+  }
+`;
+
 function AccomodationCard(props) {
   const onAccomodationCardClick = e => {
     e.stopPropagation();
-    props.onClick();
+    props.onAccomodationCardClick();
+  }
+
+  const onPositionClick = e => {
+    e.stopPropagation();
+    props.onPositionClick([props.longitude, props.latitude]);
   }
 
   return (
       <S.AccomodationCard onClick={onAccomodationCardClick}>
+        {props.isMapVisible && <S.PositionButton onClick={onPositionClick}></S.PositionButton>}
         <S.Image src={props.src} />
         <S.CountryHost>
           {props.isHost && <S.IsSuperHost>슈퍼호스트</S.IsSuperHost>}

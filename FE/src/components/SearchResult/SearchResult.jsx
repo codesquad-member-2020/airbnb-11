@@ -9,6 +9,7 @@ import Header from "Components/SearchResult/Header/Header";
 import fetchResuest from "../../utils/fetchRequest"
 import Map from "Components/SearchResult/Map/Map";
 import calcDiffDate from "../../utils/calcDateDiff"
+import IconTextButton from './IconTextButton/IconTextButton'
 
 const S = {};
 
@@ -56,13 +57,24 @@ S.LoadingImage = styled.div`
 function SearchResult({ history }) {
   const [searchResult, setSearchResult] = useState(undefined);
   const [isMapVisible, setIsMapVisible] = useState(true);
-
+  const { adultCount, childrenCount, infantsCount } = useSelector(
+    ({ guestCountReducer }) => guestCountReducer
+  );
   const { startDateInfo, endDateInfo } = useSelector(
     ({ dateReducer }) => dateReducer
   );
+  const [centerPosition, setCenterPosition] = useState([0, 0]);
 
   function onAccomodationCardClick() {
-    history.push('/searchresult/reservationmodal');
+    history.push("/searchresult/reservationmodal");
+  }
+
+  function onPositionClick(position) {
+    setCenterPosition(position);
+  }
+
+  function onMapOnClick() {
+    setIsMapVisible(true);
   }
 
   function onCloseButtonClick() {
@@ -70,13 +82,28 @@ function SearchResult({ history }) {
   }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_SEARCH_API;
+    const requestInfo = {
+      adult: adultCount,
+      children: childrenCount,
+      infants: infantsCount,
+      checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
+      checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
+      page: 1
+    };
+
+    let urlInfo = '';
+    const requestInfoKeys = Object.keys(requestInfo);
+    requestInfoKeys.map((data, index) => {
+      urlInfo += data + "=" + requestInfo[data] + "&";
+    });
+
+    const url = process.env.REACT_APP_SEARCH_API + "?" + urlInfo;
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
+        setCenterPosition([(data.rooms)[0].longitude, (data.rooms)[0].latitude]);
         setSearchResult(data);
-        console.log(data);
       });
   }, []);
 
@@ -84,54 +111,69 @@ function SearchResult({ history }) {
     <S.SearchResult>
       <Header />
       {!searchResult && <S.LoadingImage />}
-      <S.SearchResultLeft isMapVisible={isMapVisible}>
-        <S.SearchResultContentWrap>
-          {searchResult && (
-            <ResultSummary
-              summary={
-                searchResult.roomsCount +
-                "개의 숙소" +
-                " · " +
-                startDateInfo.month + "월 "+ startDateInfo.day + " 일" + " - " +
-                endDateInfo.month + "월 "+ endDateInfo.day + " 일"
-              }
-            />
-          )}
-          <Caution
-            imageSrc="http://dev-angelo.dlinkddns.com/caution.gif"
-            title="예약에 앞서 여행 제한 사항을 확인하세요."
-            description="에어비앤비 커뮤니티의 건강과 안전이 최우선입니다. 정부 지침을 준수하고 꼭 필요한 경우에만 여행하실 것을 부탁드립니다."
-          />
-          <S.AccomodationCardGrid isMapVisible={isMapVisible}>
-            {searchResult &&
-              searchResult.rooms.map((data, index) => (
-                <AccomodationCard
-                  onClick={onAccomodationCardClick}
-                  key={data.id}
-                  src={data.mainImage}
-                  title={data.title}
-                  chargePerDay={"₩" + data.dailyPrice.toLocaleString() + "원"}
-                  totalCharge={"총 요금: " + "₩" + (calcDiffDate(
-                    {
-                      year: startDateInfo.year,
-                      month: startDateInfo.month,
-                      day: startDateInfo.day,
-                    },
-                    {
-                      year: endDateInfo.year,
-                      month: endDateInfo.month,
-                      day: endDateInfo.day,
-                    }
-                  ) * data.dailyPrice).toLocaleString() + "원"}
-                  isHost={data.superHost}
-                  country={data.country}
-                  rating={data.rating}
+      {searchResult && (
+        <>
+          <S.SearchResultLeft isMapVisible={isMapVisible}>
+            <S.SearchResultContentWrap>
+              {searchResult && (
+                <ResultSummary
+                  summary={
+                    (searchResult.roomsCount >= 300 ? "300개 이상의 " : searchResult.roomsCount + "개의 ") +
+                    "숙소" + " · " +
+                    startDateInfo.month + "월 " + startDateInfo.day + " 일" +
+                    " - " +
+                    endDateInfo.month + "월 " + endDateInfo.day + " 일"
+                  }
                 />
-              ))}
-          </S.AccomodationCardGrid>
-        </S.SearchResultContentWrap>
-      </S.SearchResultLeft>
-      {(searchResult && isMapVisible) && <Map onCloseButtonClick={onCloseButtonClick}/>}
+              )}
+              <Caution
+                imageSrc="http://dev-angelo.dlinkddns.com/caution.gif"
+                title="예약에 앞서 여행 제한 사항을 확인하세요."
+                description="에어비앤비 커뮤니티의 건강과 안전이 최우선입니다. 정부 지침을 준수하고 꼭 필요한 경우에만 여행하실 것을 부탁드립니다."
+              />
+              {!isMapVisible && <IconTextButton onMapOnClick={onMapOnClick} />}
+              <S.AccomodationCardGrid isMapVisible={isMapVisible}>
+                {searchResult.rooms.map((data, index) => (
+                  <AccomodationCard
+                    isMapVisible={isMapVisible}
+                    onAccomodationCardClick={onAccomodationCardClick}
+                    onPositionClick={onPositionClick}
+                    key={data.id}
+                    src={data.mainImage}
+                    title={data.title}
+                    chargePerDay={"₩" + data.dailyPrice.toLocaleString() + "원"}
+                    totalCharge={
+                      "총 요금: " +
+                      "₩" +
+                      (
+                        calcDiffDate(
+                          {
+                            year: startDateInfo.year,
+                            month: startDateInfo.month,
+                            day: startDateInfo.day,
+                          },
+                          {
+                            year: endDateInfo.year,
+                            month: endDateInfo.month,
+                            day: endDateInfo.day,
+                          }
+                        ) * data.dailyPrice
+                      ).toLocaleString() +
+                      "원"
+                    }
+                    isHost={data.superHost}
+                    country={data.country}
+                    rating={data.rating}
+                    longitude={data.longitude}
+                    latitude={data.latitude}
+                  />
+                ))}
+              </S.AccomodationCardGrid>
+            </S.SearchResultContentWrap>
+          </S.SearchResultLeft>
+          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}/>}
+        </>
+      )}
     </S.SearchResult>
   );
 }
