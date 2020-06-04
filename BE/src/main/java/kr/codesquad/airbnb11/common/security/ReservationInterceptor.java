@@ -44,9 +44,6 @@ public class ReservationInterceptor extends HandlerInterceptorAdapter {
     UserDTO user = jwtService.getUserFromJws(token);
     log.debug("user : {}", user);
 
-    if (loginService.isUserExist(user)) {
-      return true;
-    }
-    return false;
+    return loginService.isUserExist(user);
   }
 }
