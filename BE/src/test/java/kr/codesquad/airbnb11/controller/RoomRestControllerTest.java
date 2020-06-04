@@ -16,7 +16,6 @@ import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.domain.room.Room;
 import kr.codesquad.airbnb11.service.JwtService;
-import kr.codesquad.airbnb11.service.LoginService;
 import kr.codesquad.airbnb11.service.RoomService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,10 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 @WebMvcTest(controllers = RoomRestController.class)
+@ContextConfiguration(classes = {JwtService.class})
 class RoomRestControllerTest {
 
   private static final Logger log = LoggerFactory.getLogger(RoomRestControllerTest.class);
@@ -39,12 +40,6 @@ class RoomRestControllerTest {
 
   @MockBean
   private RoomService roomService;
-
-  @MockBean
-  private LoginService loginService;
-
-  @MockBean
-  private JwtService jwtService;
 
 //  @Autowired
 //  private WebApplicationContext wac;
@@ -57,6 +52,8 @@ class RoomRestControllerTest {
 //      chain.doFilter(request, response);
 //    })).build();
 //  }
+
+
 
   @Test
   @DisplayName("rooms search API test")
@@ -111,10 +108,17 @@ class RoomRestControllerTest {
   void roomsReserveApiTest() throws Exception {
     // given
     String reservationRequestJsonString = "{\"checkIn\": \"2020-05-30\", \"checkOut\": \"2020-05-31\", \"roomId\": 1}";
+//    User user = User.builder().nickname("test").email("test@gmail.com").build();
+//    String token = jwtService.createUserJws(UserDTO.of(user.getNickname(), user.getEmail()));
+//    userRepository.save(user);
+//    Cookie cookie = new Cookie("jwt", token);
+//    log.debug("token : {}", token);
+
     log.debug("json String: {}", reservationRequestJsonString);
 
     // then
     MockHttpServletRequestBuilder requestBuilder = post("/rooms/reservation")
+//        .cookie(cookie)
         .content(reservationRequestJsonString)
         .contentType(MediaType.APPLICATION_JSON);
 
