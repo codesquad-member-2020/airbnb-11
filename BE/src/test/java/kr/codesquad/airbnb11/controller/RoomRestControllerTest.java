@@ -15,6 +15,8 @@ import java.util.List;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.domain.room.Room;
+import kr.codesquad.airbnb11.service.JwtService;
+import kr.codesquad.airbnb11.service.LoginService;
 import kr.codesquad.airbnb11.service.RoomService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,12 @@ class RoomRestControllerTest {
 
   @MockBean
   private RoomService roomService;
+
+  @MockBean
+  private LoginService loginService;
+
+  @MockBean
+  private JwtService jwtService;
 
 //  @Autowired
 //  private WebApplicationContext wac;
