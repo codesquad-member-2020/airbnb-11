@@ -53,8 +53,6 @@ class RoomRestControllerTest {
 //    })).build();
 //  }
 
-
-
   @Test
   @DisplayName("rooms search API test")
   void roomsSearchApiTest() throws Exception {
@@ -108,17 +106,10 @@ class RoomRestControllerTest {
   void roomsReserveApiTest() throws Exception {
     // given
     String reservationRequestJsonString = "{\"checkIn\": \"2020-05-30\", \"checkOut\": \"2020-05-31\", \"roomId\": 1}";
-//    User user = User.builder().nickname("test").email("test@gmail.com").build();
-//    String token = jwtService.createUserJws(UserDTO.of(user.getNickname(), user.getEmail()));
-//    userRepository.save(user);
-//    Cookie cookie = new Cookie("jwt", token);
-//    log.debug("token : {}", token);
-
     log.debug("json String: {}", reservationRequestJsonString);
 
     // then
     MockHttpServletRequestBuilder requestBuilder = post("/rooms/reservation")
-//        .cookie(cookie)
         .content(reservationRequestJsonString)
         .contentType(MediaType.APPLICATION_JSON);
 
