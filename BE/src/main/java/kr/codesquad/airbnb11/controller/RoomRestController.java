@@ -41,6 +41,16 @@ public class RoomRestController {
     return searchResponse;
   }
 
+  @ApiOperation(value = "", notes = "근처 검색 기능")
+  @GetMapping("/search/near")
+  public SearchResponse searchNearRooms(@ModelAttribute SearchRequest searchRequest) {
+    log.debug("searchRequest: {}", searchRequest);
+
+    SearchResponse searchResponse = roomService.findNearRooms(searchRequest);
+    log.debug("searchResponse: {}", searchResponse);
+    return searchResponse;
+  }
+
   @ApiOperation(value = "", notes = "예약 기능")
   @PostMapping("/reservation")
   public ApiResult<String> reserveRoom(@RequestBody ReservationRequest reservationRequest) {

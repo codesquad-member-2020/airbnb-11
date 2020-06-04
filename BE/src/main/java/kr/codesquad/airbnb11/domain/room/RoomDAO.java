@@ -1,6 +1,7 @@
 package kr.codesquad.airbnb11.domain.room;
 
 import static kr.codesquad.airbnb11.common.SQLKt.COUNT_ROOMS_WITH_SEARCH_PARAMS;
+import static kr.codesquad.airbnb11.common.SQLKt.SELECT_NEAR_ROOM;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOMS_WITH_SEARCH_PARAMS;
 import static kr.codesquad.airbnb11.common.SQLKt.SELECT_ROOM_DETAIL_BY_ID;
 
@@ -82,5 +83,31 @@ public class RoomDAO {
             .longitude(new BigDecimal(rs.getString("longitude")))
             .build()
     ).stream().findFirst();
+  }
+
+  public List<Room> selectNearRoom(SearchRequest searchRequest) {
+    SqlParameterSource parameters = new MapSqlParameterSource(searchRequest.getParameterMap());
+    log.debug("parameters: {}", parameters);
+
+    return jdbcTemplate.query(SELECT_NEAR_ROOM, parameters, (rs, rowNum) ->
+        Room.builder()
+            .id(rs.getInt("id"))
+            .maxPersonCount(rs.getInt("max_person_count"))
+            .mainImage(rs.getString("main_image"))
+            .title(rs.getString("title"))
+            .description(rs.getString("description"))
+            .dailyPrice(new BigDecimal(rs.getString("daily_price")))
+            .cleaningPrice(new BigDecimal(rs.getString("cleaning_price")))
+            .servicePrice(new BigDecimal(rs.getString("service_price")))
+            .commission(new BigDecimal(rs.getString("commission")))
+            .country(rs.getString("country"))
+            .isSuperHost(rs.getBoolean("is_super_host"))
+            .rating(rs.getDouble("rating"))
+            .reviewCount(rs.getInt("review_count"))
+            .latitude(new BigDecimal(rs.getString("latitude")))
+            .longitude(new BigDecimal(rs.getString("longitude")))
+            .distance(new BigDecimal(rs.getString("distance")))
+            .build()
+    );
   }
 }
