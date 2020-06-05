@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import { useHistory } from "react-router-dom";
 
 const StyledLogo = styled.div`
   position: relative;
@@ -10,12 +11,22 @@ const StyledLogo = styled.div`
   background-image: url(${props => props.src});
   top: 50%;
   transform: translateY(-50%);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 function Logo(props) {
+  const history = useHistory();
+
+  function onLogoClick() {
+    history.push("/");
+  }
+
   return (
       <>
-        <StyledLogo src={props.src}></StyledLogo>
+        <StyledLogo src={props.src} onClick={onLogoClick}></StyledLogo>
       </>
   );
 }

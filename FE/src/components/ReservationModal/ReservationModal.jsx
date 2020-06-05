@@ -103,10 +103,13 @@ function ReservationModal(props) {
     fetchResuest(url, "POST", reservationInfo)
     .then((result) => result.json())
     .then((data) => {
-      console.log(data);
+      if (data.success) {
+        alert("예약이 완료되었습니다.");
+      }
+      else {
+        alert("예약이 실패하였습니다.");
+      }
     });
-
-    alert("예약이 완료되었습니다.");
 
     history.goBack();
   }
