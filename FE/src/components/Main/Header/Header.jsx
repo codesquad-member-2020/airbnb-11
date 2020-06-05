@@ -28,21 +28,13 @@ function Header() {
     
     if (jwtToken !== undefined) {
       const decoded = jwtDecode(jwtToken);
-      userNickname = JSON.stringify(decoded).user.nickname;
+      console.log(decoded);
+      //userNickname = JSON.stringify(decoded).user.nickname;
     }
 
+    userNickname ="test";
+
     return userNickname;
-
-    // let userNickname = '';
-    // const cookies = new Cookies();
-
-    // if (cookies.get('abc')) {
-    //   const jwtToken = cookies.get('abc');
-    //   const contents = {"user":{"nickname":"Han","email":"quaint3@gmail.com"}};
-    //   cookies.set('abc', JSON.stringify(contents));
-    //   userNickname = jwtToken.user.nickname;
-    // }
-    // return userNickname;
   }
 
   function onLogoutClick() {
