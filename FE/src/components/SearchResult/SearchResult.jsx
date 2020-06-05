@@ -46,13 +46,12 @@ S.AccomodationCardGrid = styled.div`
 `;
 
 S.LoadingImage = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 125px;
   background-image: url("https://cdn.clipart.email/4b453b9d5509587f169c211be6908ca9_loading-gif-png-picture-654600-loading-gif-png_600-450.gif");
   background-size: 100% 100%;
   margin: 0 auto;
-  margin-top: 200px;
-  margin-bottom: 200px;
+  margin-top: 400px;
 `;
 
 S.PagingWrap = styled.div`
@@ -66,7 +65,6 @@ S.PagingWrap = styled.div`
 `;
 
 function SearchResult(props) {
-  console.log(props.match.params);
   const history = useHistory();
 
   const [searchResult, setSearchResult] = useState(undefined);
@@ -123,6 +121,7 @@ function SearchResult(props) {
   }
 
   function changeCurrentPage(numPage) {
+    setSearchResult(undefined);
     window.scrollTo(0, 0);
     setCurrentPage(numPage);
     history.push("/searchresult/" + numPage);
@@ -174,11 +173,14 @@ function SearchResult(props) {
 
     const url = process.env.REACT_APP_SEARCH_API + "?" + urlInfo;
 
+    console.log(url);
+
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
         setCenterPosition([(data.rooms)[0].latitude, (data.rooms)[0].longitude]);
         setSearchResult(data);
+        console.log(data);
 
         const requestInfo = {
           adult: adultCount,
@@ -203,7 +205,7 @@ function SearchResult(props) {
           setMapMarkers(data);
         });
     });
-  }, [props.match.params]);
+  }, [props.match.params.pageNumber]);
 
   return (
     <S.SearchResult>
@@ -274,7 +276,7 @@ function SearchResult(props) {
         <Pagination
           currentPage={currentPage}
           totalSize={searchResult.roomsCount}
-          sizePerPage={searchResult.maxPage}
+          sizePerPage={20}
           changeCurrentPage={changeCurrentPage}
           firstPageText="first"
           lastPageText="last"

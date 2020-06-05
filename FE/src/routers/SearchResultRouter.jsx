@@ -11,7 +11,7 @@ function SearchresultRouter(props) {
   return (
     <Router>
       <Route path="/searchresult/:pageNumber" component={SearchResult} />
-      <Route path="/searchresult/:pageNumber/reservationmodal" component={ReservationModal} />
+      <Route path="/searchresult/:pageNumber/reservationmodal/:roomId" component={ReservationModal} />
     </Router>
   );
 }

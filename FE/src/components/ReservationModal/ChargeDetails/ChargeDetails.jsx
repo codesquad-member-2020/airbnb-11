@@ -28,7 +28,7 @@ S.TotalCharge = styled.div`
 function ChargeDetails(props) {
   return (
       <S.ChargeDetails>
-        <S.Title>합계</S.Title>
+        <S.Title>{props.title}</S.Title>
         <S.TotalCharge>{props.totalCharge}</S.TotalCharge>
       </S.ChargeDetails>
   );
