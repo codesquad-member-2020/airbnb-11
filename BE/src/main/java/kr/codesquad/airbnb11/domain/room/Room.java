@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 public class Room {
 
@@ -15,25 +14,39 @@ public class Room {
   private String title;
   private String description;
   private BigDecimal dailyPrice;
+  private BigDecimal cleaningPrice;
+  private BigDecimal servicePrice;
+  private BigDecimal commission;
   private String country;
   private Boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
+  private BigDecimal distance;
 
-  @PersistenceConstructor
+
   public Room(Integer id, Integer maxPersonCount, String mainImage, String title,
-      String description, BigDecimal dailyPrice, String country, Boolean isSuperHost,
-      BigDecimal latitude, BigDecimal longitude) {
+      String description, BigDecimal dailyPrice, BigDecimal cleaningPrice,
+      BigDecimal servicePrice, BigDecimal commission, String country, Boolean isSuperHost,
+      double rating, int reviewCount, BigDecimal latitude, BigDecimal longitude,
+      BigDecimal distance) {
     this.id = id;
     this.maxPersonCount = maxPersonCount;
     this.mainImage = mainImage;
     this.title = title;
     this.description = description;
     this.dailyPrice = dailyPrice;
+    this.cleaningPrice = cleaningPrice;
+    this.servicePrice = servicePrice;
+    this.commission = commission;
     this.country = country;
     this.isSuperHost = isSuperHost;
+    this.rating = rating;
+    this.reviewCount = reviewCount;
     this.latitude = latitude;
     this.longitude = longitude;
+    this.distance = distance;
   }
 
   public static Builder builder() {
@@ -64,6 +77,18 @@ public class Room {
     return dailyPrice;
   }
 
+  public BigDecimal getCleaningPrice() {
+    return cleaningPrice;
+  }
+
+  public BigDecimal getServicePrice() {
+    return servicePrice;
+  }
+
+  public BigDecimal getCommission() {
+    return commission;
+  }
+
   public String getCountry() {
     return country;
   }
@@ -72,12 +97,24 @@ public class Room {
     return isSuperHost;
   }
 
+  public double getRating() {
+    return rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
   public BigDecimal getLatitude() {
-    return this.latitude;
+    return latitude;
   }
 
   public BigDecimal getLongitude() {
-    return this.longitude;
+    return longitude;
+  }
+
+  public BigDecimal getDistance() {
+    return distance;
   }
 
   @Override
@@ -89,10 +126,16 @@ public class Room {
         .append("title", title)
         .append("description", description)
         .append("dailyPrice", dailyPrice)
+        .append("cleaningPrice", cleaningPrice)
+        .append("servicePrice", servicePrice)
+        .append("commission", commission)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
+        .append("distance", distance)
         .toString();
   }
 
@@ -104,10 +147,16 @@ public class Room {
     private String title;
     private String description;
     private BigDecimal dailyPrice;
+    private BigDecimal cleaningPrice;
+    private BigDecimal servicePrice;
+    private BigDecimal commission;
     private String country;
     private Boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private BigDecimal distance;
 
     private Builder() {
     }
@@ -142,6 +191,21 @@ public class Room {
       return this;
     }
 
+    public Builder cleaningPrice(BigDecimal cleaningPrice) {
+      this.cleaningPrice = cleaningPrice;
+      return this;
+    }
+
+    public Builder servicePrice(BigDecimal servicePrice) {
+      this.servicePrice = servicePrice;
+      return this;
+    }
+
+    public Builder commission(BigDecimal commission) {
+      this.commission = commission;
+      return this;
+    }
+
     public Builder country(String country) {
       this.country = country;
       return this;
@@ -149,6 +213,16 @@ public class Room {
 
     public Builder isSuperHost(Boolean isSuperHost) {
       this.isSuperHost = isSuperHost;
+      return this;
+    }
+
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
       return this;
     }
 
@@ -162,9 +236,15 @@ public class Room {
       return this;
     }
 
+    public Builder distance(BigDecimal distance) {
+      this.distance = distance;
+      return this;
+    }
+
     public Room build() {
-      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, country,
-          isSuperHost, latitude, longitude);
+      return new Room(id, maxPersonCount, mainImage, title, description, dailyPrice, cleaningPrice,
+          servicePrice, commission, country, isSuperHost, rating, reviewCount, latitude, longitude,
+          distance);
     }
   }
 }

@@ -4,21 +4,19 @@ import kr.codesquad.airbnb11.common.security.GithubUser;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 public class User {
 
   @Id
-  private final Integer id;
-  private final Boolean isAdmin;
-  private final String email;
-  private final String nickname;
-  private final String githubToken;
+  private Integer id;
   private Boolean isHost;
   private Boolean isSuperHost;
+  private Boolean isAdmin;
+  private String email;
+  private String nickname;
+  private String githubToken;
 
-  @PersistenceConstructor
-  private User(Integer id, Boolean isHost, Boolean isSuperHost, Boolean isAdmin,
+  public User(Integer id, Boolean isHost, Boolean isSuperHost, Boolean isAdmin,
       String email, String nickname, String githubToken) {
     this.id = id;
     this.isHost = isHost;

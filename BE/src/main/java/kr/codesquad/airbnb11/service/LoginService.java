@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
@@ -23,8 +24,8 @@ public class LoginService {
   private final OAuthService authService;
   private final UserRepository userRepository;
 
-  @Value("${host}")
-  private String host;
+  @Value("${root}")
+  private String root;
 
   public LoginService(GithubKey githubKey, OAuthService authService,
       UserRepository userRepository) {
@@ -52,10 +53,12 @@ public class LoginService {
 
     headers.add("Authorization", "Bearer " + jwt);
     headers.add("Set-Cookie", "jwt=" + jwt + "; Path=/" + "; Max-Age=" + maxAge + ";");
-    headers.setLocation(URI.create("http://"+host+"/login"));
+    log.debug("root : {} ", root);
+    headers.setLocation(URI.create("http://" + root));
     return headers;
   }
 
+  @Transactional
   public User insertUser(String token) {
     User user = authService.getUserInfoToToken(token);
     log.debug("DB 저장 전 User 정보: {}", user);
@@ -74,5 +77,11 @@ public class LoginService {
 
   public UserDTO createUserDTO(User user) {
     return UserDTO.of(user.getNickname(), user.getEmail());
+  }
+
+  public boolean isUserExist(UserDTO userDTO) {
+    String email = userDTO.getEmail();
+    log.debug("email : {}", email);
+    return userRepository.findByEmail(email).isPresent();
   }
 }

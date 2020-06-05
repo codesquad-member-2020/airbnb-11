@@ -4,7 +4,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kr.codesquad.airbnb11.common.error.ApiResult;
 import kr.codesquad.airbnb11.controller.request.ReservationRequest;
+import kr.codesquad.airbnb11.controller.request.RoomDetailRequest;
 import kr.codesquad.airbnb11.controller.request.SearchRequest;
+import kr.codesquad.airbnb11.controller.response.RoomDetailResponse;
 import kr.codesquad.airbnb11.controller.response.SearchResponse;
 import kr.codesquad.airbnb11.service.RoomService;
 import org.slf4j.Logger;
@@ -39,6 +41,16 @@ public class RoomRestController {
     return searchResponse;
   }
 
+  @ApiOperation(value = "", notes = "근처 검색 기능")
+  @GetMapping("/search/near")
+  public SearchResponse searchNearRooms(@ModelAttribute SearchRequest searchRequest) {
+    log.debug("searchRequest: {}", searchRequest);
+
+    SearchResponse searchResponse = roomService.findNearRooms(searchRequest);
+    log.debug("searchResponse: {}", searchResponse);
+    return searchResponse;
+  }
+
   @ApiOperation(value = "", notes = "예약 기능")
   @PostMapping("/reservation")
   public ApiResult<String> reserveRoom(@RequestBody ReservationRequest reservationRequest) {
@@ -49,5 +61,15 @@ public class RoomRestController {
 
     roomService.reserveRoom(reservationRequest, userId);
     return ApiResult.OK("예약이 정상적으로 완료되었습니다.");
+  }
+
+  @ApiOperation(value = "", notes = "상세 정보 조회 기능")
+  @GetMapping("/detail")
+  public RoomDetailResponse findRoomDetail(@ModelAttribute RoomDetailRequest roomDetailRequest) {
+    log.debug("roomDetailRequest: {}", roomDetailRequest);
+
+    RoomDetailResponse roomDetailResponse = roomService.findRoomDetailByRoomId(roomDetailRequest);
+    log.debug("방 상세정보 응답객체: {}", roomDetailResponse);
+    return roomDetailResponse;
   }
 }

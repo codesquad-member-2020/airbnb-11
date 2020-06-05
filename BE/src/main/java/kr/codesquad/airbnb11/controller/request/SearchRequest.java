@@ -2,6 +2,7 @@ package kr.codesquad.airbnb11.controller.request;
 
 import static kr.codesquad.airbnb11.common.SQLKt.OFFSET_COUNT;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,13 +19,16 @@ public class SearchRequest {
   private Integer children;
   private Integer infants;
   private int page;
+  private BigDecimal latitude = new BigDecimal("37.49081965861202");
+  private BigDecimal longitude = new BigDecimal("127.03341954607245");
 
   public SearchRequest() {
     page = 1;
   }
 
   public SearchRequest(String checkIn, String checkOut, Integer priceMin, Integer priceMax,
-      Integer adult, Integer children, Integer infants) {
+      Integer adult, Integer children, Integer infants, int page, BigDecimal latitude,
+      BigDecimal longitude) {
     this.checkIn = checkIn;
     this.checkOut = checkOut;
     this.priceMin = priceMin;
@@ -32,6 +36,9 @@ public class SearchRequest {
     this.adult = adult;
     this.children = children;
     this.infants = infants;
+    this.page = page;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
   public String getCheckIn() {
@@ -98,6 +105,22 @@ public class SearchRequest {
     this.page = page;
   }
 
+  public BigDecimal getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(BigDecimal latitude) {
+    this.latitude = latitude;
+  }
+
+  public BigDecimal getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(BigDecimal longitude) {
+    this.longitude = longitude;
+  }
+
   // 유아는 guest인원에 포함하지 않음.
   @Nullable
   public Integer getMinPersonCount() {
@@ -120,6 +143,8 @@ public class SearchRequest {
     parameterMap.put("priceMax", this.getPriceMax());
     parameterMap.put("minPersonCount", this.getMinPersonCount());
     parameterMap.put("offset", (OFFSET_COUNT * (this.getPage() - 1))); // MySQL LIMIT OFFSET
+    parameterMap.put("latitude", this.getLatitude());
+    parameterMap.put("longitude", this.getLongitude());
     return parameterMap;
   }
 
@@ -134,6 +159,8 @@ public class SearchRequest {
         .append("children", children)
         .append("infants", infants)
         .append("page", page)
+        .append("latitude", latitude)
+        .append("longitude", longitude)
         .toString();
   }
 }

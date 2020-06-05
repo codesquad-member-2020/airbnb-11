@@ -14,8 +14,11 @@ public class RoomResponse {
   private BigDecimal dailyPrice;
   private String country;
   private boolean isSuperHost;
+  private double rating;
+  private int reviewCount;
   private BigDecimal latitude;
   private BigDecimal longitude;
+  private BigDecimal distance;
 
   public RoomResponse() {
   }
@@ -28,8 +31,11 @@ public class RoomResponse {
     this.dailyPrice = roomDTO.getDailyPriceFormatted();
     this.country = roomDTO.getCountry();
     this.isSuperHost = roomDTO.getSuperHost();
+    this.rating = roomDTO.getRating();
+    this.reviewCount = roomDTO.getReviewCount();
     this.latitude = roomDTO.getLatitude();
     this.longitude = roomDTO.getLongitude();
+    this.distance = roomDTO.getDistance();
   }
 
   public int getId() {
@@ -88,6 +94,22 @@ public class RoomResponse {
     isSuperHost = superHost;
   }
 
+  public double getRating() {
+    return rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
+  public void setReviewCount(int reviewCount) {
+    this.reviewCount = reviewCount;
+  }
+
   public BigDecimal getLatitude() {
     return latitude;
   }
@@ -104,6 +126,18 @@ public class RoomResponse {
     this.longitude = longitude;
   }
 
+  public boolean isSuperHost() {
+    return isSuperHost;
+  }
+
+  public BigDecimal getDistance() {
+    return distance;
+  }
+
+  public void setDistance(BigDecimal distance) {
+    this.distance = distance;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
@@ -114,8 +148,11 @@ public class RoomResponse {
         .append("dailyPrice", dailyPrice)
         .append("country", country)
         .append("isSuperHost", isSuperHost)
+        .append("rating", rating)
+        .append("reviewCount", reviewCount)
         .append("latitude", latitude)
         .append("longitude", longitude)
+        .append("distance", distance)
         .toString();
   }
 
@@ -128,8 +165,11 @@ public class RoomResponse {
     private BigDecimal dailyPrice;
     private String country;
     private boolean isSuperHost;
+    private double rating;
+    private int reviewCount;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private BigDecimal distance;
 
     private Builder() {
     }
@@ -173,6 +213,16 @@ public class RoomResponse {
       return this;
     }
 
+    public Builder rating(double rating) {
+      this.rating = rating;
+      return this;
+    }
+
+    public Builder reviewCount(int reviewCount) {
+      this.reviewCount = reviewCount;
+      return this;
+    }
+
     public Builder latitude(BigDecimal latitude) {
       this.latitude = latitude;
       return this;
@@ -180,6 +230,11 @@ public class RoomResponse {
 
     public Builder longitude(BigDecimal longitude) {
       this.longitude = longitude;
+      return this;
+    }
+
+    public Builder distance(BigDecimal distance) {
+      this.distance = distance;
       return this;
     }
 
@@ -191,9 +246,12 @@ public class RoomResponse {
       roomResponse.setTitle(title);
       roomResponse.setDailyPrice(dailyPrice);
       roomResponse.setCountry(country);
+      roomResponse.setRating(rating);
+      roomResponse.setReviewCount(reviewCount);
       roomResponse.setSuperHost(isSuperHost);
       roomResponse.setLatitude(latitude);
       roomResponse.setLongitude(longitude);
+      roomResponse.setDistance(distance);
       return roomResponse;
     }
   }
