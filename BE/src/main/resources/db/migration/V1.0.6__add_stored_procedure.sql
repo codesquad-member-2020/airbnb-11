@@ -53,7 +53,7 @@ BEGIN
     )
       AND r.max_person_count >= IFNULL(min_person_count, 0)
       AND r.daily_price BETWEEN IFNULL(price_min, 0) AND IFNULL(price_max, 1000000)
-    LIMIT 10;
+    LIMIT 50;
 END //
 
 DELIMITER ;
