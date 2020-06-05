@@ -5,7 +5,7 @@ import RadiusTextButton from 'Components/Common/RadiusTextButton/RadiusTextButto
 
 const S = {};
 S.ReservationInfoButton = styled.div`
-  width: 1200px;
+  width: 1100px;
   height: 60px;
   float: left;
   display: relative;

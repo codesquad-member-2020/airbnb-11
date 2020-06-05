@@ -173,14 +173,11 @@ function SearchResult(props) {
 
     const url = process.env.REACT_APP_SEARCH_API + "?" + urlInfo;
 
-    console.log(url);
-
     fetchResuest(url, "GET")
       .then((result) => result.json())
       .then((data) => {
         setCenterPosition([(data.rooms)[0].latitude, (data.rooms)[0].longitude]);
         setSearchResult(data);
-        console.log(data);
 
         const requestInfo = {
           adult: adultCount,

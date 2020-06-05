@@ -84,7 +84,30 @@ function ReservationModal(props) {
   }
 
   function onReservationButtonClick() {
-    alert("예약이 완료되었습니다.")
+    const cvtStartMonth = startDateInfo.month < 10 ? '0' + startDateInfo.month : startDateInfo.month;
+    const cvtStartDay = startDateInfo.day < 10 ? '0' + startDateInfo.day : startDateInfo.day;
+    const cvtEndMonth = endDateInfo.month < 10 ? '0' + endDateInfo.month : endDateInfo.month;
+    const cvtEndDay = endDateInfo.day < 10 ? '0' + endDateInfo.day : endDateInfo.day;
+
+    const reservationInfo = {
+      "checkIn": startDateInfo.year + "-" + cvtStartMonth + "-" + cvtStartDay,
+      "checkOut": endDateInfo.year + "-" + cvtEndMonth + "-" + cvtEndDay,
+      "roomId": props.match.params.roomId
+    };
+
+    console.log(reservationInfo);
+    const url = process.env.REACT_APP_RESERVATION_API;
+    console.log(url);
+
+    
+    fetchResuest(url, "POST", reservationInfo)
+    .then((result) => result.json())
+    .then((data) => {
+      console.log(data);
+    });
+
+    alert("예약이 완료되었습니다.");
+
     history.goBack();
   }
 

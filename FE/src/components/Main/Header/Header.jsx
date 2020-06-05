@@ -28,7 +28,6 @@ function Header() {
     
     if (jwtToken !== undefined) {
       const decoded = jwtDecode(jwtToken);
-      console.log(decoded);
       userNickname = decoded.user.nickname;
     }
 

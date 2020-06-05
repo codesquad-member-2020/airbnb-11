@@ -1,4 +1,4 @@
-const fetchRequest = (url, method) => {
+const fetchRequest = (url, method, data) => {
   return fetch(url, {
     method: method,
     mode: "cors",
@@ -6,6 +6,7 @@ const fetchRequest = (url, method) => {
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(data)
   });
 };
 
