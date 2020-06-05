@@ -10,6 +10,8 @@ import fetchResuest from "../../utils/fetchRequest"
 import Map from "Components/SearchResult/Map/Map";
 import calcDiffDate from "../../utils/calcDateDiff"
 import IconTextButton from './IconTextButton/IconTextButton'
+import Pagination from "react-pagination-js";
+import "react-pagination-js/dist/styles.css"; // import css
 
 const S = {};
 
@@ -53,10 +55,14 @@ S.LoadingImage = styled.div`
   margin-bottom: 200px;
 `;
 
-S.Button = styled.div`
-  width: 200px;
-  height: 200px;
-  background-color: red;
+S.PagingWrap = styled.div`
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+
 `;
 
 function SearchResult(props) {
@@ -73,6 +79,7 @@ function SearchResult(props) {
   );
   const [centerPosition, setCenterPosition] = useState([0, 0]);
   const [mapMarkers, setMapMarkers] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
 
   function onAccomodationCardClick(roomId) {
     history.push("/searchresult/" + props.match.params.pageNumber + "/reservationmodal/" + roomId);
@@ -115,8 +122,10 @@ function SearchResult(props) {
     setIsMapVisible(false);
   }
 
-  function testFunc() {
-    history.push("/searchresult/" + 2);
+  function changeCurrentPage(numPage) {
+    window.scrollTo(0, 0);
+    setCurrentPage(numPage);
+    history.push("/searchresult/" + numPage);
   }
 
   function onCenterChanged({latitude, longitude}) {
@@ -261,12 +270,24 @@ function SearchResult(props) {
                   />
                 ))}
               </S.AccomodationCardGrid>
+              <S.PagingWrap>
+        <Pagination
+          currentPage={currentPage}
+          totalSize={searchResult.roomsCount}
+          sizePerPage={searchResult.maxPage}
+          changeCurrentPage={changeCurrentPage}
+          firstPageText="first"
+          lastPageText="last"
+          showFirstLastPages={true}
+          nextPageText="next"
+          previousPageText="prev"
+        />
+      </S.PagingWrap>
             </S.SearchResultContentWrap>
           </S.SearchResultLeft>
           {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms} nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
         </>
       )}
-                <S.Button onClick={testFunc}>wef</S.Button>
     </S.SearchResult>
   );
 }
