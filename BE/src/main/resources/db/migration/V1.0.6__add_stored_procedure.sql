@@ -8,7 +8,7 @@ BEGIN
     SET @lat = latitude;
 
 # 검색 범위 단위 m(미터)
-    SET @mbr_length = 20000;
+    SET @mbr_length = 5000;
 
 # 내 위치에서 동쪽 또는 서쪽으로 2.5km (MBR 한 변의 길이의 절반) 떨어지기 위해 필요한 경도의 차이값
     SET @lon_diff = @mbr_length / 2 /
@@ -53,7 +53,7 @@ BEGIN
     )
       AND r.max_person_count >= IFNULL(min_person_count, 0)
       AND r.daily_price BETWEEN IFNULL(price_min, 0) AND IFNULL(price_max, 1000000)
-    LIMIT 50;
+    LIMIT 10;
 END //
 
 DELIMITER ;
