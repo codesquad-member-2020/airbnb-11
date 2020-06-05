@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import TextButton from 'Components/Common/TextButton/TextButton'
 import RadiusTextButton from 'Components/Common/RadiusTextButton/RadiusTextButton'
+import Nickname from 'Components/Common/Nickname/Nickname'
 
 const S = {};
 S.HeaderNavigation = styled.div`
@@ -19,10 +20,12 @@ function HeaderNavigation(props) {
   return (
       <>
         <S.HeaderNavigation>
+          {props.userNickname && <Nickname title={props.userNickname + " 님 반갑습니다."}></Nickname>}
           <TextButton title="숙소 호스트 되기" href="#"></TextButton>
           <TextButton title="체험 호스팅하기" href="#"></TextButton>
           <TextButton title="도움말" href="#"></TextButton>
-          <RadiusTextButton title="로그인" href={props.loginUrl}></RadiusTextButton>
+          {!props.userNickname && <RadiusTextButton title="로그인" href={props.loginUrl}></RadiusTextButton>}
+          {props.userNickname && <RadiusTextButton title="로그아웃" href="#" onLogoutClick={props.onLogoutClick} ></RadiusTextButton>}
         </S.HeaderNavigation>
       </>
   );

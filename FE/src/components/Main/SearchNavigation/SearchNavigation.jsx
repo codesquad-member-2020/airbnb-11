@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -25,7 +25,9 @@ S.SearchNavigation = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
 `;
 
-function SearchNavigation({ history }) {
+function SearchNavigation() {
+  const history = useHistory();
+
   const { startDate, endDate, startDateInfo, endDateInfo } = useSelector(
     ({ dateReducer }) => dateReducer
   );
@@ -51,7 +53,7 @@ function SearchNavigation({ history }) {
       return;
     }
 
-    history.push("/searchresult");
+    history.push("/searchresult/1");
   }
 
   return (
@@ -73,4 +75,4 @@ function SearchNavigation({ history }) {
   );
 }
 
-export default withRouter(SearchNavigation);
+export default SearchNavigation;

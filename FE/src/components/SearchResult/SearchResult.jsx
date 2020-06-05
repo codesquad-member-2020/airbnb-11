@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useSelector } from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AccomodationCard from "Components/SearchResult/AccomodationCard/AccomodationCard";
 import Caution from "Components/SearchResult/Caution/Caution";
 import ResultSummary from "Components/SearchResult/ResultSummary/ResultSummary";
@@ -10,6 +10,8 @@ import fetchResuest from "../../utils/fetchRequest"
 import Map from "Components/SearchResult/Map/Map";
 import calcDiffDate from "../../utils/calcDateDiff"
 import IconTextButton from './IconTextButton/IconTextButton'
+import Pagination from "react-pagination-js";
+import "react-pagination-js/dist/styles.css"; // import css
 
 const S = {};
 
@@ -53,8 +55,20 @@ S.LoadingImage = styled.div`
   margin-bottom: 200px;
 `;
 
+S.PagingWrap = styled.div`
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
 
-function SearchResult({ history }) {
+`;
+
+function SearchResult(props) {
+  console.log(props.match.params);
+  const history = useHistory();
+
   const [searchResult, setSearchResult] = useState(undefined);
   const [isMapVisible, setIsMapVisible] = useState(true);
   const { adultCount, childrenCount, infantsCount } = useSelector(
@@ -65,15 +79,15 @@ function SearchResult({ history }) {
   );
   const [centerPosition, setCenterPosition] = useState([0, 0]);
   const [mapMarkers, setMapMarkers] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  function onAccomodationCardClick() {
-    history.push("/searchresult/reservationmodal");
+  function onAccomodationCardClick(roomId) {
+    history.push("/searchresult/" + props.match.params.pageNumber + "/reservationmodal/" + roomId);
   }
 
   function onPositionClick(position) {
-    console.log(position);
-    setCenterPosition(position);
     setMapMarkers(undefined);
+    setCenterPosition(position);
 
     const requestInfo = {
       adult: adultCount,
@@ -81,8 +95,8 @@ function SearchResult({ history }) {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: position[0] + 0.006,
-      longitude: position[1] - 0.02
+      latitude: position[0] + 0.0027,
+      longitude: position[1] - 0.0283
     };
 
     let urlInfo = '';
@@ -98,7 +112,6 @@ function SearchResult({ history }) {
       .then((data) => {
         setMapMarkers(data);
     });
-    
   }
 
   function onMapOnClick() {
@@ -109,8 +122,13 @@ function SearchResult({ history }) {
     setIsMapVisible(false);
   }
 
+  function changeCurrentPage(numPage) {
+    window.scrollTo(0, 0);
+    setCurrentPage(numPage);
+    history.push("/searchresult/" + numPage);
+  }
+
   function onCenterChanged({latitude, longitude}) {
-    console.log(latitude, longitude);
     setMapMarkers(undefined);
 
     const requestInfo = {
@@ -119,8 +137,8 @@ function SearchResult({ history }) {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      latitude: latitude + 0.006,
-      longitude: longitude - 0.02
+      latitude: latitude + 0.0027,
+      longitude: longitude - 0.0283
     };
 
     let urlInfo = '';
@@ -130,8 +148,6 @@ function SearchResult({ history }) {
     });
 
     const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
-
-    console.log(requestInfo);
 
     fetchResuest(url, "GET")
       .then((result) => result.json())
@@ -147,7 +163,7 @@ function SearchResult({ history }) {
       infants: infantsCount,
       checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
       checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-      page: 1
+      page: props.match.params.pageNumber
     };
 
     let urlInfo = '';
@@ -187,7 +203,7 @@ function SearchResult({ history }) {
           setMapMarkers(data);
         });
     });
-  }, []);
+  }, [props.match.params]);
 
   return (
     <S.SearchResult>
@@ -254,13 +270,26 @@ function SearchResult({ history }) {
                   />
                 ))}
               </S.AccomodationCardGrid>
+              <S.PagingWrap>
+        <Pagination
+          currentPage={currentPage}
+          totalSize={searchResult.roomsCount}
+          sizePerPage={searchResult.maxPage}
+          changeCurrentPage={changeCurrentPage}
+          firstPageText="first"
+          lastPageText="last"
+          showFirstLastPages={true}
+          nextPageText="next"
+          previousPageText="prev"
+        />
+      </S.PagingWrap>
             </S.SearchResultContentWrap>
           </S.SearchResultLeft>
-          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms}nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
+          {isMapVisible && <Map onCloseButtonClick={onCloseButtonClick} centerPosition={centerPosition} rooms={searchResult.rooms} nearRooms={mapMarkers && mapMarkers.rooms} onCenterChanged={onCenterChanged}/>}
         </>
       )}
     </S.SearchResult>
   );
 }
 
-export default withRouter(SearchResult);
+export default SearchResult;
