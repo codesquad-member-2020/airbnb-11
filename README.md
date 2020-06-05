@@ -1,3 +1,9 @@
+![FE CI](https://github.com/codesquad-member-2020/airbnb-11/workflows/Node.js%20CI/badge.svg)
+![BE CI](https://github.com/codesquad-member-2020/airbnb-11/workflows/Java%20CI%20with%20Gradle/badge.svg)
+
+![FE CD](https://github.com/codesquad-member-2020/airbnb-11/workflows/Node.js%20CD/badge.svg)
+![BE CD](https://github.com/codesquad-member-2020/airbnb-11/workflows/Java%20CI%20with%20Gradle%20&%20Deploy%20SpringBoot%20to%20Amazon%20EC2/badge.svg)
+
 # 숙소예약 서비스 - 11팀
 
 ## Introduction
