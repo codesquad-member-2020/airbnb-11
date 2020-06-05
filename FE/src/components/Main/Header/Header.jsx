@@ -29,10 +29,8 @@ function Header() {
     if (jwtToken !== undefined) {
       const decoded = jwtDecode(jwtToken);
       console.log(decoded);
-      //userNickname = JSON.stringify(decoded).user.nickname;
+      userNickname = decoded.user.nickname;
     }
-
-    userNickname ="test";
 
     return userNickname;
   }
