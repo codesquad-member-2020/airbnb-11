@@ -145,7 +145,7 @@ function AccomodationInfo(props) {
         <S.Title>{props.title}</S.Title>
         <S.ChargePerDay>
           <S.Charge>{props.chargePerDay}</S.Charge>
-          <S.PerDay>/박</S.PerDay>
+          <S.PerDay>/1박</S.PerDay>
         </S.ChargePerDay>
       </S.AccomodationInfo>
   );
