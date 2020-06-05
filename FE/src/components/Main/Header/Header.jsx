@@ -37,7 +37,7 @@ function Header() {
 
   function onLogoutClick() {
     const cookies = new Cookies();
-    cookies.remove('abc');
+    cookies.remove('jwt');
   }
 
   return (
