@@ -8,7 +8,7 @@ BEGIN
     SET @lat = latitude;
 
 # 검색 범위 단위 m(미터)
-    SET @mbr_length = 5000;
+    SET @mbr_length = 20000;
 
 # 내 위치에서 동쪽 또는 서쪽으로 2.5km (MBR 한 변의 길이의 절반) 떨어지기 위해 필요한 경도의 차이값
     SET @lon_diff = @mbr_length / 2 /
