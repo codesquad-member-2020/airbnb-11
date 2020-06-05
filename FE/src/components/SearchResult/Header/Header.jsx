@@ -7,6 +7,9 @@ import HeaderNavigation from 'Components/SearchResult/Header/HeaderNavigation/He
 import ReservationInfoButton from 'Components/SearchResult/Header/ReservationInfoButton/ReservationInfoButton'
 import { logo } from 'Constants/mainpage'
 
+import Cookies from 'universal-cookie';
+import * as jwtDecode from 'jwt-decode';
+
 const S = {}
 S.Header = styled.div`
   position: fixed;
@@ -41,6 +44,25 @@ function Header() {
     ({ guestCountReducer }) => guestCountReducer
   );
 
+  function getUserNickname() {
+    const cookies = new Cookies();
+    const jwtToken = cookies.get('jwt');
+    let userNickname = undefined;
+    
+    if (jwtToken !== undefined) {
+      const decoded = jwtDecode(jwtToken);
+      console.log(decoded);
+      userNickname = decoded.user.nickname;
+    }
+
+    return userNickname;
+  }
+
+  function onLogoutClick() {
+    const cookies = new Cookies();
+    cookies.remove('jwt');
+  }
+
   return (
     <S.Header>
       <S.HeaderWrap>
@@ -53,7 +75,7 @@ function Header() {
             + (infantsCount ? ", 유아 " + infantsCount + "명" : "")
           }
         />
-        <HeaderNavigation loginUrl={process.env.REACT_APP_LOGIN_API}></HeaderNavigation>
+        <HeaderNavigation loginUrl={process.env.REACT_APP_LOGIN_API} userNickname={getUserNickname()} onLogoutClick={onLogoutClick}></HeaderNavigation>
       </S.HeaderWrap>
     </S.Header>
   );
