@@ -178,29 +178,7 @@ function SearchResult(props) {
       .then((data) => {
         setCenterPosition([(data.rooms)[0].latitude, (data.rooms)[0].longitude]);
         setSearchResult(data);
-
-        const requestInfo = {
-          adult: adultCount,
-          children: childrenCount,
-          infants: infantsCount,
-          checkIn: startDateInfo.year + "-" + startDateInfo.month + "-" + startDateInfo.day,
-          checkOut: endDateInfo.year + "-" + endDateInfo.month + "-" + endDateInfo.day,
-          latitude: (data.rooms)[0].latitude,
-          longitude: (data.rooms)[0].longitude
-        };
-
-        let urlInfo = '';
-        const requestInfoKeys = Object.keys(requestInfo);
-        requestInfoKeys.map((data, index) => {
-          urlInfo += data + "=" + requestInfo[data] + "&";
-        });
-        const url = process.env.REACT_APP_SEARCH_NEAR_API + "?" + urlInfo;
-
-        fetchResuest(url, "GET")
-        .then((result) => result.json())
-        .then((data) => {
-          setMapMarkers(data);
-        });
+        onCenterChanged({"latitude": (data.rooms)[0].latitude, "longitude": (data.rooms)[0].longitude});
     });
   }, [props.match.params.pageNumber]);
 
